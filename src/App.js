@@ -1,24 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Grid } from 'antd-mobile';
 import './App.css';
 
+ const girdList = [
+            {
+                text: '稿件型片',
+                //imgSrc: require('./assets/icon-grid-music.png')
+            },
+            {
+                text: '印单',
+                //imgSrc: require('./assets/icon-grid-download.png')
+            },
+            {
+                text: '预印单',
+                //imgSrc: require('./assets/icon-grid-recent.png')
+            },
+            {
+                text: '生产进度',
+                //imgSrc: require('./assets/icon-grid-favorite.png')
+            }
+        ]
+		
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>常用应用</div>
+	    <Grid  data={girdList} columnNum={4}  />
     </div>
   );
 }
