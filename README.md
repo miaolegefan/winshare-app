@@ -66,3 +66,5 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+### axios多跨域解决：（[axios多跨域解决](https://www.jianshu.com/p/a2a5163fefac)）

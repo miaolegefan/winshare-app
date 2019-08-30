@@ -1,0 +1,10 @@
+.pre_order_sec{
+    border:thin #E8E8E8 solid;
+    padding:0.1rem;
+}
+
+.box {
+	background-color: white;
+	margin: 0 0 55px;
+	display: flex;
+}

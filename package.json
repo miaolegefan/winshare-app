@@ -3,16 +3,34 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "antd-mobile": "^2.2.14",
+    "@ant-design/react-native": "^3.1.13",
+    "antd-mobile": "^2.3.1",
+    "autoprefixer": "^9.6.1",
+    "axios": "^0.19.0",
+    "babel-plugin-import": "^1.12.0",
+    "customize-cra": "^0.5.0",
+    "http-proxy-middleware": "^0.19.1",
+    "less": "^3.10.1",
+    "less-loader": "^5.0.0",
+    "lib-flexible": "^0.3.2",
+    "node-sass": "^4.12.0",
+    "postcss-px2rem": "^0.3.0",
+    "postcss-pxtorem": "^4.0.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-router": "^5.0.1",
+    "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1"
   },
+  "theme": {
+    "hd": "2px",
+    "brand-primary": "red",
+    "color-text-base": "#333"
+  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -28,5 +46,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-app-rewire-postcss": "^3.0.2",
+    "react-app-rewired": "2.0.2-next.0"
   }
 }

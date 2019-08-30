@@ -1,11 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<!--    
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	 -->    
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<!-- antd 插件 高清解决方案 -->
+	<script type="text/javascript" src="//static.xinrenxinshi.com/plugins/antd-hd.js"></script>
     <link rel="shortcut icon" href="winshare.ico">
     <title>新华文轩</title>
+	<script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
+    <script>
+		if ('addEventListener' in document) {
+		  document.addEventListener('DOMContentLoaded', function() {
+			FastClick.attach(document.body);
+		  }, false);
+		}
+		if(!window.Promise) {
+		  document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"'+'>'+'<'+'/'+'script>');
+		}
+	</script>
+
 </head>
 <body>
     <div id="root"></div>

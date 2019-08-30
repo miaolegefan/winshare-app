@@ -1,33 +1,29 @@
 import React from 'react';
-import { Grid } from 'antd-mobile';
-import './App.css';
+import {BrowserRouter as Router,Route,Switch} from 'react-router-dom';
+import Home from './component/home';
+import Home2 from './component/home2';
+import Manuscript from './component/manuscript/manuscript';
+import ManuscriptDetails from './component/manuscript/manuscrip_details';
+import PreLogin from './component/login/preLogin';
+import PreOrder from './component/preOrder/preOrder';
+import PreOrderDetails from './component/preOrder/preOrder_details';
 
- const girdList = [
-            {
-                text: '稿件型片',
-                //imgSrc: require('./assets/icon-grid-music.png')
-            },
-            {
-                text: '印单',
-                //imgSrc: require('./assets/icon-grid-download.png')
-            },
-            {
-                text: '预印单',
-                //imgSrc: require('./assets/icon-grid-recent.png')
-            },
-            {
-                text: '生产进度',
-                //imgSrc: require('./assets/icon-grid-favorite.png')
-            }
-        ]
-		
-function App() {
-  return (
-    <div className="App">
-      <div>常用应用</div>
-	    <Grid  data={girdList} columnNum={4}  />
-    </div>
-  );
+class App extends React.PureComponent{
+  render(){
+    return (
+      <Router >
+        <Switch>
+		  <Route exact path='/' component={Home}/>
+          <Route path='/home' component={Home}/>
+		  <Route path='/home2' component={Home2}/>
+		  <Route exact path='/manuscript' component={Manuscript}/> 
+		  <Route path='/manuscript/details/:id' component={ManuscriptDetails}/> 
+		  <Route exact path='/preOrder' component={PreOrder}/> 
+		  <Route path='/preOrder/details/:id' component={PreOrderDetails}/> 
+        </Switch>
+      </Router>
+    )
+  }
 }
-
 export default App;
+
