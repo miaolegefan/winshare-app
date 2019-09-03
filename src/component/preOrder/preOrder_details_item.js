@@ -29,7 +29,7 @@ export default class PreOrderDetailsItem extends React.Component {
         };
     }
 
-	componentWillMount(){
+	componentDidMount(){
 		
 	}
     render() {

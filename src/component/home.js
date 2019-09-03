@@ -10,7 +10,8 @@ class Home extends React.Component {
 			  {
 				  text: '稿件型片',
 				  imgSrc: require('../assets/icon-grid-music.png'),
-				  link:"/manuscript"
+				  link:"/manuscript",
+				  hidden:true,
 			  },
 			  {
 				  text: '印单',

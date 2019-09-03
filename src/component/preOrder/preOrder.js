@@ -1,12 +1,13 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import './preOrder.css'
-import { Flex, WhiteSpace,WingBlank } from 'antd-mobile';
+import { Flex, WhiteSpace,WingBlank,SearchBar } from 'antd-mobile';
 
 export default class PreOrder extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state = {
+			queryValue:'',
 			preOrder : [
 				{"_token":"3f000acec69ea10f928dd8247bf5068e","objectVersionNumber":4,
 				"creationDate":"2019-08-22 12:37:11","id":2181,"fuzzy":null,
@@ -36,34 +37,30 @@ export default class PreOrder extends React.Component{
 	render(){
 		const preOrderList=this.state.preOrder.map((preOrderItem, index) => (
 		    <Link to={`/preOrder/details/${preOrderItem.id}`} key={index}>
-		       <section className='pre_order_sec' style={{backgroundColor:'#fff'}}>
-				   <WingBlank size="md">
-					   <div style={{color:'#787878'}}>
-							<Flex >
-							  <div style={{flex:1}}>{preOrderItem.season}</div>
-							  <div style={{flex:2}}/>
-							  <div style={{flex:1}}>{preOrderItem.preOrderNo}</div>
-							</Flex>
-							<WhiteSpace/>
-							<Flex style={{color:'#000000'}}><strong>{preOrderItem.bookName}</strong></Flex>
-							<WhiteSpace/>
-							<Flex >
-							  <div style={{flex:1}}>印厂确认时间:</div>
-							  <div style={{flex:2}}>{preOrderItem.printeryConfirmDate}</div>
-							</Flex>
-							<Flex >
-							  <div style={{flex:1}}>物资公司确认时间:</div>
-							  <div style={{flex:2}}>{preOrderItem.materialsConfirmDate}</div>
-							</Flex>
-						</div>
-					</WingBlank>
+		       <section className='pre_order_sec' >
+				   <div>
+						<Flex>
+						  <div className="font07 text_left flex1">{preOrderItem.season}</div>
+						  <div className="font07 text_right flex2" style={{flex:1}}>{preOrderItem.preOrderNo}</div>
+						</Flex>
+						<Flex style={{color:'#000000'}}><strong>{preOrderItem.bookName}</strong></Flex>
+						<WhiteSpace/>
+						<Flex className="font07"  >
+						  <div  style={{flex:1}}>印厂确认时间:</div>
+						  <div style={{flex:2}}>{preOrderItem.printeryConfirmDate}</div>
+						</Flex>
+						<Flex className="font07">
+						  <div style={{flex:1}}>物资公司确认时间:</div>
+						  <div style={{flex:2}}>{preOrderItem.materialsConfirmDate}</div>
+						</Flex>
+					</div>
 		        </section>
 		    </Link>
 		
 		));
 		return(
 		<div>
-			
+			<SearchBar/>
 				{preOrderList}
 			
 		</div>
