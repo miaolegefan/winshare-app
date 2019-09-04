@@ -7,6 +7,9 @@ const fileLoaderMatcher = function (rule) {
     return rule.loader && rule.loader.indexOf(`file-loader`) != -1;
 }
 module.exports = function override(config, env) {
+
+
+
     // do stuff with the webpack config...
     config = injectBabelPlugin(['import', {
         libraryName: 'antd-mobile',
@@ -14,6 +17,8 @@ module.exports = function override(config, env) {
         style: true, // use less for customized theme
     }], config);
     console.log(config.module.rules[2].oneOf);
+
+
 
     // sass
     config.module.rules[2].oneOf.unshift(
@@ -39,6 +44,7 @@ module.exports = function override(config, env) {
                                     'not ie < 9', // React doesn't support IE8 anyway
                                 ],
                                 flexbox: 'no-2009',
+
                             })
                         ],
                     },
@@ -46,16 +52,19 @@ module.exports = function override(config, env) {
             ]
         }
     );
+
     //less
     config.module.rules[2].oneOf.unshift(
         {
             test: /\.less$/,
+
             use: [
                 require.resolve('style-loader'),
                 require.resolve('css-loader'),
                 {
                     loader: require.resolve('postcss-loader'),
                     options: {
+                        javascriptEnabled: true,
                         // Necessary for external CSS imports to work
                         // https://github.com/facebookincubator/create-react-app/issues/2677
                         ident: 'postcss',
@@ -76,6 +85,7 @@ module.exports = function override(config, env) {
                 {
                     loader: require.resolve('less-loader'),
                     options: {
+                        javascriptEnabled: true,
                         // theme vars, also can use theme.js instead of this.
                         modifyVars: theme,
                     },

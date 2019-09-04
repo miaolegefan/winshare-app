@@ -7,7 +7,7 @@ export default class ManuscriptComponent extends React.Component{
     render(){
 
         const manuscriptList=this.props.manuscript.map((manuscriptItem, index) => (
-            <Link to={`/manuscript/details/${manuscriptItem.id}`} key={index}>
+            <Link to={{pathname:'/manuscript/details',query:manuscriptItem}} key={index}>
                <section className='manuscript_sec' >
                     <div > 
 						<div style={{float: 'left',color:'#787878'}}>{manuscriptItem.season}</div>
@@ -22,6 +22,9 @@ export default class ManuscriptComponent extends React.Component{
         ));
         return(
             <div>
+
+
+
             {manuscriptList}
 
             </div>

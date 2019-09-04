@@ -6,21 +6,11 @@ export default class ManuscriptDetails extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            manuscriptItem: {
-			},
+            manuscriptItem: this.props.location.query
         };
     }
 
 	componentWillMount(){
-		const _this=this;    //先存一下this，以防使用箭头函数this会指向我们不希望它所指向的对象。
-		axios.post('/api/public/press/manuscript/select?userId='+localStorage.userId,{"id":this.props.match.params.id}).then(function(response){
-				 if(response.data.success){
-					 _this.setState({
-						 manuscriptItem : response.data.rows[0]
-					 });
-					 console.log(_this.state.manuscriptItem);
-				 }
-			})
 	}
     render() {
         const manuscript = this.state.manuscriptItem;
@@ -47,7 +37,7 @@ export default class ManuscriptDetails extends React.Component {
 					<WhiteSpace/>
 					<Flex >
 					  <div style={{flex:3}}>计划印厂</div>
-					  <div style={{flex:4,color:'#000000'}}>{manuscript.printeryName}</div>
+					  <div style={{flex:4,color:'#000000'}}>{manuscript.printeryCode}</div>
 					</Flex>
 					<WhiteSpace/>
 					<Flex >

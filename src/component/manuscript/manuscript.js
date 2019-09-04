@@ -1,6 +1,20 @@
 import React from 'react';
 import ManuscriptComponent from './manuscript_component'
 import axios from 'axios';
+import {Button, SearchBar} from "antd-mobile";
+
+
+function query(_this,inputCondition) {
+    axios.post('/api/public/moblie-manuscript/query?userId='+localStorage.userId,{'inputCondition':inputCondition}).then(function(response){
+        if(response.data.success){
+            _this.setState({
+                manuscript : response.data.rows
+            });
+        }
+    })
+    
+}
+
 
 export default class Manuscript extends React.Component {
     constructor(props) {
@@ -11,24 +25,29 @@ export default class Manuscript extends React.Component {
         };
     }
 	componentDidMount(){
-		const _this=this;    //先存一下this，以防使用箭头函数this会指向我们不希望它所指向的对象。
-		axios.post('/api/public/press/manuscript/select?userId='+localStorage.userId,{}).then(function(response){
-				 if(response.data.success){
-					 _this.setState({
-						 manuscript : response.data.rows
-					 });
-				 }
-			})
+        query(this);
 	}
+
+	onCancel=(value)=>{
+        query(this);
+
+    }
+
+    onSearch=(value)=>{
+        query(this,value);
+    }
 
     render() {
         const manuscript = this.state.manuscript;
 
         const manuscriptList = <ManuscriptComponent manuscript={manuscript} />
-           
-
         return (
-            <div >
+            <div  >
+                <SearchBar
+                    placeholder="Search"
+                    onSubmit={this.onSearch}
+                    onCancel={this.onCancel}
+                />
                 {manuscriptList}
             </div>
         );

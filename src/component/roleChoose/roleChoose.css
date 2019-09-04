@@ -1,0 +1,28 @@
+.am-button-primary {
+    color: #fff;
+    background-color: #108ee9;
+    border: 1px solid #108ee9;
+    border-radius: 5px;
+    touch-action: none;
+}
+
+.am-radio-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    border: 0 none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    touch-action: none;
+}
+
+.loading-example {
+    display: flex;
+    justify-content: flex-start;
+    touch-action: none;
+}
