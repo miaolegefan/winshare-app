@@ -8,11 +8,16 @@ function query(_this,inputCondition) {
     axios.post('/api/public/moblie-manuscript/query?userId='+localStorage.userId,{'inputCondition':inputCondition}).then(function(response){
         if(response.data.success){
             _this.setState({
-                manuscript : response.data.rows
+                manuscript : response.data.rows,
+                search:response.data.rows
             });
         }
     })
-    
+
+}
+
+function search(arr, q) {
+    return arr.filter(v => Object.values(v).some(v => new RegExp(q + '').test(v)));
 }
 
 
@@ -20,21 +25,25 @@ export default class Manuscript extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            manuscript: []
-           
+            manuscript: [],
+            search:[]
+
         };
     }
 	componentDidMount(){
         query(this);
 	}
 
-	onCancel=(value)=>{
-        query(this);
 
-    }
+	//查询事件
+    onSearch = (val) => {
+        const value = search(this.state.search,val);
 
-    onSearch=(value)=>{
-        query(this,value);
+
+        this.setState({
+            manuscript: value
+        });
+
     }
 
     render() {
@@ -45,8 +54,7 @@ export default class Manuscript extends React.Component {
             <div  >
                 <SearchBar
                     placeholder="Search"
-                    onSubmit={this.onSearch}
-                    onCancel={this.onCancel}
+                    onChange={this.onSearch}
                 />
                 {manuscriptList}
             </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import './preOrder.css'
-import {Flex, WhiteSpace, WingBlank, SearchBar} from 'antd-mobile';
+import {Flex, WhiteSpace, WingBlank, SearchBar,Button} from 'antd-mobile';
 
 export default class PreOrder extends React.Component {
     constructor(props) {
@@ -137,6 +137,13 @@ export default class PreOrder extends React.Component {
 
                 />
                 {preOrderList}
+
+
+
+                    <Button type="ghost"  style={{ width: '100%' }} className="am-button-ghost" hidden={true}>inline ghost</Button>
+
+
+
 
             </div>
         );
