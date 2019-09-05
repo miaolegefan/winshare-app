@@ -8,13 +8,11 @@ export default class PreOrderDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: 'preOrderDetails',
-     
     };
   }
 
   render() {
-	const id = this.props.match.params.id;
+	let item = this.props.location.item;
 	const tabs2 = [
 		{ title: '预印单信息', sub: '1' },
 		{ title: '明细信息', sub: '2' },
@@ -23,10 +21,10 @@ export default class PreOrderDetails extends React.Component {
       <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }}>
         <Tabs tabs={tabs2} initialPage={0} tabBarInactiveTextColor='#108ee9'>
 			<div style={{ display: 'flex', alignItems: 'right', justifyContent: 'right', height: '100%', backgroundColor: '#fff' }}>
-				<PreOrderDetailsHead id= {id}/>
+				<PreOrderDetailsHead item= {item}/>
 			</div>
 			<div style={{  alignItems: 'right', justifyContent: 'right', height: '100%', backgroundColor: '#fff' }}>
-				<PreOrderDetailsItem id= {id}/>
+				<PreOrderDetailsItem id= {item.id}/>
 			</div>
 		</Tabs>
       </div>

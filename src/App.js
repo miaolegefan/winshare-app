@@ -7,6 +7,10 @@ import ManuscriptDetails from './component/manuscript/manuscrip_details';
 import PreLogin from './component/login/preLogin';
 import PreOrder from './component/preOrder/preOrder';
 import PreOrderDetails from './component/preOrder/preOrder_details';
+import PrinteryProcess from './component/printeryProcess/printeryProcess'
+import PrinteryProcessDetails from './component/printeryProcess/printeryProcessDetails'
+import Order from './component/order/order';
+import OrderDetails from './component/order/order_details';
 
 class App extends React.PureComponent{
   render(){
@@ -19,7 +23,11 @@ class App extends React.PureComponent{
 		  <Route exact path='/manuscript' component={Manuscript}/> 
 		  <Route path='/manuscript/details/:id' component={ManuscriptDetails}/> 
 		  <Route exact path='/preOrder' component={PreOrder}/> 
-		  <Route path='/preOrder/details/:id' component={PreOrderDetails}/> 
+		  <Route path='/preOrder/details' component={PreOrderDetails}/> 
+		  <Route exact path='/printeryProcess' component={PrinteryProcess}/>
+		  <Route exact path='/printeryProcess/details' component={PrinteryProcessDetails}/>
+		  <Route exact path='/order' component={Order}/>
+		  <Route path='/order/details' component={OrderDetails}/> 
         </Switch>
       </Router>
     )

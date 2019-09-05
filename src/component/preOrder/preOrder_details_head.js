@@ -7,23 +7,10 @@ export default class PreOrderDetailsHead extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            preOrderHead: {"_token":"3f000acec69ea10f928dd8247bf5068e","objectVersionNumber":4,
-				"creationDate":"2019-08-22 12:37:11","id":2181,"fuzzy":null,
-				"subCode":null,"startTime":null,"endTime":null,"preOrderNo":"YY19QJ00001",
-				"season":"19QJ00","printeryCode":null,"printery":"印厂","press":"四川出版社",
-				"bookName":"高等数学","price":12.0,"isbn":"12012","bookSize":"1","bookSizeSpec":"12",
-				"sheet":13.0,"preMenge":24.0,"coverCraft":"1","bindStyle":"1","bindSequence":"1、******。\n2、oooo。",
-				"others":"测试","serviceCondition":"测试","attachment":null,"planDeliveryDate":"2019-08-08 00:00:00",
-				"remark":"测试","auditor":"经理1","auditDate":"2019-08-22 13:35:50","printeryConfirm":"1",
-				"printeryConfirmDate":"2019-08-22 05:31:56","materialsConfirm":null,"materialsConfirmDate":"2019-08-22 00:00:00",
-				"printeryConfirmPerson":"辰东","materialsConfirmPerson":null,"createdName":"林海伦","isDeleted":"0",
-				"approveResult":"已通过","items":null},
+            preOrderHead: this.props.item,
         };
     }
-
-	componentDidMount(){
-		
-	}
+	
     render() {
         const preOrderHead = this.state.preOrderHead;
         return (

@@ -16,7 +16,7 @@ class Home extends React.Component {
 			  {
 				  text: '印单',
 				  imgSrc: require('../assets/icon-grid-download.png'),
-				  link:"/Home2"
+				  link:"/order"
 			  },
 			  {
 				  text: '预印单',
@@ -26,7 +26,7 @@ class Home extends React.Component {
 			  {
 				  text: '生产进度',
 				  imgSrc: require('../assets/icon-grid-favorite.png'),
-				  link:"/Home2"
+				  link:"/printeryProcess"
 			  }
 		  ]
        

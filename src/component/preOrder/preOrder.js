@@ -36,7 +36,7 @@ export default class PreOrder extends React.Component{
 	}
 	render(){
 		const preOrderList=this.state.preOrder.map((preOrderItem, index) => (
-		    <Link to={`/preOrder/details/${preOrderItem.id}`} key={index}>
+		    <Link to={{pathname:'/preOrder/details',item:preOrderItem}} key={index}>
 		       <section className='pre_order_sec' >
 				   <div>
 						<Flex>
