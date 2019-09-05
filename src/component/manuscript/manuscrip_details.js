@@ -10,9 +10,7 @@ export default class ManuscriptDetails extends React.Component {
         };
     }
 
-<<<<<<< HEAD
-	componentWillMount(){
-=======
+
 	componentDidMount(){
 		const _this=this;    //先存一下this，以防使用箭头函数this会指向我们不希望它所指向的对象。
 		axios.post('/api/public/press/manuscript/select?userId='+localStorage.userId,{"id":this.props.match.params.id}).then(function(response){
@@ -23,7 +21,6 @@ export default class ManuscriptDetails extends React.Component {
 					 console.log(_this.state.manuscriptItem);
 				 }
 			})
->>>>>>> 87b15ec2054dad3405cbe331e5c413e8ec529613
 	}
     render() {
         const manuscript = this.state.manuscriptItem;
@@ -49,13 +46,8 @@ export default class ManuscriptDetails extends React.Component {
 					</Flex>
 					<WhiteSpace/>
 					<Flex >
-<<<<<<< HEAD
-					  <div style={{flex:3}}>计划印厂</div>
-					  <div style={{flex:4,color:'#000000'}}>{manuscript.printeryCode}</div>
-=======
 					  <div style={{flex:1}}>计划印厂</div>
 					  <div style={{flex:2,color:'#000000'}}>{manuscript.printeryName}</div>
->>>>>>> 87b15ec2054dad3405cbe331e5c413e8ec529613
 					</Flex>
 					<WhiteSpace/>
 					<Flex >
