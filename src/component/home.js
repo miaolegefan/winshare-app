@@ -9,23 +9,23 @@ class Home extends React.Component {
        const girdList = [
 			  {
 				  text: '稿件型片',
-				  imgSrc: require('../assets/icon-grid-music.png'),
+				  imgSrc: require('../assets/12.png'),
 				  link:"/manuscript",
 				  hidden:true,
 			  },
 			  {
 				  text: '印单',
-				  imgSrc: require('../assets/icon-grid-download.png'),
+				  imgSrc: require('../assets/13.png'),
 				  link:"/order"
 			  },
 			  {
 				  text: '预印单',
-				  imgSrc: require('../assets/icon-grid-recent.png'),
+				  imgSrc: require('../assets/14.png'),
 				  link:"/PreOrder"
 			  },
 			  {
 				  text: '生产进度',
-				  imgSrc: require('../assets/icon-grid-favorite.png'),
+				  imgSrc: require('../assets/15.png'),
 				  link:"/printeryProcess"
 			  }
 		  ]
