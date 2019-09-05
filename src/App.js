@@ -19,25 +19,18 @@ class App extends React.PureComponent{
     return (
       <Router >
         <Switch>
-		  <Route exact path='/' component={RoleChoose}/>
-          <Route path='/home' component={Home}/>
-		  <Route path='/home2' component={Home2}/>
-		  <Route exact path='/manuscript' component={Manuscript}/> 
-<<<<<<< HEAD
-		  {/*<Route path='/manuscript/details/:id' component={ManuscriptDetails}/> */}
-            <Route path='/manuscript/details' component={ManuscriptDetails}/>
-            <Route exact path='/preOrder' component={PreOrder}/>
-		  <Route path='/preOrder/details/:id' component={PreOrderDetails}/>
-		  <Route path='/roleChoose' component={RoleChoose}/>
-=======
-		  <Route path='/manuscript/details/:id' component={ManuscriptDetails}/> 
-		  <Route exact path='/preOrder' component={PreOrder}/> 
-		  <Route path='/preOrder/details' component={PreOrderDetails}/> 
-		  <Route exact path='/printeryProcess' component={PrinteryProcess}/>
-		  <Route exact path='/printeryProcess/details' component={PrinteryProcessDetails}/>
-		  <Route exact path='/order' component={Order}/>
-		  <Route path='/order/details' component={OrderDetails}/> 
->>>>>>> 87b15ec2054dad3405cbe331e5c413e8ec529613
+			<Route exact path='/' component={RoleChoose}/>
+			<Route path='/home' component={Home}/>
+			<Route path='/home2' component={Home2}/>
+			<Route exact path='/manuscript' component={Manuscript}/> 
+			<Route path='/manuscript/details' component={ManuscriptDetails}/>
+			<Route path='/roleChoose' component={RoleChoose}/>
+			<Route exact path='/preOrder' component={PreOrder}/> 
+			<Route path='/preOrder/details' component={PreOrderDetails}/> 
+			<Route exact path='/printeryProcess' component={PrinteryProcess}/>
+			<Route exact path='/printeryProcess/details' component={PrinteryProcessDetails}/>
+			<Route exact path='/order' component={Order}/>
+			<Route path='/order/details' component={OrderDetails}/> 
         </Switch>
       </Router>
     )
