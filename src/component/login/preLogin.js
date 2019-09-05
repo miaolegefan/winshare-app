@@ -15,7 +15,7 @@ export default class PreLogin extends React.Component {
 		}
 		
 	}
-	componentWillMount(){
+	componentDidMount(){
 		//表示存在id
 		if (localStorage.userId && localStorage.userId!==''&&localStorage.userId!== 'undefined') {
 		    this.setState({userId:localStorage.userId});
@@ -64,7 +64,8 @@ export default class PreLogin extends React.Component {
 		 console.log(userId!=='' && userId!== 'undefined');
 		 
 		 if(userId && userId!=='' && userId!== 'undefined'){
-		 return (<Redirect to={`/home`}></Redirect>)
+		 /* return (<Redirect to={`/home`}></Redirect>) */
+		 return(<div >{userId} </div>)
 		 }else{
 		return(<div >{userId} 企业微信登录中……</div>)
 		}

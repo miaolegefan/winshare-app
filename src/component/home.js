@@ -10,12 +10,13 @@ class Home extends React.Component {
 			  {
 				  text: '稿件型片',
 				  imgSrc: require('../assets/icon-grid-music.png'),
-				  link:"/manuscript"
+				  link:"/manuscript",
+				  hidden:true,
 			  },
 			  {
 				  text: '印单',
 				  imgSrc: require('../assets/icon-grid-download.png'),
-				  link:"/Home2"
+				  link:"/order"
 			  },
 			  {
 				  text: '预印单',
@@ -25,7 +26,7 @@ class Home extends React.Component {
 			  {
 				  text: '生产进度',
 				  imgSrc: require('../assets/icon-grid-favorite.png'),
-				  link:"/Home2"
+				  link:"/printeryProcess"
 			  }
 		  ]
        

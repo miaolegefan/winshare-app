@@ -85,7 +85,11 @@ module.exports = function override(config, env) {
                 {
                     loader: require.resolve('less-loader'),
                     options: {
+<<<<<<< HEAD
                         javascriptEnabled: true,
+=======
+						javascriptEnabled: true,
+>>>>>>> 87b15ec2054dad3405cbe331e5c413e8ec529613
                         // theme vars, also can use theme.js instead of this.
                         modifyVars: theme,
                     },
