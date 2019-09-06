@@ -1,5 +1,5 @@
 import React from 'react';
-import './order.css';
+import '../common.css';
 import {Flex} from 'antd-mobile';
 
 export default class OrderDetailsItem extends React.Component {
@@ -40,14 +40,14 @@ export default class OrderDetailsItem extends React.Component {
 					</div>
 					<div className="font07 flex1" >
 						<Flex>
-							<div className="text_right flex1">纸张规格:</div>
-							<div className="text_left margin-left flex1">{item.materialSpec}</div>
+							<div className="text_right ">纸张规格:</div>
+							<div className="text_left margin-left ">{item.materialSpec}</div>
 						</Flex>
 					</div>
 					<div className="font07 text_right flex1" >
 						<Flex>
-							<div className="text_right flex2">正文用纸:</div>
-							<div className="text_left margin-left flex1">{item.contentPaperUse}</div>
+							<div className="text_right ">正文用纸:</div>
+							<div className="text_left margin-left ">{item.contentPaperUse}</div>
 						</Flex>
 					</div>
 					
@@ -61,14 +61,14 @@ export default class OrderDetailsItem extends React.Component {
 					</div>
 					<div className="font07 flex1" >
 						<Flex>
-							<div className="text_right flex1">项目页数:</div>
-							<div className="text_left flex1 margin-left">{item.paperPages}</div>
+							<div className="text_right ">项目页数:</div>
+							<div className="text_left  margin-left">{item.paperPages}</div>
 						</Flex>
 					</div>
 					<div className="font07 text_right flex1" >
 						<Flex>
-							<div className="text_right flex2">纸张开数:</div>
-							<div className="text_left flex1 margin-left">{item.materialSize}</div>
+							<div className="text_right ">纸张开数:</div>
+							<div className="text_left  margin-left">{item.materialSize}</div>
 						</Flex>
 					</div>
 				</Flex>
@@ -81,8 +81,8 @@ export default class OrderDetailsItem extends React.Component {
 					</div>
 					<div className="font07 flex1" >
 						<Flex>
-							<div className="text_right flex1">用纸数量:</div>
-							<div className="text_left flex1 margin-left">{item.paperUseMenge}</div>
+							<div className="text_right ">用纸数量:</div>
+							<div className="text_left  margin-left">{item.paperUseMenge}</div>
 						</Flex>
 					</div>
 					<div className="flex1" >

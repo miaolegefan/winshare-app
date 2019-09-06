@@ -1,0 +1,11 @@
+/* tabs切换样式 */
+/* 选中之后tab的字体和背景颜色 */
+.am-tabs-default-bar-tab-active{
+	color:white !important;
+	background: #108ee9;}
+/* 选中tab的下划线 */
+.am-tabs-default-bar-underline {
+    position: absolute;
+    border: 0.01rem #108ee9 solid !important;
+    transform: translate3d(0, 0, 0);
+}

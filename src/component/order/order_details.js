@@ -3,6 +3,7 @@ import {Tabs} from 'antd-mobile';
 import OrderDetailsHead from './order_details_head.js';
 import OrderDetailsCost from './order_details_cost.js';
 import OrderDetailsItem from './order_details_item.js';
+import '../tabs.css';
 
 export default class OrderDetails extends React.Component {
 	 constructor(props) {

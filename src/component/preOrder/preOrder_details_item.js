@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import './preOrder.css'
+import '../common.css';
 import { Flex, WhiteSpace,WingBlank } from 'antd-mobile';
 
 export default class PreOrderDetailsItem extends React.Component {
@@ -34,26 +34,53 @@ export default class PreOrderDetailsItem extends React.Component {
 	}
     render() {
          const preOrderItemList=this.state.preOrderItem.map((item, index) => (
-			<section className='pre_order_sec' key={index}>
-				<WhiteSpace/>
-				<div style={{color:'#787878'}}>
-					<Flex >
-					  <div style={{flex:1}}>{item.materialType}</div>
-					  <div style={{flex:2,color:'#000000'}}><strong>{item.materialName}</strong></div>
-					</Flex>
-					<WhiteSpace/>
-					<Flex >
-					  <div style={{flex:1}}>印色</div> <div style={{flex:2}}>{item.color}</div>
-					  <div style={{flex:2}}>用纸正数</div> <div style={{flex:1}}>{item.contentPaperUse}</div>
-					  <div style={{flex:2}}>用纸总量</div> <div style={{flex:2.5}}>{item.paperUseMenge}</div>
-					</Flex>
-					<Flex >
-					  <div style={{flex:1}}>规格:</div> <div style={{flex:2}}>{item.materialSpec}</div>
-					  <div style={{flex:2}}>加放数</div> <div style={{flex:1}}>{item.plusMenge}</div>
-					  <div style={{flex:2}}>单位</div> <div style={{flex:2.5}}>{item.unit}</div>
-					</Flex>
-				</div>	
-				<WhiteSpace/>
+			<section className='section' key={index}>
+				<Flex >
+					<div className="flex1 font07 ">{item.materialType}</div>
+					<div  className="flex1 colorBlack"><strong>{item.materialName}</strong></div>
+					<div className="flex1"></div>
+				</Flex>
+				<Flex >
+					<div className="font07 text_left flex1" >
+						<Flex>
+							<div className="text_left ">印色:</div>
+							<div className="text_left margin-left">{item.color}</div>
+						</Flex>
+					</div>
+					<div className="font07 text_left flex1" >
+						<Flex>
+							<div className="text_right ">用纸正数:</div>
+							<div className="text_left margin-left ">{item.contentPaperUse}</div>
+						</Flex>
+					</div>
+					<div className="font07 text_right flex1" >
+						<Flex>
+							<div className="text_right ">用纸总量:</div>
+							<div className="text_left margin-left ">{item.paperUseMenge}</div>
+						</Flex>
+					</div>
+				</Flex>
+				<Flex >
+					<div className="font07 text_left flex1" >
+						<Flex>
+							<div className="text_left ">规格:</div>
+							<div className="text_left margin-left">{item.materialSpec}</div>
+						</Flex>
+					</div>
+					<div className="font07 flex1" >
+						<Flex>
+							<div className="text_right ">加放数:</div>
+							<div className="text_left margin-left ">{item.plusMenge}</div>
+						</Flex>
+					</div>
+					<div className="font07 text_right flex1" >
+						<Flex>
+							<div className="text_right ">单位:</div>
+							<div className="text_left margin-left ">{item.unit}</div>
+						</Flex>
+					</div>
+				</Flex>
+				
 			</section>
          
         

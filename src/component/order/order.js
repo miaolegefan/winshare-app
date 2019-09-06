@@ -1,5 +1,5 @@
 import React from 'react';
-import './order.css';
+import '../common.css';
 import { Flex, WhiteSpace,WingBlank,SearchBar } from 'antd-mobile';
 import {Link} from 'react-router-dom';
 import moment from 'moment'

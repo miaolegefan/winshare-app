@@ -1,47 +1,43 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import './manuscript_component.css'
+import '../common.css';
 import { Flex, WhiteSpace,WingBlank } from 'antd-mobile';
+import moment from 'moment'
 
 export default class ManuscriptComponent extends React.Component{
 
 
     render(){
 
-        const manuscriptList=this.props.manuscript.map((manuscriptItem, index) => (
-            <Link to={{pathname:'/manuscript/details',query:manuscriptItem}} key={index}>
-               <section className='manuscript_sec' style={{backgroundColor:'#fff'}}>
-				   <WingBlank size="md">
-					   <div style={{color:'#787878'}}>
-							<Flex >
-								<div style={{flex:1}}>{manuscriptItem.season}</div>
-								<div style={{flex:2}}/>
-								<div style={{flex:1}}>{manuscriptItem.printeryName}</div>
-							</Flex>
-							<WhiteSpace/>
-							<Flex style={{color:'#000000'}}><strong>{manuscriptItem.bookName}</strong></Flex>
-							<WhiteSpace/>
-							<Flex >
-								<div style={{flex:1}}>计划出片时间:</div>
-								<div style={{flex:2}}>{manuscriptItem.planReleaseDate}</div>
-							</Flex>
-							<Flex >
-							  <div style={{flex:1}}>实际出片时间:</div>
-							  <div style={{flex:2}}>{manuscriptItem.arriveDate}</div>
-							</Flex>
-						</div>
-					</WingBlank>
+        const manuscriptList=this.props.manuscript.map((item, index) => (
+            <Link to={{pathname:'/manuscript/details',item:item}} key={index}>
+               <section className='section' >
+					<Flex>
+						<div className="font07 text_left flex1">{item.season}-{item.subCode}</div>
+						<div className="font07 text_right flex1" >{item.press}</div>
+					</Flex>
+					<Flex>
+						<div className="text_left flex3 colorBlack"><strong>{item.bookName}</strong></div>
+					</Flex>	
+					<Flex>
+						<div className="font07 text_left ">计划印厂:</div>
+						<div className="font07 text_left margin-left">{item.printeryName}</div>
+					</Flex>	
+					<Flex>
+						<div className="font07 text_left ">计划出片时间:</div>
+						<div className="font07 text_left margin-left">{item.planReleaseDate?moment(item.planReleaseDate).format('YYYY-MM-DD'):item.planReleaseDate}</div>
+					</Flex>	
+					<Flex>
+						<div className="font07 text_left ">实际出片时间:</div>
+						<div className="font07 text_left margin-left">{item.arriveDate?moment(item.arriveDate).format('YYYY-MM-DD'):item.arriveDate}</div>
+					</Flex>	
                 </section>
             </Link>
 
         ));
         return(
             <div>
-
-
-
             {manuscriptList}
-
             </div>
         );
     }

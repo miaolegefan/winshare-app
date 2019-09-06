@@ -1,6 +1,6 @@
 import React from 'react';
 import {Flex} from 'antd-mobile';
-import './printeryProcess.css'
+import '../common.css';
 import {Link} from 'react-router-dom';
 import moment from 'moment'
 
@@ -92,29 +92,44 @@ export default class PrinteryProcess extends React.Component{
 						<div className="font07 text_right flex1" >{item.produceStatus}</div>
 					</Flex>
 					<Flex>
-						<div className="font07 text_left flex1">印厂:{item.printeryName}</div>
+						<div className="font07 text_left flex1">
+							<Flex>
+								<div className="text_left ">印厂:</div>
+								<div className="text_left margin-left">{item.printeryName}</div>
+							</Flex>
+						</div>
 						<div className="font07 text_right flex1" >
 							<Flex>
-								<div className="text_right flex3">开机日期:</div>
-								<div className="text_left flex2">{moment(item.openTime).format('YYYY-MM-DD')}</div>
+								<div className="text_right flex4">开机日期:</div>
+								<div className="text_left flex3 margin-left">{item.openTime?moment(item.openTime).format('YYYY-MM-DD'):item.openTime}</div>
 							</Flex>
 						</div>
 					</Flex>
 					<Flex>
-						<div className="font07 text_left flex1">装订日期:{item.bindTime}</div>
+						<div className="font07 text_left flex1">
+							<Flex>
+								<div className="text_left">装订日期:</div>
+								<div className="text_left margin-left">{item.bindTime?moment(item.bindTime).format('YYYY-MM-DD'):item.bindTime}</div>
+							</Flex>
+						</div>
 						<div className="font07 text_right flex1" >
 							<Flex>
-								<div className="text_right flex3">质检日期:</div>
-								<div className="text_left flex2">{moment(item.qualityTime).format('YYYY-MM-DD')}</div>
+								<div className="text_right flex4">质检日期:</div>
+								<div className="text_left flex3 margin-left">{item.qualityTime ? moment(item.qualityTime).format('YYYY-MM-DD'):item.qualityTime}</div>
 							</Flex>
 						</div>
 					</Flex>
 					<Flex>
-						<div className="font07 text_left flex1">开始送货日期:{item.startSendTime}</div>
+						<div className="font07 text_left flex1">
+							<Flex>
+								<div className="text_left">开始送货日期:</div>
+								<div className="text_left margin-left">{item.startSendTime?moment(item.startSendTime).format('YYYY-MM-DD'):item.startSendTime}</div>
+							</Flex>
+						</div>
 						<div className="font07 text_right flex1" >
 							<Flex>
-								<div className="text_right flex3">完成送货日期:</div>
-								<div className="text_left flex2">{moment(item.finishSendTime).format('YYYY-MM-DD')}</div>
+								<div className="text_right flex4">完成送货日期:</div>
+								<div className="text_left flex3 margin-left">{item.finishSendTime?moment(item.finishSendTime).format('YYYY-MM-DD'):item.finishSendTime}</div>
 							</Flex>
 						</div>
 					</Flex>

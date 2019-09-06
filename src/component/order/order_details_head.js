@@ -1,5 +1,5 @@
 import React from 'react';
-import './order.css';
+import '../common.css';
 import { Flex, WhiteSpace,WingBlank } from 'antd-mobile';
 
 export default class OrderDetailsHead extends React.Component {

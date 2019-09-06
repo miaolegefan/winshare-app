@@ -1,7 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import './preOrder.css'
-
+import '../common.css';
+import moment from 'moment'
 import { Flex, WhiteSpace,WingBlank,SearchBar } from 'antd-mobile';
 
 export default class PreOrder extends React.Component{
@@ -38,21 +39,22 @@ export default class PreOrder extends React.Component{
 	render(){
 		const preOrderList=this.state.preOrder.map((preOrderItem, index) => (
 		    <Link to={{pathname:'/preOrder/details',item:preOrderItem}} key={index}>
-		       <section className='pre_order_sec' >
+		       <section className='section' >
 				   <div>
 						<Flex>
 						  <div className="font07 text_left flex1">{preOrderItem.season}</div>
-						  <div className="font07 text_right flex2" style={{flex:1}}>{preOrderItem.preOrderNo}</div>
+						  <div className="font07 text_right flex1">{preOrderItem.preOrderNo}</div>
 						</Flex>
 						<Flex style={{color:'#000000'}}><strong>{preOrderItem.bookName}</strong></Flex>
 						<WhiteSpace/>
 						<Flex className="font07"  >
-						  <div  style={{flex:1}}>印厂确认时间:</div>
-						  <div style={{flex:2}}>{preOrderItem.printeryConfirmDate}</div>
+						
+							<div className="text_left ">印厂确认时间:</div>
+							<div className="text_left margin-left">{moment(preOrderItem.printeryConfirmDate).format('YYYY-MM-DD')}</div>
 						</Flex>
 						<Flex className="font07">
-						  <div style={{flex:1}}>物资公司确认时间:</div>
-						  <div style={{flex:2}}>{preOrderItem.materialsConfirmDate}</div>
+						  <div className="text_left ">物资公司确认时间:</div>
+						  <div className="text_left margin-left">{moment(preOrderItem.materialsConfirmDate).format('YYYY-MM-DD')}</div>
 						</Flex>
 					</div>
 		        </section>

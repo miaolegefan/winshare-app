@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flex, WhiteSpace,WingBlank,SearchBar } from 'antd-mobile';
-import './printeryProcess.css';
+import '../common.css';
 
 export default class PrinteryProcessDetails extends React.Component {
 	constructor(props) {
@@ -11,7 +11,7 @@ export default class PrinteryProcessDetails extends React.Component {
 		const item = this.props.location.item;
 		return(
 			<div>
-				<section className="section" hidden={item.isOpen==='y'? false:true }>
+				<section className="section" hidden={item.isOpen==='0' }>
 					<Flex>
 						<div className="font15 colorBlack flex1"> 
 							开机
@@ -22,7 +22,7 @@ export default class PrinteryProcessDetails extends React.Component {
 						</div>
 					</Flex>
 				</section>
-				<section className="section" hidden={item.isBind==='y'? false:true }>
+				<section className="section" hidden={item.isBind==='0' }>
 					<Flex>
 						<div className="font15 colorBlack flex1"> 
 							装订
@@ -33,7 +33,7 @@ export default class PrinteryProcessDetails extends React.Component {
 						</div>
 					</Flex>
 				</section>
-				<section className="section" hidden={item.isQuality==='y'? false:true }>
+				<section className="section" hidden={item.isQuality==='0' }>
 					<Flex>
 						<div className="font15 colorBlack flex1"> 
 							质检
@@ -44,7 +44,7 @@ export default class PrinteryProcessDetails extends React.Component {
 						</div>
 					</Flex>
 				</section>
-				<section className="section" hidden={item.isStartSend==='y'? false:true }>
+				<section className="section" hidden={item.isStartSend==='0' }>
 					<Flex>
 						<div className="font15 colorBlack flex1"> 
 							开始送货
@@ -55,7 +55,7 @@ export default class PrinteryProcessDetails extends React.Component {
 						</div>
 					</Flex>
 				</section>
-				<section className="section" hidden={item.isFinishSend==='y'? false:true }>
+				<section className="section" hidden={item.isFinishSend==='0' }>
 					<Flex>
 						<div className="font15 colorBlack flex1"> 
 							结束送货

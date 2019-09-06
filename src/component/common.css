@@ -1,0 +1,66 @@
+/* 通用样式 */
+.section{
+    border:thin #E8E8E8 solid;
+    padding:0.16rem;
+	background-color: white;
+	color: #787878;
+	margin-left: 0.16rem;
+    margin-right: 0.16rem;
+	line-height:3
+}
+.datails{
+	width: 100%;
+	line-height:3;
+	margin-left: 0.16rem;
+	margin-right: 0.16rem;
+	color: #787878;	
+}
+
+/* 字体大小 07表示占70% */
+.font07{
+	font-size:70%;
+}
+.font15{
+	font-size:150%;
+}
+/* 文字靠左还是靠右 */
+.text_left{
+	text-align:left;
+}
+.text_right{
+	text-align:right;
+}
+.text_center{
+	text-align:center;
+}
+/* 左右边距 */
+.margin-left{
+	margin-left: 0.16rem;
+}
+.margin-right{
+	margin-right: 0.16rem;
+}
+/* flex占比例 */
+.flex1{
+	flex:1
+}
+.flex2{
+	flex:2
+}
+.flex3{
+	flex:3
+}
+.flex4{
+	flex:4
+}
+/* 行高 */
+.line2{
+	line-height:2;
+}
+.line3{
+	line-height:3;
+}
+/* 颜色 */
+.colorBlack{
+	color: black;
+}

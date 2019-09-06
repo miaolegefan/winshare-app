@@ -1,45 +1,3 @@
-.pre_order_sec{
-    border:thin #E8E8E8 solid;
-    padding:0.16rem;
-	background-color: white;
-	color: #787878;
-	margin-left: 0.16rem;
-    margin-right: 0.16rem;
-	line-height:2
-}
-
-/* 字体大小 07表示占70% */
-.font07{
-	font-size:70%;
-}
-.font15{
-	font-size:150%;
-}
-/* 文字靠左还是靠右 */
-.text_left{
-	text-align:left;
-}
-.text_right{
-	text-align:right;
-}
-/* flex占比例 */
-.flex1{
-	flex:1
-}
-.flex2{
-	flex:2
-}
-.flex3{
-	flex:3
-}
-/* 行高 */
-.line2{
-	line-height:2;
-}
-.line3{
-	line-height:3;
-}
-
 .am-button-ghost {
 	color: #108ee9;
 	background-color: transparent;
@@ -62,8 +20,5 @@ html:not([data-scale]) .am-button-ghost::before{
 	pointer-events: none;
 }
 
-/* 颜色 */
-.colorBlack{
-	color: black;
-}
+
 

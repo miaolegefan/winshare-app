@@ -1,5 +1,5 @@
 import React from 'react';
-import './order.css';
+import '../common.css';
 import {Flex} from 'antd-mobile';
 
 export default class OrderDetailsCost extends React.Component{
@@ -33,14 +33,14 @@ export default class OrderDetailsCost extends React.Component{
 					</div>
 					<div className="font07 flex1" >
 						<Flex>
-							<div className="text_right flex1">结算数量:</div>
-							<div className="text_left flex1 margin-left">{item.menge}</div>
+							<div className="text_right ">结算数量:</div>
+							<div className="text_left  margin-left">{item.menge}</div>
 						</Flex>
 					</div>
 					<div className="font07 text_right flex1" >
 						<Flex>
-							<div className="text_right flex2">结算单位:</div>
-							<div className="text_left flex1 margin-left">{item.unit}</div>
+							<div className="text_right ">结算单位:</div>
+							<div className="text_left margin-left">{item.unit}</div>
 						</Flex>
 					</div>
 				</Flex>
@@ -53,8 +53,8 @@ export default class OrderDetailsCost extends React.Component{
 					</div>
 					<div className="font07 flex1" >
 						<Flex>
-							<div className="text_right flex1">金额:</div>
-							<div className="text_left flex1 margin-left">{item.amount}</div>
+							<div className="text_right ">金额:</div>
+							<div className="text_left  margin-left">{item.amount}</div>
 						</Flex>
 					</div>
 					<div className="font07 flex1" >

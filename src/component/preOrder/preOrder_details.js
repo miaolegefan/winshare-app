@@ -2,7 +2,7 @@ import React from 'react'
 import {Tabs} from 'antd-mobile';
 import PreOrderDetailsHead from './preOrder_details_head'
 import PreOrderDetailsItem from './preOrder_details_item'
-import './preOrder_details.css'
+import '../tabs.css'
 
 export default class PreOrderDetails extends React.Component {
   constructor(props) {
