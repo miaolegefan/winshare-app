@@ -16,6 +16,10 @@ function query(_this,inputCondition) {
 
 }
 
+
+
+
+
 function search(arr, q) {
     return arr.filter(v => Object.values(v).some(v => new RegExp(q + '').test(v)));
 }

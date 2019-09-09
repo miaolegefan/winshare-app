@@ -1,44 +1,100 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import './preOrder.css'
+
 import '../common.css';
 import moment from 'moment'
-import { Flex, WhiteSpace,WingBlank,SearchBar } from 'antd-mobile';
+import { Flex, WhiteSpace,WingBlank,SearchBar,Button } from 'antd-mobile';
+import axios from "axios";
 
+
+function query(_this) {//数据查询
+	axios.post('/api/public/moblie-preOrder/query?userId='+localStorage.userId,{}).then(function(response){
+		if(response.data.success){
+			_this.setState({
+				preOrder : response.data.rows,
+				search:response.data.rows
+			});
+		}
+	})
+
+}
+
+function queryPermission(_this) {//人员角色查询
+
+	const codes =[{
+		code: "pre-order-dataset.printery",
+		resourceType: "site"
+	},{
+		code: "pre-order-dataset.materials",
+		resourceType: "site"
+	},{
+		code: "pre-order-dataset.print-center",
+		resourceType: "site"
+	}];
+
+	axios.post('/api/public/checkPermission/query?userId=10021&roleId=101',codes).then(function(response){
+		if(response.data.success){
+			const res =response.data.rows;
+			for(var i=0;i<res.length;i++){
+				switch (res[i].code) {
+					case 'pre-order-dataset.printery':
+						result.printery=res[i].approve
+					case 'pre-order-dataset.materials':
+						result.materials=res[i].approve
+					case 'pre-order-dataset.print-center':
+						result.print_center=res[i].approve
+				}
+			}
+
+		}else{
+
+			const ces = '';
+		}
+	})
+}
+
+
+function search(arr, q) {
+	return arr.filter(v => Object.values(v).some(v => new RegExp(q + '').test(v)));
+}
+
+var result = {
+	printery:false,
+	materials:false,
+	print_center: false
+};
 export default class PreOrder extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state = {
-			queryValue:'',
-			preOrder : [
-				{"_token":"3f000acec69ea10f928dd8247bf5068e","objectVersionNumber":4,
-				"creationDate":"2019-08-22 12:37:11","id":2181,"fuzzy":null,
-				"subCode":null,"startTime":null,"endTime":null,"preOrderNo":"YY19QJ00001",
-				"season":"19QJ00","printeryCode":null,"printery":"印厂","press":"四川出版社",
-				"bookName":"高等数学","price":12.0,"isbn":"12012","bookSize":"1","bookSizeSpec":"12",
-				"sheet":13.0,"preMenge":24.0,"coverCraft":"1","bindStyle":"1","bindSequence":"1、******。\n2、oooo。",
-				"others":"测试","serviceCondition":"测试","attachment":null,"planDeliveryDate":"2019-08-08 00:00:00",
-				"remark":"测试","auditor":"经理1","auditDate":"2019-08-22 13:35:50","printeryConfirm":"1",
-				"printeryConfirmDate":"2019-08-22 05:31:56","materialsConfirm":null,"materialsConfirmDate":"2019-08-22 00:00:00",
-				"printeryConfirmPerson":"辰东","materialsConfirmPerson":null,"createdName":"林海伦","isDeleted":"0",
-				"approveResult":"已通过","items":null},
-				{"_token":"8fc94daf6f80cda52e85adde83a7d5a4","objectVersionNumber":2,
-				"creationDate":"2019-08-22 12:53:11","id":2182,"fuzzy":null,
-				"subCode":null,"startTime":null,"endTime":null,"preOrderNo":"YY19QJ00002",
-				"season":"19QJ00","printeryCode":null,"printery":"测试印厂","press":"少儿出版社",
-				"bookName":"小鸭子","price":13.0,"isbn":"13021345678","bookSize":"1","bookSizeSpec":"12",
-				"sheet":12.0,"preMenge":13.0,"coverCraft":"1","bindStyle":"1","bindSequence":"1、*******。\n2、测试。",
-				"others":"测试","serviceCondition":"测试","attachment":null,"planDeliveryDate":"2019-08-22 00:00:00",
-				"remark":"测试","auditor":null,"auditDate":null,"printeryConfirm":null,
-				"printeryConfirmDate":"2019-08-22 00:00:00","materialsConfirm":null,"materialsConfirmDate":"2019-08-22 00:00:00",
-				"printeryConfirmPerson":null,"materialsConfirmPerson":null,"createdName":"林海伦","isDeleted":"0",
-				"approveResult":"新建","items":null},
-			],
+			search:[],
+			preOrder : [],
 		}
 	}
+	componentDidMount(){
+		query(this);
+		queryPermission(this);
+	}
+
+	//查询事件
+	onSearch = (val) => {
+		const value = search(this.state.search,val);
+
+
+		this.setState({
+			preOrder: value
+		});
+
+	}
+
+
+
 	render(){
 		const preOrderList=this.state.preOrder.map((preOrderItem, index) => (
-		    <Link to={{pathname:'/preOrder/details',item:preOrderItem}} key={index}>
+
+
+		    <Link to={{pathname:'/preOrder/details',item:preOrderItem,rolePermission:result}} key={index}>
 		       <section className='section' >
 				   <div>
 						<Flex>
@@ -58,14 +114,18 @@ export default class PreOrder extends React.Component{
 						</Flex>
 					</div>
 		        </section>
-		    </Link>
-		
-		));
+		    </Link>));
+
+
 		return(
 		<div>
-			<SearchBar/>
-				{preOrderList}
-			
+			<SearchBar
+				placeholder="Search"
+				onChange={this.onSearch}/>
+				{preOrderList }
+
+
+
 		</div>
 		);
 	}
