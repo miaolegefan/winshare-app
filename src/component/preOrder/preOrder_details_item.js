@@ -3,34 +3,37 @@ import axios from 'axios';
 import './preOrder.css'
 import { Flex, WhiteSpace,WingBlank } from 'antd-mobile';
 
+function getItem(preOrderNo,_this) {
+
+	axios.post('/api/public/moblie-preOrder/queryItem',{preOrderNo}).then(function(response){
+		if(response.data.success){
+			_this.setState({
+				preOrderItem : response.data.rows,
+			});
+		}else{
+
+			const test = '';
+		}
+	})
+
+
+
+}
+
+
+
+
+
 export default class PreOrderDetailsItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-			preOrderItem:[
-				{"_token":"d919ade7769e786a854d7ec5c6c5daf0","objectVersionNumber":1,"id":2162,
-				"preOrderNo":"YY19QJ00001","unit":"吨","materialType":"材料2","color":"2+3","colorUp":null,
-				"colorDown":null,"materialName":"测试","materialSpec":"1*3","contentPaperUse":2.0,
-				"plusMenge":2.0,"paperUseMenge":2.0,"remark":"测试"},
-				{"_token":"0c2f7880020ef6e8da281f5c732bb9d7","objectVersionNumber":1,"id":2161,
-				"preOrderNo":"YY19QJ00001","unit":"吨","materialType":"材料","color":"1+2","colorUp":null,
-				"colorDown":null,"materialName":"铜版纸","materialSpec":"1*2","contentPaperUse":2.0,
-				"plusMenge":1.0,"paperUseMenge":2.0,"remark":"测试"},
-					{"_token":"d919ade7769e786a854d7ec5c6c5daf0","objectVersionNumber":1,"id":2162,
-				"preOrderNo":"YY19QJ00001","unit":"吨","materialType":"材料2","color":"2+3","colorUp":null,
-				"colorDown":null,"materialName":"测试","materialSpec":"1*3","contentPaperUse":2.0,
-				"plusMenge":2.0,"paperUseMenge":2.0,"remark":"测试"},
-				{"_token":"0c2f7880020ef6e8da281f5c732bb9d7","objectVersionNumber":1,"id":2161,
-				"preOrderNo":"YY19QJ00001","unit":"吨","materialType":"材料","color":"1+2","colorUp":null,
-				"colorDown":null,"materialName":"铜版纸","materialSpec":"1*2","contentPaperUse":2.0,
-				"plusMenge":1.0,"paperUseMenge":2.0,"remark":"测试"},
-			]
-          
+			preOrderItem:[]
         };
     }
 
 	componentDidMount(){
-		
+		getItem(this.props.preOrderNo,this)
 	}
     render() {
          const preOrderItemList=this.state.preOrderItem.map((item, index) => (
