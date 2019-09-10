@@ -12,9 +12,7 @@ import PrinteryProcessDetails from './component/printeryProcess/printeryProcessD
 import PrinteryProcessEnclosure from './component/printeryProcess/printeryProcessEnclosure'
 import Order from './component/order/order';
 import OrderDetails from './component/order/order_details';
-
 import RoleChoose from './component/roleChoose/roleChoose';
-
 class App extends React.PureComponent{
   render(){
     return (
@@ -32,7 +30,7 @@ class App extends React.PureComponent{
 			<Route exact path='/printeryProcess/details/:id' component={PrinteryProcessDetails}/>
             <Route exact path='/printeryProcess/details/enclosure' component={PrinteryProcessEnclosure}/>
 			<Route exact path='/order' component={Order}/>
-			<Route path='/order/details' component={OrderDetails}/> 
+			<Route path='/order/details' component={OrderDetails}/>
         </Switch>
       </Router>
     )

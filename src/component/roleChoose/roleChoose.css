@@ -1,8 +1,8 @@
 .am-button-primary {
     color: #fff;
-    background-color: #108ee9;
+    backgroundColor: #108ee9;
     border: 1px solid #108ee9;
-    border-radius: 5px;
+    borderRadius: 5px;
     touch-action: none;
 }
 

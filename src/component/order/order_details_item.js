@@ -1,29 +1,89 @@
 import React from 'react';
 import '../common.css';
-import {Flex} from 'antd-mobile';
+import {Button, Flex, Toast, WingBlank} from 'antd-mobile';
+import axios from "axios";
+
+//获取明细数据
+function getItem(orderNo,_this) {
+
+	axios.post('/api/public/moblie-orderItem/queryItem',{orderNo}).then(function(response){
+		if(response.data.success){
+			_this.setState({
+				orderItem : response.data.rows,
+			});
+		}
+	})
+}
+
+
+//状态改变
+function changeConfrim(printeryIsConfirm,_this) {
+	const orderNo = _this.props.orderNo;
+	axios.post('/api/public/moblie-order/confirm?userId=10021',{orderNo,printeryIsConfirm}).then(function(response){
+		if(response.data.success){
+			if(printeryIsConfirm == '1'){
+				_this.setState({
+					printey:true,
+					cancelPrintery:false
+				});
+			}else{
+				_this.setState({
+					printey:false,
+					cancelPrintery:true
+				});
+			}
+		}else{
+			Toast.info('更改印厂确认状态失败', 2);
+		}
+
+	})
+
+
+}
+
+
 
 export default class OrderDetailsItem extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			orderItem:[
-				{"_token":"7d7fa08375f5798a1764ec3cd98390bc","objectVersionNumber":1,"id":43,"color":null,
-				"orderNo":"W420190022","materialType":"正文材料","colorUp":null,"materialSize":16.0,
-				"paperPages":80.0,"materialName":"105克铜版纸","materialSpec":"787*1092","contentPaperUse":null,
-				"plusPercentage":144.0,"plusMenge":0.736,"paperUseMenge":5.842,"unit":"令","colorDown":null},
-				{"_token":"a62561a5875abc94da0e7b9d9b71b667","objectVersionNumber":1,"id":44,"color":null,
-				"orderNo":"W420190022","materialType":"装订","colorUp":null,"materialSize":null,
-				"paperPages":null,"materialName":"105克铜版纸","materialSpec":"787*1092","contentPaperUse":null,
-				"plusPercentage":null,"plusMenge":null,"paperUseMenge":10000.0,"unit":"印张","colorDown":null},
-				{"_token":"cefdaab867692fb321eac0c99b25577f","objectVersionNumber":1,"id":45,"color":null,
-				"orderNo":"W420190022","materialType":"胶差费","colorUp":null,"materialSize":null,
-				"paperPages":null,"materialName":"105克铜版纸","materialSpec":"787*1092","contentPaperUse":null,
-				"plusPercentage":null,"plusMenge":null,"paperUseMenge":5.105,"unit":"令","colorDown":null},
-				],
+			orderItem:[],
+			rolePermission:this.props.rolePermission,
+			printeryIsConfirm :this.props.printeryConfirm,//印厂确认数据
+			printey:true,
+			cancelPrintery:true,
 		}
 	}
-	
+
+
+	componentDidMount(){
+		getItem(this.props.orderNo,this);
+
+	//对角色按钮进行控制
+		const printeryConfirm=this.state.printeryIsConfirm==null?0:this.state.printeryIsConfirm;//印厂确认
+		const printery = this.state.rolePermission.printery;//当前角色是否有印厂的权限
+
+		if(printery){
+
+			if(printeryConfirm == '1'){
+				this.setState({
+					printey:true,
+					cancelPrintery:false
+				});
+			}else{
+				this.setState({
+					printey:false,
+					cancelPrintery:true
+				});
+			}
+		}
+	}
+
+
+
+
 	render(){
+		const _this = this;
 		const orderItemList = this.state.orderItem.map((item,index) => (
 			<section className="section" key={index} >
 				<Flex>
@@ -91,9 +151,22 @@ export default class OrderDetailsItem extends React.Component {
 			</section>
 		))
 		return (
-			<div>
-				{orderItemList}
+			<div style={{width:'100%'}}>
+				<div style={{ marginBottom:'200px'}}>
+					{orderItemList}
+				</div>
+
+				<div style={{position: 'absolute', bottom: 0,width:'100%' }}>
+					<div hidden={this.state.printey} >
+						<WingBlank size="md"><Button  type="ghost"  onClick={()=>changeConfrim('1',_this)} style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">印厂接收确认</Button></WingBlank>
+					</div>
+					<div hidden={this.state.cancelPrintery}>
+						<WingBlank size="md"><Button  type="ghost" onClick={()=>changeConfrim('0',_this)} style={{color: '#787878', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} size="small">取消印厂接收确认</Button></WingBlank>
+					</div>
+				</div>
 			</div>
+
+
 		)
 	}
 	
