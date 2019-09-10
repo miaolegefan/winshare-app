@@ -10,14 +10,8 @@ function getItem(preOrderNo,_this) {
 			_this.setState({
 				preOrderItem : response.data.rows,
 			});
-		}else{
-
-			const test = '';
 		}
 	})
-
-
-
 }
 
 

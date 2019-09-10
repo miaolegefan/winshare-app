@@ -1,5 +1,5 @@
 import React from 'react';
-import {Tabs} from 'antd-mobile';
+import {Tabs,Button} from 'antd-mobile';
 import OrderDetailsHead from './order_details_head.js';
 import OrderDetailsCost from './order_details_cost.js';
 import OrderDetailsItem from './order_details_item.js';
@@ -15,6 +15,7 @@ export default class OrderDetails extends React.Component {
 	  render() {
 	 	
 		const item = this.props.location.item;
+		  let rolePermission = this.props.location.rolePermission;
 	 	const tabs2 = [
 	 		{ title: '基本信息', sub: '1' },
 	 		{ title: '明细信息', sub: '2' },
@@ -25,12 +26,13 @@ export default class OrderDetails extends React.Component {
 	         <Tabs tabs={tabs2} initialPage={0} tabBarInactiveTextColor='#108ee9'>
 	 			<div style={{ display: 'flex', alignItems: 'right', justifyContent: 'right',backgroundColor: '#fff' }}>
 	 				<OrderDetailsHead item={item}/>
+
 	 			</div>
 	 			<div style={{  alignItems: 'right', justifyContent: 'right', height: '100%', backgroundColor: '#fff' }}>
-					<OrderDetailsItem id={item.id}/>
+					<OrderDetailsItem orderNo={item.orderNo} rolePermission={rolePermission} printeryConfirm={item.printeryIsConfirm}/>
 	 			</div>
 				<div style={{  alignItems: 'right', justifyContent: 'right', height: '100%', backgroundColor: '#fff' }}>
-					<OrderDetailsCost id={item.id}/>
+					<OrderDetailsCost orderNo={item.orderNo} rolePermission={rolePermission} costConfirm={item.costState}/>
 				</div>
 	 		</Tabs>
 	       </div>

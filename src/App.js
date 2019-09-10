@@ -11,9 +11,7 @@ import PrinteryProcess from './component/printeryProcess/printeryProcess'
 import PrinteryProcessDetails from './component/printeryProcess/printeryProcessDetails'
 import Order from './component/order/order';
 import OrderDetails from './component/order/order_details';
-
 import RoleChoose from './component/roleChoose/roleChoose';
-
 class App extends React.PureComponent{
   render(){
     return (
@@ -30,7 +28,7 @@ class App extends React.PureComponent{
 			<Route exact path='/printeryProcess' component={PrinteryProcess}/>
 			<Route exact path='/printeryProcess/details' component={PrinteryProcessDetails}/>
 			<Route exact path='/order' component={Order}/>
-			<Route path='/order/details' component={OrderDetails}/> 
+			<Route path='/order/details' component={OrderDetails}/>
         </Switch>
       </Router>
     )

@@ -3,50 +3,82 @@ import '../common.css';
 import { Flex, WhiteSpace,WingBlank,SearchBar } from 'antd-mobile';
 import {Link} from 'react-router-dom';
 import moment from 'moment'
+import axios from "axios";
+
+
+function query(_this) {//数据查询
+	axios.post('/api/public/moblie-order/query?userId='+sessionStorage.userId,{}).then(function(response){
+		if(response.data.success){
+			_this.setState({
+				order : response.data.rows,
+				search:response.data.rows
+			});
+		}
+	})
+}
+
+
+function queryPermission(_this) {//人员角色查询
+
+	const codes =[{
+		code: "order-dataset.printery",
+		resourceType: "site"
+	},{
+		code: "order-dataset.print-center",
+		resourceType: "site"
+	}];
+
+	axios.post('/api/public/checkPermission/query?userId=10021&roleId=101',codes).then(function(response){
+		if(response.data.success){
+			const res =response.data.rows;
+			for(var i=0;i<res.length;i++){
+				switch (res[i].code) {
+					case 'order-dataset.printery':
+						result.printery=res[i].approve
+					case 'order-dataset.print-center':
+						result.print_center=res[i].approve
+				}
+			}
+
+		}
+	})
+}
+
+function search(arr, q) {
+	return arr.filter(v => Object.values(v).some(v => new RegExp(q + '').test(v)));
+}
+
+var result = {
+	printery:false,
+	print_center: false
+};
 
 export default class Order extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state={
-			order:[
-				{"_token":"250e89f41e7ab8723d780d9b5f1a5457","objectVersionNumber":1,"id":82,"season":"17QJ00",
-				"fuzzy":null,"orderNo":"W420190022","noticeNo":"17QJW420190022","subjectNo":"E198296",
-				"editionPrintTimes":"01-0101","bookName":"U义务教育教科书道德与法治1上","press":"人民教育出版社",
-				"coopForm":null,"businessType":null,"orderDate":null,"wagesSum":null,"printeryPrintTimes":"1",
-				"orderMaker":"吴鹏程","printeryIsConfirm":"0","receiveStatus":null,"appointStatus":null,
-				"orderCategory":null,"startTime":null,"endTime":null,"bookSizeSpec":null,"perform":"租型1-1",
-				"pressCode":null,"subCode":"00020025","unitSheet":5.0,"supplierSendPaperDate":null,
-				"coopFormCode":null,"noticeDate":"2019-04-01 00:00:00","bookCode":"102637070",
-				"printMenge":1021.0,"printMengeSum":1.0,"bookSize":"16","businessTypeCode":null,
-				"printeryName":null,"isbn":null,"printeryReceiveDate":null,"printeryReceiveOp":null,
-				"auditor":"系统管理员","requireSendDate":null,"sendAddr1":null,"sendAddr2":null,"sendAddr3":null,
-				"sendAddr4":null,"sendAddr5":null,"sampleMenge":0.0,"bindStyle":"胶订","coverCraft":null,
-				"price":null,"costState":null,"printeryCode":null,"auditMark":null,"sendMenge1":null,
-				"sendMenge2":null,"sendMenge3":null,"sendMenge4":null,"sendMenge5":null,"createName":null,
-				"inv":null,"remark":null,"appointMenge":null,"items":null,"costs":null,"lovCondition":null,
-				"virtuals":null,"details":null,"auditDate":"2019-04-01 00:00:00"},
-				{"_token":"fac11cfb08e87fe160edc62c60f29325","objectVersionNumber":14,"id":1,"season":"17CJ00",
-				"fuzzy":null,"orderNo":"12102","noticeNo":"17CJ12102","subjectNo":"1",
-				"editionPrintTimes":"11","bookName":"普通书籍","press":"11",
-				"coopForm":"1","businessType":"1","orderDate":"2019-08-01 10:57:50","wagesSum":3.68,"printeryPrintTimes":"111",
-				"orderMaker":"管理员","printeryIsConfirm":"1","receiveStatus":"1","appointStatus":"11",
-				"orderCategory":null,"startTime":null,"endTime":null,"bookSizeSpec":"11","perform":"11",
-				"pressCode":"1","subCode":"1","unitSheet":11.0,"supplierSendPaperDate":null,
-				"coopFormCode":"1","noticeDate":"2019-08-12 05:20:36","bookCode":"1",
-				"printMenge":1.0,"printMengeSum":1.0,"bookSize":"1","businessTypeCode":"11",
-				"printeryName":"B印厂","isbn":"1","printeryReceiveDate":"2019-08-15 12:44:52","printeryReceiveOp":"辰东",
-				"auditor":"1","requireSendDate":"2019-08-27 14:49:55","sendAddr1":"222","sendAddr2":"122","sendAddr3":"122",
-				"sendAddr4":"122","sendAddr5":"122","sampleMenge":1.0,"bindStyle":"1","coverCraft":"1",
-				"price":1.0,"costState":"2","printeryCode":null,"auditMark":"1","sendMenge1":12.0,
-				"sendMenge2":122.0,"sendMenge3":122.0,"sendMenge4":1122.0,"sendMenge5":122.0,"createName":null,
-				"inv":"1","remark":null,"appointMenge":null,"items":null,"costs":null,"lovCondition":null,
-				"virtuals":null,"details":null,"auditDate":"2019-04-01 00:00:00"},
-			],
+			order:[],
+			search:[],
 		}
 	}
+
+	componentDidMount() {
+		query(this);
+		queryPermission(this);
+	}
+
+
+	//查询事件
+	onSearch = (val) => {
+		const value = search(this.state.search,val);
+		this.setState({
+			order: value
+		});
+	}
+
 	render(){
 		const orderList = this.state.order.map((item,index) =>(
-			<Link to={{pathname:'/order/details',item:item}} key={index}>
+			<Link to={{pathname:'/order/details',item:item,rolePermission:result}} key={index}>
 				<section className="section">
 					<Flex>
 						<div className="font07 text_left flex1">{item.season}-{item.subCode}</div>
@@ -104,6 +136,9 @@ export default class Order extends React.Component{
 		)
 		return(
 		<div>
+			<SearchBar
+				placeholder="Search"
+				onChange={this.onSearch}/>
 			{orderList}
 		</div>
 		)

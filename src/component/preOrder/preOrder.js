@@ -7,9 +7,9 @@ import moment from 'moment'
 import { Flex, WhiteSpace,WingBlank,SearchBar,Button } from 'antd-mobile';
 import axios from "axios";
 
-
-function query(_this) {//数据查询
-	axios.post('/api/public/moblie-preOrder/query?userId='+localStorage.userId,{}).then(function(response){
+//数据查询
+function query(_this) {
+	axios.post('/api/public/moblie-preOrder/query?userId='+sessionStorage.userId,{}).then(function(response){
 		if(response.data.success){
 			_this.setState({
 				preOrder : response.data.rows,
@@ -47,9 +47,6 @@ function queryPermission(_this) {//人员角色查询
 				}
 			}
 
-		}else{
-
-			const ces = '';
 		}
 	})
 }
@@ -80,8 +77,6 @@ export default class PreOrder extends React.Component{
 	//查询事件
 	onSearch = (val) => {
 		const value = search(this.state.search,val);
-
-
 		this.setState({
 			preOrder: value
 		});
@@ -104,7 +99,6 @@ export default class PreOrder extends React.Component{
 						<Flex style={{color:'#000000'}}><strong>{preOrderItem.bookName}</strong></Flex>
 						<WhiteSpace/>
 						<Flex className="font07"  >
-						
 							<div className="text_left ">印厂确认时间:</div>
 							<div className="text_left margin-left">{moment(preOrderItem.printeryConfirmDate).format('YYYY-MM-DD')}</div>
 						</Flex>

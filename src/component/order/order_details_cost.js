@@ -1,24 +1,87 @@
 import React from 'react';
 import '../common.css';
-import {Flex} from 'antd-mobile';
+import {Button, Flex, WingBlank,Toast} from 'antd-mobile';
+import axios from "axios";
+
+
+
+
+
+function getCost(orderNo,_this) {
+
+	axios.post('/api/public/moblie-orderCost/queryCost',{orderNo}).then(function(response){
+		if(response.data.success){
+			_this.setState({
+				cost : response.data.rows,
+			});
+		}
+	})
+}
+
+function confirmCost(costState,_this) {
+	const orderNo = _this.props.orderNo;
+	axios.post('/api/public/moblie-order/confirm?userId=10021',{orderNo,costState}).then(function(response){
+		if(response.data.success){
+				if(costState == '1'){
+					_this.setState({
+						printeyCost:true,
+						cancelPrinteryCost:false
+					});
+				}else{
+					_this.setState({
+						printeyCost:false,
+						cancelPrinteryCost:true
+					});
+				}
+		}else{
+			Toast.info('更改工价状态失败', 2);
+		}
+	})
+}
+
+
+
 
 export default class OrderDetailsCost extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			cost : [{"_token":"e59a2689c6e18445289d06e08b26d7ad","objectVersionNumber":1,"id":20,
-					"orderNo":"W420190022","itemName":"封面材料","color":"黑色","menge":123,"unit":"张",
-					"price":123,"amount":123,"remark":"这是备注","status":null,"operationTime":null,"type":null},
-					{"_token":"e59a2689c6e18445289d06e08b26d7ad","objectVersionNumber":1,"id":20,
-					"orderNo":"W420190022","itemName":"封面材料","color":"黑色","menge":123,"unit":"张",
-					"price":123,"amount":123,"remark":"这是备注","status":null,"operationTime":null,"type":null},
-					{"_token":"e59a2689c6e18445289d06e08b26d7ad","objectVersionNumber":1,"id":12,
-					"orderNo":"W420190022","itemName":"人工费","color":null,"menge":null,"unit":null,
-					"price":null,"amount":null,"remark":null,"status":null,"operationTime":null,"type":null},
-					],
+			cost : [],
+			rolePermission:this.props.rolePermission,
+			costConfirm:this.props.costConfirm,//工价确认数据
+			printeyCost:true,
+			cancelPrinteryCost:true,
 		}
 	}
+
+
+	componentDidMount(){
+		getCost(this.props.orderNo,this);
+
+		//对角色按钮进行控制
+		const costConfirm=this.state.costConfirm==null?0:this.state.costConfirm;//印厂确认
+		const printery = this.state.rolePermission.printery;//当前角色是否有印厂的权限
+
+		if(printery){
+			if(costConfirm == '1'){
+				this.setState({
+					printeyCost:false,
+					cancelPrinteryCost:true
+				});
+			}else{
+				this.setState({
+					printeyCost:true,
+					cancelPrinteryCost:false
+				});
+			}
+		}
+
+
+	}
+
+
 	render(){
+		const _this = this;
 		const costList = this.state.cost.map((item,index) => (
 			<section className="section" key={index} >
 				<Flex>
@@ -71,9 +134,22 @@ export default class OrderDetailsCost extends React.Component{
 			</section>
 		))
 		return(
-			<div>
-			{costList}
+
+			<div style={{width:'100%'}}>
+				<div style={{ marginBottom:'200px'}}>
+					{costList}
+				</div>
+				<div style={{position: 'absolute', bottom: 0,width:'100%'}}>
+					<div hidden={this.state.printeyCost} >
+						<WingBlank size="md"><Button  type="ghost"   onClick={()=>confirmCost('1',_this)}   style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">确认工价</Button></WingBlank>
+					</div>
+					<div hidden={this.state.cancelPrinteryCost}>
+						<WingBlank size="md"><Button  type="ghost" onClick={()=>confirmCost('0',_this)} style={{color: '#787878', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} size="small">取消确认工价</Button></WingBlank>
+					</div>
+				</div>
+
 			</div>
+
 		)
 	}
 	

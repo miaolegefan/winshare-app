@@ -1,6 +1,6 @@
 import React from 'react';
 import '../common.css';
-import { Flex, WhiteSpace,WingBlank } from 'antd-mobile';
+import {Button, Flex, WhiteSpace, WingBlank} from 'antd-mobile';
 
 export default class OrderDetailsHead extends React.Component {
 	constructor(props) {
@@ -154,6 +154,7 @@ export default class OrderDetailsHead extends React.Component {
 				  <div className="text_left flex1">印厂接收确认人:</div>
 				  <div className="text_right flex1 colorBlack">{orderHead.printeryReceiveOp}</div>
 				</Flex>
+
 			</div>
 		)
 	}
