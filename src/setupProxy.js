@@ -11,7 +11,7 @@ module.exports = function(app) {
     },
    }));
    app.use(proxy('/api', { 
-    target: 'http://localhost:8080/',
+    target: 'http://localhost:8089/',
     secure: false,
     changeOrigin: true,
     pathRewrite: {

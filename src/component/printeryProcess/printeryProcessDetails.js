@@ -1,5 +1,6 @@
 import React from 'react';
-import { Flex, WhiteSpace,WingBlank,SearchBar } from 'antd-mobile';
+import { Flex } from 'antd-mobile';
+import {Link} from 'react-router-dom';
 import '../common.css';
 
 export default class PrinteryProcessDetails extends React.Component {
@@ -9,18 +10,21 @@ export default class PrinteryProcessDetails extends React.Component {
 	}
 	render(){
 		const item = this.props.location.item;
+		const id = this.props.match.params.id;
 		return(
 			<div>
 				<section className="section" hidden={item.isOpen==='0' }>
-					<Flex>
-						<div className="font15 colorBlack flex1"> 
-							开机
-						</div>
-						<div className="flex3">
-							<div>{item.openTime}</div>
-							<div>{item.openRemark}</div>
-						</div>
-					</Flex>
+                    <Link to={{pathname:'/printeryProcess/details/enclosure',time:item.openTime,remark:item.openRemark}}>
+						<Flex>
+							<div className="font15 colorBlack flex1">
+								开机
+							</div>
+							<div className="flex3 ">
+								<div>{item.openTime}</div>
+								<div>{item.openRemark}</div>
+							</div>
+						</Flex>
+					</Link>
 				</section>
 				<section className="section" hidden={item.isBind==='0' }>
 					<Flex>

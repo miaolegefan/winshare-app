@@ -81,7 +81,7 @@ export default class PrinteryProcess extends React.Component{
 	}
 	render(){
 		const printeryProcessList = this.state.printeryProcess.map((item,index) => (
-			<Link to={{pathname:'/printeryProcess/details',item:item}} key={index}>
+			<Link to={{pathname:'/printeryProcess/details/'+item.id,item:item}} key={index}>
 				<section className="section">
 					<Flex>
 						<div className="font07 text_left flex1">{item.season}-{item.subCode}</div>
