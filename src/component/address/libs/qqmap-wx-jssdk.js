@@ -1,3 +1,4 @@
+/*eslint-disable*/
 /**
  * 微信小程序JavaScriptSDK
  * 
@@ -831,6 +832,7 @@ class QQMapWX {
           if (options.sig) {
             requestParam.sig = Utils.getSig(requestParam, options.sig, 'reverseGeocoder');
           }
+
             wx.request(Utils.buildWxRequestConfig(options, {
                 url: URL_GET_GEOCODER,
                 data: requestParam
