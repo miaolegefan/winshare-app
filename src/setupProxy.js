@@ -18,6 +18,17 @@ module.exports = function(app) {
      "^/api": "/api"
     },
    }));
+
+    app.use(proxy('/gaode', {
+        target: 'https://restapi.amap.com/v3/geocode/regeo',
+        secure: false,
+        changeOrigin: true,
+        pathRewrite: {
+            "^/gaode": "/"
+        },
+    }));
+
+
   //app.use(proxy('/apc', { target: 'http://172.19.5.34:9531' }));
 
 };

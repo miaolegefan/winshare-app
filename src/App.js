@@ -14,6 +14,8 @@ import PrinteryProcessEnclosureAdd from './component/printeryProcess/printeryPro
 import Order from './component/order/order';
 import OrderDetails from './component/order/order_details';
 import RoleChoose from './component/roleChoose/roleChoose';
+import Address from './component/address/address';
+
 
 class App extends React.PureComponent{
   render(){
@@ -33,6 +35,8 @@ class App extends React.PureComponent{
             <Route exact path='/printeryProcess/details/enclosure' component={PrinteryProcessEnclosure}/>
 			<Route exact path='/order' component={Order}/>
 			<Route path='/order/details' component={OrderDetails}/>
+
+			<Route path='/address' component={Address}/>
         </Switch>
       </Router>
     )
