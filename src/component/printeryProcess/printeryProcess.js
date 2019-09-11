@@ -50,15 +50,15 @@ export default class PrinteryProcess extends React.Component{
 
 	render(){
 		const printeryProcessList = this.state.printeryProcess.map((item,index) => (
-			<Link to={{pathname:'/printeryProcess/details/'+item.id,item:item}} key={index}>
+			<Link to={{pathname:'/printeryProcess/details/'+item.orderNo,item:item}} key={index}>
 				<section className="section">
 					<Flex>
 						<div className="font07 text_left flex1">{item.season}-{item.subCode}</div>
 						<div className="font07 text_right flex1" >{item.orderNo}</div>
 					</Flex>
 					<Flex>
-						<div className="text_left flex1 colorBlack"><strong>{item.bookName}</strong></div>
-						<div className="font07 text_right flex1" >{item.produceStatus}</div>
+						<div className="text_left flex2 colorBlack"><strong>{item.bookName}</strong></div>
+						<div className="font07 text_right flex1" >{item.produceStatus===null?"未开机":item.produceStatus}</div>
 					</Flex>
 					<Flex>
 						<div className="font07 text_left flex1">

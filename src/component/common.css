@@ -2,7 +2,7 @@
 .section{
     border:thin #E8E8E8 solid;
     padding:0.16rem;
-	backgroundColor: white;
+	background-color: white;
 	color: #787878;
 	margin-left: 0.16rem;
     margin-right: 0.16rem;
@@ -73,6 +73,10 @@
 /* 颜色 */
 .colorBlack{
 	color: black;
+}
+/*背景色*/
+.backgroundWhite{
+	background-color: white;
 }
 
 

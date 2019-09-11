@@ -21,9 +21,12 @@
     "postcss-pxtorem": "^4.0.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-native-camera": "^3.4.0",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.1.1"
+    "react-scripts": "3.1.1",
+    "redux": "^4.0.4",
+    "video-react": "^0.14.1"
   },
   "theme": {
     "hd": "2px",

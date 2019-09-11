@@ -2,18 +2,40 @@ import React from 'react';
 import { Flex } from 'antd-mobile';
 import {Link} from 'react-router-dom';
 import '../common.css';
+import './printeryProcess.css'
+import axios from "axios/index";
+
+//数据查询
+function query(_this,orderNo) {
+    axios.post('/api/public/moblie-printeryProcess/query?userId='+sessionStorage.userId,{orderNo:orderNo}).then(function(response){
+        if(response.data.success){
+            _this.setState({
+                item : response.data.rows,
+            });
+        }
+    })
+
+}
 
 export default class PrinteryProcessDetails extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state ={}
+		this.state ={
+            item:{}
+		}
 	}
+
+    componentDidMount(){
+        const orderNo = this.props.match.params.orderNo;
+        query(this,orderNo);
+    }
+
 	render(){
-		const item = this.props.location.item;
-		const id = this.props.match.params.id;
+		const item = this.state.item;
+
 		return(
 			<div>
-				<section className="section" hidden={item.isOpen==='0' }>
+				<section className="section" hidden={item.isOpen===undefined || item.isOpen==='0' }>
                     <Link to={{pathname:'/printeryProcess/details/enclosure',time:item.openTime,remark:item.openRemark}}>
 						<Flex>
 							<div className="font15 colorBlack flex1">
@@ -26,7 +48,7 @@ export default class PrinteryProcessDetails extends React.Component {
 						</Flex>
 					</Link>
 				</section>
-				<section className="section" hidden={item.isBind==='0' }>
+				<section className="section" hidden={item.isBind===undefined || item.isBind==='0' }>
 					<Flex>
 						<div className="font15 colorBlack flex1"> 
 							装订
@@ -37,7 +59,7 @@ export default class PrinteryProcessDetails extends React.Component {
 						</div>
 					</Flex>
 				</section>
-				<section className="section" hidden={item.isQuality==='0' }>
+				<section className="section" hidden={item.isQuality===undefined || item.isQuality==='0' }>
 					<Flex>
 						<div className="font15 colorBlack flex1"> 
 							质检
@@ -48,7 +70,7 @@ export default class PrinteryProcessDetails extends React.Component {
 						</div>
 					</Flex>
 				</section>
-				<section className="section" hidden={item.isStartSend==='0' }>
+				<section className="section" hidden={item.isStartSend===undefined || item.isStartSend==='0' }>
 					<Flex>
 						<div className="font15 colorBlack flex1"> 
 							开始送货
@@ -59,7 +81,7 @@ export default class PrinteryProcessDetails extends React.Component {
 						</div>
 					</Flex>
 				</section>
-				<section className="section" hidden={item.isFinishSend==='0' }>
+				<section className="section" hidden={item.isFinishSend===undefined || item.isFinishSend==='0' }>
 					<Flex>
 						<div className="font15 colorBlack flex1"> 
 							结束送货
