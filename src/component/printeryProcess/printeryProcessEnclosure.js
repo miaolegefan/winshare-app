@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flex, ImagePicker,WingBlank,SearchBar } from 'antd-mobile';
 import '../common.css';
-import { Player } from 'video-react';
+    import { Player } from 'video-react';
 import "./video-react.css";
 
 const data = [{

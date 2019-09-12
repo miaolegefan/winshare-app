@@ -7,6 +7,8 @@ var cache = require('memory-cache'),
 // const QQMapWX = require('./libs/qqmap-wx-jssdk')
 
 function post(_this) {
+
+
     const url = window.location.href.split('#')[0];
     var noncestr = config.noncestr,
         timestamp = Math.floor(Date.now()/1000), //精确到秒
@@ -58,7 +60,7 @@ function post(_this) {
 }
 
 
-
+//已废弃
 // function getAddress(latitude, longitude,_this) {
 //     // 生成 QQMapWX 实例
 //     let qqmapsdk = new QQMapWX({
@@ -118,7 +120,6 @@ constructor(props){
         post(this);
     }
     render() {
-
     const _this = this;
         return(<div>  {this.state.address}</div>);
     }

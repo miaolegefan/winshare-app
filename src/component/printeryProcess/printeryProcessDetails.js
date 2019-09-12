@@ -9,9 +9,12 @@ import axios from "axios/index";
 function query(_this,orderNo) {
     axios.post('/api/public/moblie-printeryProcess/query?userId='+sessionStorage.userId,{orderNo:orderNo}).then(function(response){
         if(response.data.success){
-            _this.setState({
-                item : response.data.rows,
-            });
+        	if(response.data.rows.length > 0){
+				_this.setState({
+					item : response.data.rows[0],
+				});
+			}
+
         }
     })
 
@@ -32,11 +35,11 @@ export default class PrinteryProcessDetails extends React.Component {
 
 	render(){
 		const item = this.state.item;
-
 		return(
 			<div>
+				<Link to={{pathname:'/printeryProcess/details/en/enclosure',time:item.openTime,remark:item.openRemark}}>
 				<section className="section" hidden={item.isOpen===undefined || item.isOpen==='0' }>
-                    <Link to={{pathname:'/printeryProcess/details/enclosure',time:item.openTime,remark:item.openRemark}}>
+
 						<Flex>
 							<div className="font15 colorBlack flex1">
 								开机
@@ -46,8 +49,9 @@ export default class PrinteryProcessDetails extends React.Component {
 								<div>{item.openRemark}</div>
 							</div>
 						</Flex>
-					</Link>
+
 				</section>
+				</Link>
 				<section className="section" hidden={item.isBind===undefined || item.isBind==='0' }>
 					<Flex>
 						<div className="font15 colorBlack flex1"> 

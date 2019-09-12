@@ -32,10 +32,9 @@ class App extends React.PureComponent{
 			<Route path='/preOrder/details' component={PreOrderDetails}/> 
 			<Route exact path='/printeryProcess' component={PrinteryProcess}/>
 			<Route exact path='/printeryProcess/details/:orderNo' component={PrinteryProcessDetails}/>
-            <Route exact path='/printeryProcess/details/enclosure' component={PrinteryProcessEnclosure}/>
+            <Route exact path='/printeryProcess/details/en/enclosure' component={PrinteryProcessEnclosure}/>
 			<Route exact path='/order' component={Order}/>
 			<Route path='/order/details' component={OrderDetails}/>
-
 			<Route path='/address' component={Address}/>
         </Switch>
       </Router>

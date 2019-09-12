@@ -11,7 +11,7 @@ import axios from "axios";
 
 //数据查询
 function query(_this) {
-	axios.post('/api/public/moblie-printeryProcess/query?userId='+sessionStorage.userId,{}).then(function(response){
+	axios.post('/api/public/moblie-printeryProcess/query?userId=10021',{}).then(function(response){
 		if(response.data.success){
 			_this.setState({
 				printeryProcess : response.data.rows,
