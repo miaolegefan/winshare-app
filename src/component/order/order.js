@@ -1,10 +1,11 @@
 import React from 'react';
 import '../common.css';
-import { Flex, WhiteSpace,WingBlank,SearchBar } from 'antd-mobile';
+import { Flex, WhiteSpace,WingBlank,SearchBar,NavBar, Icon } from 'antd-mobile';
 import {Link} from 'react-router-dom';
 import moment from 'moment'
 import axios from "axios";
-
+import creatHistory from 'history/createHashHistory'  //返回上一页这段代码
+const history = creatHistory();//返回上一页这段代码
 
 function query(_this) {//数据查询
 	axios.post('/api/public/moblie-order/query?userId='+sessionStorage.userId,{}).then(function(response){
@@ -76,6 +77,10 @@ export default class Order extends React.Component{
 		});
 	}
 
+    //返回按钮
+    comeback=()=>{
+        history.goBack();  //返回上一页这段代码
+    }
 	render(){
 		const orderList = this.state.order.map((item,index) =>(
 			<Link to={{pathname:'/order/details',item:item,rolePermission:result}} key={index}>
@@ -136,9 +141,12 @@ export default class Order extends React.Component{
 		)
 		return(
 		<div>
-			<SearchBar
-				placeholder="Search"
-				onChange={this.onSearch}/>
+            <NavBar mode="light" icon={<Icon type="left" />} onLeftClick={this.comeback}>
+                <SearchBar style={{width:"100%"}}
+                           placeholder="Search"
+                           showCancelButton={true}
+                           onChange={this.onSearch}/>
+            </NavBar>
 			{orderList}
 		</div>
 		)

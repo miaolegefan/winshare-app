@@ -1,13 +1,11 @@
 import React from 'react';
-import {Flex, SearchBar} from 'antd-mobile';
+import {Flex, SearchBar,NavBar, Icon} from 'antd-mobile';
 import '../common.css';
 import {Link} from 'react-router-dom';
 import moment from 'moment'
 import axios from "axios";
-
-
-
-
+import creatHistory from 'history/createHashHistory'  //返回上一页这段代码
+const history = creatHistory();//返回上一页这段代码
 
 //数据查询
 function query(_this) {
@@ -47,6 +45,10 @@ export default class PrinteryProcess extends React.Component{
 
 	}
 
+    //返回按钮
+    comeback=()=>{
+        history.goBack();  //返回上一页这段代码
+    }
 
 	render(){
 		const printeryProcessList = this.state.printeryProcess.map((item,index) => (
@@ -107,9 +109,12 @@ export default class PrinteryProcess extends React.Component{
 		));
 		return(
 			<div>
-				<SearchBar
-					placeholder="Search"
-					onChange={this.onSearch}/>
+                <NavBar mode="light" icon={<Icon type="left" />} onLeftClick={this.comeback}>
+                    <SearchBar style={{width:"100%"}}
+                               placeholder="Search"
+                               showCancelButton={true}
+                               onChange={this.onSearch}/>
+                </NavBar>
 				{printeryProcessList}</div>
 		)
 		

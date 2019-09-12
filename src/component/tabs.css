@@ -9,3 +9,24 @@
     border: 0.01rem #108ee9 solid !important;
     transform: translate3d(0, 0, 0);
 }
+
+.am-navbar-left{
+    flex: 1;
+}
+.am-navbar-right{
+    flex:0
+}
+.am-navbar-title{
+    flex:8;
+    height:100%;
+    -ms-flex-align:center
+}
+.am-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 0.88rem;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+}

@@ -16,13 +16,12 @@ import OrderDetails from './component/order/order_details';
 import RoleChoose from './component/roleChoose/roleChoose';
 import Address from './component/address/address';
 
-
 class App extends React.PureComponent{
   render(){
     return (
       <Router >
         <Switch>
-			<Route exact path='/' component={PrinteryProcessEnclosureAdd}/>
+			<Route exact path='/' component={Home}/>
 			<Route path='/home' component={Home}/>
 			<Route path='/home2' component={Home2}/>
 			<Route exact path='/manuscript' component={Manuscript}/> 
@@ -32,7 +31,7 @@ class App extends React.PureComponent{
 			<Route path='/preOrder/details' component={PreOrderDetails}/> 
 			<Route exact path='/printeryProcess' component={PrinteryProcess}/>
 			<Route exact path='/printeryProcess/details/:orderNo' component={PrinteryProcessDetails}/>
-            <Route exact path='/printeryProcess/details/enclosure' component={PrinteryProcessEnclosure}/>
+            <Route exact path='/printeryProcess/details/en/enclosure' component={PrinteryProcessEnclosure}/>
 			<Route exact path='/order' component={Order}/>
 			<Route path='/order/details' component={OrderDetails}/>
 

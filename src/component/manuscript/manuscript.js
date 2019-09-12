@@ -1,8 +1,10 @@
 import React from 'react';
 import ManuscriptComponent from './manuscript_component'
 import axios from 'axios';
-import {Button, SearchBar} from "antd-mobile";
-
+import {Button, SearchBar,NavBar, Icon,WhiteSpace } from 'antd-mobile';
+import '../tabs.css';
+import creatHistory from 'history/createHashHistory'  //返回上一页这段代码
+const history = creatHistory();//返回上一页这段代码
 
 function query(_this,inputCondition) {
     axios.post('/api/public/moblie-manuscript/query?userId='+localStorage.userId,{'inputCondition':inputCondition}).then(function(response){
@@ -35,35 +37,7 @@ export default class Manuscript extends React.Component {
         };
     }
 	componentDidMount(){
-        //query(this);
-		this.setState({
-            manuscript: [{"_token":"00b4984af4933b678252edb4b29227c3","objectVersionNumber":1,"id":30,"isbn":null,
-			"season":"16CJ00","subCode":"36784","bookName":"高中新课标语文选修 中国民俗文化(配人教)/点金训练",
-			"bookCode":null,"planReleaseDate":"2016-07-18 00:00:00","finalDate":"2016-10-01 00:00:00",
-			"arriveDate":null,"press":"川教","pressCode":null,"remark":null,"receiverUserid":null,
-			"printeryCode":"5646","planMenge":131,"isDeleted":"0","printeryName":"印厂名称","inputCondition":null,
-			"arrivalStartDate":null,"arrivalDeadline":null,"regStartDate":null,"regDeadline":null},
-			{"_token":"2c2fe83bdf6d4f37e494b1a64cc8ce0f","objectVersionNumber":1,"id":31,"isbn":null,
-			"season":"16CJ00","subCode":"36785","bookName":"高中新课标点金训练物理选修1-2(配教科)",
-			"bookCode":null,"planReleaseDate":"2016-07-19 00:00:00","finalDate":"2016-10-02 00:00:00",
-			"arriveDate":null,"press":"川教","pressCode":null,"remark":null,"receiverUserid":null,
-			"printeryCode":"1001","planMenge":132,"isDeleted":"0","printeryName":"印厂名称","inputCondition":null,
-			"arrivalStartDate":null,"arrivalDeadline":null,"regStartDate":null,"regDeadline":null},
-			],
-			search: [{"_token":"00b4984af4933b678252edb4b29227c3","objectVersionNumber":1,"id":30,"isbn":null,
-			"season":"16CJ00","subCode":"36784","bookName":"高中新课标语文选修 中国民俗文化(配人教)/点金训练",
-			"bookCode":null,"planReleaseDate":"2016-07-18 00:00:00","finalDate":"2016-10-01 00:00:00",
-			"arriveDate":null,"press":"川教","pressCode":null,"remark":null,"receiverUserid":null,
-			"printeryCode":"5646","planMenge":131,"isDeleted":"0","printeryName":"印厂名称","inputCondition":null,
-			"arrivalStartDate":null,"arrivalDeadline":null,"regStartDate":null,"regDeadline":null},
-			{"_token":"2c2fe83bdf6d4f37e494b1a64cc8ce0f","objectVersionNumber":1,"id":31,"isbn":null,
-			"season":"16CJ00","subCode":"36785","bookName":"高中新课标点金训练物理选修1-2(配教科)",
-			"bookCode":null,"planReleaseDate":"2016-07-19 00:00:00","finalDate":"2016-10-02 00:00:00",
-			"arriveDate":null,"press":"川教","pressCode":null,"remark":null,"receiverUserid":null,
-			"printeryCode":"1001","planMenge":132,"isDeleted":"0","printeryName":"印厂名称","inputCondition":null,
-			"arrivalStartDate":null,"arrivalDeadline":null,"regStartDate":null,"regDeadline":null},
-			]
-		});
+        query(this);
 	}
 
 
@@ -77,17 +51,23 @@ export default class Manuscript extends React.Component {
         });
 
     }
-
+    //返回按钮
+    comeback=()=>{
+        history.goBack();  //返回上一页这段代码
+    }
     render() {
         const manuscript = this.state.manuscript;
 
         const manuscriptList = <ManuscriptComponent manuscript={manuscript} />
         return (
             <div  >
-                <SearchBar
-                    placeholder="Search"
-                    onChange={this.onSearch}
-                />
+                <NavBar mode="light" icon={<Icon type="left" />} onLeftClick={this.comeback}>
+                    <SearchBar style={{width:"100%"}}
+                            placeholder="Search"
+                               showCancelButton={true}
+                            onChange={this.onSearch}/>
+                </NavBar>
+                <WhiteSpace size="sm" />
                 {manuscriptList}
             </div>
         );

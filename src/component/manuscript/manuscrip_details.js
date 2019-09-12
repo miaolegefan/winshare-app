@@ -1,7 +1,9 @@
 import React from 'react';
 import axios from 'axios';
-import { Flex, WhiteSpace,WingBlank } from 'antd-mobile';
+import { Flex, WhiteSpace,NavBar,Icon } from 'antd-mobile';
 import '../common.css';
+import creatHistory from 'history/createHashHistory'  //返回上一页这段代码
+const history = creatHistory();//返回上一页这段代码
 
 export default class ManuscriptDetails extends React.Component {
     constructor(props) {
@@ -10,11 +12,18 @@ export default class ManuscriptDetails extends React.Component {
             manuscriptItem: this.props.location.item
         };
     }
+    //返回按钮
+    comeback=()=>{
+        history.goBack();  //返回上一页这段代码
+    }
 
     render() {
         const manuscript = this.state.manuscriptItem;
         return (
 		 <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }}>
+             <NavBar mode="light" icon={<Icon type="left" />}
+                     onLeftClick={this.comeback}>
+             </NavBar>
 			<div style={{ display: 'flex', alignItems: 'right', height: '100%',justifyContent: 'right',backgroundColor: '#fff' }}>
 				<div className="datails text_center" >
 					<WhiteSpace  size="xl"/>

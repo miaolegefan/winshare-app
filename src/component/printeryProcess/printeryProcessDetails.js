@@ -1,16 +1,18 @@
 import React from 'react';
-import { Flex } from 'antd-mobile';
+import { Flex,NavBar,Icon } from 'antd-mobile';
 import {Link} from 'react-router-dom';
 import '../common.css';
 import './printeryProcess.css'
 import axios from "axios/index";
+import creatHistory from 'history/createHashHistory'  //返回上一页这段代码
+const history = creatHistory();//返回上一页这段代码
 
 //数据查询
 function query(_this,orderNo) {
     axios.post('/api/public/moblie-printeryProcess/query?userId='+sessionStorage.userId,{orderNo:orderNo}).then(function(response){
         if(response.data.success){
             _this.setState({
-                item : response.data.rows,
+                item : response.data.rows[0],
             });
         }
     })
@@ -29,14 +31,21 @@ export default class PrinteryProcessDetails extends React.Component {
         const orderNo = this.props.match.params.orderNo;
         query(this,orderNo);
     }
+    //返回按钮
+    comeback=()=>{
+        history.goBack();  //返回上一页这段代码
+    }
 
 	render(){
 		const item = this.state.item;
 
 		return(
 			<div>
+                <NavBar mode="light" icon={<Icon type="left" />}
+                        onLeftClick={this.comeback}>
+                </NavBar>
 				<section className="section" hidden={item.isOpen===undefined || item.isOpen==='0' }>
-                    <Link to={{pathname:'/printeryProcess/details/enclosure',time:item.openTime,remark:item.openRemark}}>
+                    <Link to={{pathname:'/printeryProcess/details/en/enclosure',time:item.openTime,remark:item.openRemark}}>
 						<Flex>
 							<div className="font15 colorBlack flex1">
 								开机

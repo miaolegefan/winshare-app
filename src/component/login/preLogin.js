@@ -8,7 +8,8 @@ export default class PreLogin extends React.Component {
 		super();
 		this.state = {
 			corpid : 'wwb67a7fe3bcd6865f',
-			corpsecret : '49Por68DiDY7VLbq72yi9MEevoIyyzPOYdp89bRBSLM',
+			// corpsecret : '49Por68DiDY7VLbq72yi9MEevoIyyzPOYdp89bRBSLM',
+            corpsecret : '_men4qHj6LqOHRNk625kVyZdQoWI-O1JkGPWsm8mOn0',
 			access_token :'',
 			code : '',
 			userId :'',
@@ -17,8 +18,8 @@ export default class PreLogin extends React.Component {
 	}
 	componentDidMount(){
 		//表示存在id
-		if (localStorage.userId && localStorage.userId!==''&&localStorage.userId!== 'undefined') {
-		    this.setState({userId:localStorage.userId});
+		if (sessionStorage.userId && sessionStorage.userId!==''&&sessionStorage.userId!== 'undefined') {
+		    this.setState({userId:sessionStorage.userId});
 		}else{
 			const _this=this;    //先存一下this，以防使用箭头函数this会指向我们不希望它所指向的对象。
 			var code = '';
@@ -45,27 +46,26 @@ export default class PreLogin extends React.Component {
 							  '&code=' + code).then(function(response){
 								  //用户信息返回的数据 是 UserId（第一个字母大写）
 								  var userId = response.data.UserId;
-								   localStorage.userId = userId;
-								   console.log(localStorage.userId);
+								   sessionStorage.userId = userId;
+								   console.log(sessionStorage.userId);
 								  _this.setState({
 									userId : userId
 								  }); 
-							  })
+							  });
 					}
 				})
 		}
 			 
 	}
-	
-	
+
+
 	render(){
 		 var userId = this.state.userId;
 		 
 		 console.log(userId!=='' && userId!== 'undefined');
-		 
 		 if(userId && userId!=='' && userId!== 'undefined'){
 		 /* return (<Redirect to={`/home`}></Redirect>) */
-		 return(<div >{userId} </div>)
+		 return(<div >{userId}</div>)
 		 }else{
 		return(<div >{userId} 企业微信登录中……</div>)
 		}

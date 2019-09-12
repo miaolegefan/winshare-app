@@ -4,9 +4,10 @@ import './preOrder.css'
 
 import '../common.css';
 import moment from 'moment'
-import { Flex, WhiteSpace,WingBlank,SearchBar,Button } from 'antd-mobile';
+import { Flex, WhiteSpace,WingBlank,SearchBar,NavBar, Icon} from 'antd-mobile';
 import axios from "axios";
-
+import creatHistory from 'history/createHashHistory'  //返回上一页这段代码
+const history = creatHistory();//返回上一页这段代码
 //数据查询
 function query(_this) {
 	axios.post('/api/public/moblie-preOrder/query?userId='+sessionStorage.userId,{}).then(function(response){
@@ -83,7 +84,10 @@ export default class PreOrder extends React.Component{
 
 	}
 
-
+	//返回按钮
+    comeback=()=>{
+        history.goBack();  //返回上一页这段代码
+    }
 
 	render(){
 		const preOrderList=this.state.preOrder.map((preOrderItem, index) => (
@@ -113,13 +117,13 @@ export default class PreOrder extends React.Component{
 
 		return(
 		<div>
-			<SearchBar
-				placeholder="Search"
-				onChange={this.onSearch}/>
-				{preOrderList }
-
-
-
+            <NavBar mode="light" icon={<Icon type="left" />} onLeftClick={this.comeback}>
+                <SearchBar style={{width:"100%"}}
+                           placeholder="Search"
+                           showCancelButton={true}
+                           onChange={this.onSearch}/>
+            </NavBar>
+			{preOrderList }
 		</div>
 		);
 	}

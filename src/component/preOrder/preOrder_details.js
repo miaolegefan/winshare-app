@@ -1,8 +1,10 @@
 import React from 'react'
-import {Tabs} from 'antd-mobile';
+import {Tabs,NavBar,Icon} from 'antd-mobile';
 import PreOrderDetailsHead from './preOrder_details_head'
 import PreOrderDetailsItem from './preOrder_details_item'
 import '../tabs.css'
+import creatHistory from 'history/createHashHistory'  //返回上一页这段代码
+const history = creatHistory();//返回上一页这段代码
 
 export default class PreOrderDetails extends React.Component {
   constructor(props) {
@@ -10,6 +12,10 @@ export default class PreOrderDetails extends React.Component {
     this.state = {
     };
   }
+	//返回按钮
+	comeback=()=>{
+		history.goBack();  //返回上一页这段代码
+	}
 
   render() {
 	let item = this.props.location.item;
@@ -21,6 +27,9 @@ export default class PreOrderDetails extends React.Component {
 	];
     return (
       <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }}>
+          <NavBar mode="light" icon={<Icon type="left" />}
+                  onLeftClick={this.comeback}>
+          </NavBar>
         <Tabs tabs={tabs2} initialPage={0} tabBarInactiveTextColor='#108ee9'>
 			<div style={{ display: 'flex', alignItems: 'right', justifyContent: 'right', height: '100%', backgroundColor: '#fff' }}>
 				<PreOrderDetailsHead item= {item} rolePermission={rolePermission}/>

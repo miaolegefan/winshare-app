@@ -1,9 +1,11 @@
 import React from 'react';
-import {Tabs,Button} from 'antd-mobile';
+import {Tabs,NavBar,Icon} from 'antd-mobile';
 import OrderDetailsHead from './order_details_head.js';
 import OrderDetailsCost from './order_details_cost.js';
 import OrderDetailsItem from './order_details_item.js';
 import '../tabs.css';
+import creatHistory from 'history/createHashHistory'  //返回上一页这段代码
+const history = creatHistory();//返回上一页这段代码
 
 export default class OrderDetails extends React.Component {
 	 constructor(props) {
@@ -12,6 +14,10 @@ export default class OrderDetails extends React.Component {
 			 
 		 };
 	 }
+    //返回按钮
+    comeback=()=>{
+        history.goBack();  //返回上一页这段代码
+    }
 	  render() {
 	 	
 		const item = this.props.location.item;
@@ -23,6 +29,9 @@ export default class OrderDetails extends React.Component {
 	 	];
 	     return (
 	       <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }}>
+               <NavBar mode="light" icon={<Icon type="left" />}
+                       onLeftClick={this.comeback}>
+               </NavBar>
 	         <Tabs tabs={tabs2} initialPage={0} tabBarInactiveTextColor='#108ee9'>
 	 			<div style={{ display: 'flex', alignItems: 'right', justifyContent: 'right',backgroundColor: '#fff' }}>
 	 				<OrderDetailsHead item={item}/>

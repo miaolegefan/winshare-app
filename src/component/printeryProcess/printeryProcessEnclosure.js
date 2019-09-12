@@ -1,8 +1,10 @@
 import React from 'react';
-import { Flex, ImagePicker,WingBlank,SearchBar } from 'antd-mobile';
+import { Flex, ImagePicker,NavBar,Icon } from 'antd-mobile';
 import '../common.css';
 import { Player } from 'video-react';
 import "./video-react.css";
+import creatHistory from 'history/createHashHistory'  //返回上一页这段代码
+const history = creatHistory();//返回上一页这段代码
 
 const data = [{
     url: 'https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg'
@@ -30,12 +32,22 @@ export default class PrinteryProcessEnclosure extends React.Component{
         //     }),
         // });
     };
+
+    //返回按钮
+    comeback=()=>{
+        history.goBack();  //返回上一页这段代码
+    }
+
     render() {
         const { files } = this.state;
         const time = this.props.location.time;
         const remark = this.props.location.remark;
         return (
             <div className="backgroundWhite line3" style={{height:"-webkit-fill-available"}}>
+                <NavBar mode="light" icon={<Icon type="left" />}
+                        onLeftClick={this.comeback}>
+                </NavBar>
+
                 <Flex className="margin-left">
                     <div className="colorBlack flex1">日期</div>
                     <div className="colorBlack flex3 text_left">{time}</div>
