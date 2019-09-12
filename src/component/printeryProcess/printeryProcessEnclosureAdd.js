@@ -1,23 +1,75 @@
 import React from 'react';
-import { Flex, ImagePicker,WingBlank,Button } from 'antd-mobile';
+import { Flex, ImagePicker,WingBlank,Button,Toast } from 'antd-mobile';
 import '../common.css';
 import { Player } from 'video-react';
 import "./video-react.css";
+import axios from "axios";
 
 function save(_this) {
 
+
+
+
 }
+
+
+function upload(image,type) {
+    let formData = new FormData();
+    const file = image[0].file;
+    formData.append("file", file);
+    axios({
+        method: 'post',
+        url: '/api/public/mobile-upload',
+        data: formData,
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+        .then(
+            res => {
+                console.log('上传成功！')
+            }
+        )
+        .catch(
+            err => {
+                Toast.info('该图片上传失败!!!', 1);
+            }
+        )
+}
+
+
+const data = [{
+    url: 'C:\\Users\\xingm\\Desktop\\winShare.jpg'
+}];
+
 export default class PrinteryProcessEnclosureAdd extends React.Component{
     state = {
         image: [],
     }
     onChange = (image, type, index) => {
         console.log(image, type, index);
+
         this.setState({
             image,
         });
+
+        upload(image,type);
     };
     render() {
+        //加载图片
+        // const listForImage = (imagesList) => {
+        //     let images = [];
+        //     for(let i = 0; i < imagesList.length; i++) {
+        //         let m  = {url : 'AUTH_URL' + 'images/' + imagesList[i].imageName,id : imagesList[i].id};
+        //         images.push( m );
+        //     }
+        //     return images;
+        // }
+        // const files =listForImage(this.state.imagesList);
+        //结束
+
+
+
         const { image } = this.state;
         const time = this.props.location.time;
         const remark = this.props.location.remark;
@@ -35,7 +87,8 @@ export default class PrinteryProcessEnclosureAdd extends React.Component{
                     onImageClick={(index, fs) => console.log(index, fs)}
                     selectable={image.length < 5}
                     multiple={true}
-                    capture={"camera"}
+                    // onAddImageClick={upload}
+                    // capture={"camera"}
                 />
                 <div className="margin-left">附件视频</div>
                 <Player ref="player" videoId="video-1" style={{hidden:true}}>

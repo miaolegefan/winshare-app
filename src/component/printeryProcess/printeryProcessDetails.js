@@ -11,9 +11,13 @@ const history = creatHistory();//返回上一页这段代码
 function query(_this,orderNo) {
     axios.post('/api/public/moblie-printeryProcess/query?userId='+sessionStorage.userId,{orderNo:orderNo}).then(function(response){
         if(response.data.success){
-            _this.setState({
-                item : response.data.rows[0],
-            });
+
+        	if(response.data.rows.length > 0){
+				_this.setState({
+					item : response.data.rows[0],
+				});
+			}
+
         }
     })
 
@@ -38,14 +42,15 @@ export default class PrinteryProcessDetails extends React.Component {
 
 	render(){
 		const item = this.state.item;
-
 		return(
 			<div>
+
                 <NavBar mode="light" icon={<Icon type="left" />}
                         onLeftClick={this.comeback}>
                 </NavBar>
 				<section className="section" hidden={item.isOpen===undefined || item.isOpen==='0' }>
                     <Link to={{pathname:'/printeryProcess/details/en/enclosure',time:item.openTime,remark:item.openRemark}}>
+
 						<Flex>
 							<div className="font15 colorBlack flex1">
 								开机
@@ -57,6 +62,7 @@ export default class PrinteryProcessDetails extends React.Component {
 						</Flex>
 					</Link>
 				</section>
+
 				<section className="section" hidden={item.isBind===undefined || item.isBind==='0' }>
 					<Flex>
 						<div className="font15 colorBlack flex1"> 

@@ -34,7 +34,6 @@ class App extends React.PureComponent{
             <Route exact path='/printeryProcess/details/en/enclosure' component={PrinteryProcessEnclosure}/>
 			<Route exact path='/order' component={Order}/>
 			<Route path='/order/details' component={OrderDetails}/>
-
 			<Route path='/address' component={Address}/>
         </Switch>
       </Router>
