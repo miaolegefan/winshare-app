@@ -21,6 +21,7 @@ class App extends React.PureComponent{
     return (
       <Router >
         <Switch>
+			<Route exact path='/add' component={PrinteryProcessEnclosureAdd}/>
 			<Route exact path='/' component={Home}/>
 			<Route path='/home' component={Home}/>
 			<Route path='/home2' component={Home2}/>

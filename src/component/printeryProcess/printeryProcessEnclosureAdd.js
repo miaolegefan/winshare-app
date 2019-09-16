@@ -5,6 +5,8 @@ import { Player } from 'video-react';
 import "./video-react.css";
 import axios from "axios";
 
+
+
 function save(_this) {
 
 
@@ -39,7 +41,7 @@ function upload(image,type) {
 
 
 const data = [{
-    url: 'C:\\Users\\xingm\\Desktop\\winShare.jpg'
+    url:'http://10.100.5.148/image/winShare.jpg'
 }];
 
 export default class PrinteryProcessEnclosureAdd extends React.Component{
