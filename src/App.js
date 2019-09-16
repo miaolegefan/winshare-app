@@ -15,7 +15,8 @@ import Order from './component/order/order';
 import OrderDetails from './component/order/order_details';
 import RoleChoose from './component/roleChoose/roleChoose';
 import Address from './component/address/address';
-
+import workFlow from  './component/workFlow/workFlow';
+import workFlowDetail from './component/workFlow/workFlowDetail';
 class App extends React.PureComponent{
   render(){
     return (
@@ -36,6 +37,8 @@ class App extends React.PureComponent{
 			<Route exact path='/order' component={Order}/>
 			<Route path='/order/details' component={OrderDetails}/>
 			<Route path='/address' component={Address}/>
+			<Route exact path='/workFlow' component={workFlow}/>
+			<Route exact path='/workFlow/details/:id' component={workFlowDetail}/>
         </Switch>
       </Router>
     )
