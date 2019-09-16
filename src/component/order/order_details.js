@@ -15,9 +15,9 @@ export default class OrderDetails extends React.Component {
 		 };
 	 }
     //返回按钮
-    comeback=()=>{
-        history.goBack();  //返回上一页这段代码
-    }
+	comeback=()=>{
+		history.goBack();  //返回上一页这段代码
+	}
 	  render() {
 	 	
 		const item = this.props.location.item;

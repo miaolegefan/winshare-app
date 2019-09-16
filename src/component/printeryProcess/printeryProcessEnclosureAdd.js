@@ -36,9 +36,11 @@ function save(_this) {
 }
 
 
-function upload(image,type) {
+function upload(before,image,type,index) {
+    const len = image.length;
+if(type == 'add'){
     let formData = new FormData();
-    const file = image[0].file;
+    const file = image[len - 1].file;
     formData.append("file", file);
     axios({
         method: 'post',
@@ -58,7 +60,22 @@ function upload(image,type) {
                 Toast.info('该图片上传失败!!!', 1);
             }
         )
+}else if(type == 'remove'){
+
+
+
+
 }
+
+}
+
+
+
+
+
+
+
+
 
 
 const data = [{
@@ -77,13 +94,13 @@ export default class PrinteryProcessEnclosureAdd extends React.Component{
     }
     onChange = (image, type, index) => {
         console.log(image, type, index);
-
+        const before = this.state.image;
         this.setState({
             image,
 
         });
 
-        upload(image,type);
+        upload(before,image,type,index);
     };
     handleUpload = (e) => {
         e.preventDefault();
@@ -98,18 +115,6 @@ export default class PrinteryProcessEnclosureAdd extends React.Component{
     };
 
     render() {
-        //加载图片
-        // const listForImage = (imagesList) => {
-        //     let images = [];
-        //     for(let i = 0; i < imagesList.length; i++) {
-        //         let m  = {url : 'AUTH_URL' + 'images/' + imagesList[i].imageName,id : imagesList[i].id};
-        //         images.push( m );
-        //     }
-        //     return images;
-        // }
-        // const files =listForImage(this.state.imagesList);
-        //结束
-
 
 
         const { image,time } = this.state;
@@ -127,7 +132,7 @@ export default class PrinteryProcessEnclosureAdd extends React.Component{
                     onImageClick={(index, fs) => console.log(index, fs)}
                     selectable={image.length < 5}
                     multiple={true}
-                    // onAddImageClick={upload}
+                    onAddImageClick={upload}
                     // capture={"camera"}
                 />
                 <div className="margin-left">附件视频</div>
