@@ -1,10 +1,24 @@
 import React from 'react';
-import {Button, List, Radio, WingBlank, WhiteSpace, Modal, ActivityIndicator, Toast, Flex} from 'antd-mobile';
+import {
+    Button,
+    List,
+    Radio,
+    WingBlank,
+    WhiteSpace,
+    Modal,
+    ActivityIndicator,
+    Toast,
+    Flex,
+    NavBar,
+    Icon, SearchBar
+} from 'antd-mobile';
 import axios from "axios";
 import {Link} from "react-router-dom";
 import moment from 'moment'
 
-
+function search(arr, q) {
+    return arr.filter(v => Object.values(v).some(v => new RegExp(q + '').test(v)));
+}
 
 function getMyTasks(_this) {
 
@@ -12,7 +26,8 @@ function getMyTasks(_this) {
         if(response.status == '200'){
           _this.setState(
               {
-                  myTask: response.data.data
+                  myTask: response.data.data,
+                  search:response.data.data
               }
           )
         }else{
@@ -29,7 +44,8 @@ export default class workFlow extends React.Component{
     constructor(props) {
         super(props);
         this.state={
-            myTask:[]
+            myTask:[],
+            search:[]
         }
     }
     
@@ -39,7 +55,13 @@ export default class workFlow extends React.Component{
 
     }
 
-
+    //查询事件
+    onSearch = (val) => {
+        const value = search(this.state.search,val);
+        this.setState({
+            order: value
+        });
+    }
     render() {
         const myTaskList = this.state.myTask.map((item,index) => (
 
@@ -93,6 +115,12 @@ export default class workFlow extends React.Component{
 
         return(
             <div>
+                <NavBar mode="light" icon={<Icon type="left" />} onLeftClick={this.comeback}>
+                    <SearchBar style={{width:"100%"}}
+                               placeholder="Search"
+                               showCancelButton={true}
+                               onChange={this.onSearch}/>
+                </NavBar>
                 {myTaskList}
             </div>
         );

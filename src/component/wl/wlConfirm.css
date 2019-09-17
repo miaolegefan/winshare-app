@@ -1,0 +1,26 @@
+.datails{
+    width: 100%;
+    line-height:3;
+    margin-left: 0.20px;
+    margin-right: 0.20px;
+    color: #787878;
+    background: white;
+}
+
+
+element.style {
+    font-size: 100px;
+    background: white;
+}
+
+body {
+     background-color: white;
+    font-size: 0.28rem;
+    /*text-align: center; !* 页面元素居中 *!*/
+
+}
+
+.txtcss1 {
+    text-align: left;
+}
+

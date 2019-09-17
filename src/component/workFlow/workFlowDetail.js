@@ -8,7 +8,7 @@ import {
 } from 'antd-mobile';
 import axios from "axios";
 import '../tabs.css';
-import History from './workFlowHistory';
+import WflHistory from './workFlowHistory';
 import WflForm from './workFlowForm';
 import {createHashHistory} from 'history'  //返回上一页这段代码
 const history = createHashHistory();//返回上一页这段代码
@@ -44,9 +44,6 @@ function getMessage(_this,processId) {
     })
 }
 
-
-
-
 export default class workFlowDetail extends React.Component{
 
     constructor(props) {
@@ -79,6 +76,7 @@ export default class workFlowDetail extends React.Component{
         ];
         const historyData = this.state.history;
         const message = this.state.message;
+        const taskId = this.props.match.params.id;
         return(
             <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }}>
                 <NavBar mode="light" icon={<Icon type="left" />}
@@ -86,10 +84,10 @@ export default class workFlowDetail extends React.Component{
                 </NavBar>
                 <Tabs tabs={tabs2} initialPage={0} tabBarInactiveTextColor='#108ee9'>
                     <div style={{ display: 'flex', alignItems: 'right', justifyContent: 'right',backgroundColor: '#fff' }}>
-                        <WflForm  message={message}/>
+                        <WflForm  message={message} taskId={taskId}/>
                     </div>
                     <div style={{  alignItems: 'right', justifyContent: 'right', height: '100%', backgroundColor: '#fff' }}>
-                        <History  history={historyData} />
+                        <WflHistory  history={historyData} />
                     </div>
                 </Tabs>
             </div>
