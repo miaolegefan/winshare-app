@@ -1,9 +1,11 @@
 import React from 'react';
-import {Button, List, Radio, WingBlank, WhiteSpace, Modal, Picker, Toast, Flex} from 'antd-mobile';
+import {Button, List, Radio, WingBlank, WhiteSpace, Modal, Picker, Toast, Flex, NavBar, Icon} from 'antd-mobile';
 import axios from "axios";
 import {Link} from "react-router-dom";
 import moment from 'moment'
 import Select from 'antd/lib/select';
+import {createHashHistory} from 'history'  //返回上一页这段代码
+const history = createHashHistory();//返回上一页这段代码
 
 
 
@@ -36,6 +38,11 @@ constructor(props){
 componentDidMount() {
         query(this,'')
 }
+
+    //返回按钮
+    comeback=()=>{
+        history.goBack();  //返回上一页这段代码
+    }
 
     onChange = (value) => {
         this.setState({
@@ -97,31 +104,32 @@ render() {
 
     const languages = [
         {
-            value: '中国',
-            label: '中国',
-            language: undefined,
+            value: '未处理',
+            label: '未处理',
         },
         {
-            value: 'English',
-            label: 'English',
-            language: '',
+            value: '已拒绝',
+            label: '已拒绝',
         },
         {
-            value: 'Русский',
-            label: 'Русский',
-            language: '',
+            value: '已同意',
+            label: '已同意',
         },
     ];
     return(
         <div>
-            <Picker
-                data={languages}
-                onChange={this.onChange}
-                cols={1}
-                value={[locale]}
-            >
-                <List.Item arrow="horizontal">Choose language</List.Item>
-            </Picker>
+            <NavBar mode="light" icon={<Icon type="left" />} onLeftClick={this.comeback}>
+                <Picker
+                    data={languages}
+                    onChange={this.onChange}
+                    cols={1}
+                    value={[locale]}
+                    style={{width:"100%"}}
+                >
+                    <List.Item style={{width:"100%"}} arrow="horizontal">处理状态</List.Item>
+                </Picker>
+            </NavBar>
+
             {list}
 
         </div>
