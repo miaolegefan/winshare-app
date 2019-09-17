@@ -1,11 +1,12 @@
 import React from 'react';
-import { Flex, ImagePicker,WingBlank,Button,Toast } from 'antd-mobile';
+import { Flex, ImagePicker,WingBlank,Button,Toast,NavBar,Icon} from 'antd-mobile';
 import '../common.css';
 import { Player } from 'video-react';
 import "./video-react.css";
 import axios from "axios";
 import moment from 'moment'
-
+import {createHashHistory} from 'history'  //返回上一页这段代码
+const history = createHashHistory();//返回上一页这段代码
 
 function save(_this) {
 
@@ -114,6 +115,11 @@ export default class PrinteryProcessEnclosureAdd extends React.Component{
         }
     };
 
+    //返回按钮
+    comeback=()=>{
+        history.goBack();  //返回上一页这段代码
+    }
+
     render() {
 
 
@@ -121,6 +127,9 @@ export default class PrinteryProcessEnclosureAdd extends React.Component{
         const _this = this;
         return (
             <div className="backgroundWhite line3" style={{height:"-webkit-fill-available"}}>
+                <NavBar mode="light" icon={<Icon type="left" />}
+                        onLeftClick={this.comeback}>
+                </NavBar>
                 <Flex className="margin-left">
                     <div className="colorBlack flex1">日期</div>
                     <div className="colorBlack flex3 text_left">{moment(time).format('YYYY-MM-DD')}</div>
@@ -141,7 +150,7 @@ export default class PrinteryProcessEnclosureAdd extends React.Component{
                 <div style={{border: "thin #E8E8E8 solid",height: "200px",marginLeft: "0.16rem",marginRight: "0.16rem"}}>
                     {this.state.remark}
                 </div>
-                <div style={{position: 'absolute', bottom: 0,width:'100%'}}>
+                <div style={{position: 'absolute', bottom: '10px',width:'100%'}}>
                     <WingBlank size="md">
                         <Button  type="ghost" onClick={()=>save(_this)}   style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">保存</Button>
                     </WingBlank>
