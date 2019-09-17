@@ -1,58 +1,68 @@
 import React from 'react';
-import { Flex,WingBlank, Button,List,TextareaItem,InputItem} from 'antd-mobile';
+import { Flex,WingBlank, Button,List,TextareaItem,InputItem,Toast,Modal,Icon} from 'antd-mobile';
 import axios from "axios";
 import '../wl/wlConfirm.css';
 import moment from 'moment'
 
 
-function mobileApproce(item) {
+function mobileApproce(item,_this) {
 
-
-
-
-    axios.post('/api/public/mobile/wl/receive/appoint/approve?userId=10021',{}).then(function(response){
-        if(response.data.success){
-
-        }
-    })
-
-
-
-
-
-}
-
-
-function mobileReject(item) {
-
-
-
-    axios.post('/api/public/moblie-preOrder/query?userId=10021',{}).then(function(response){
-        if(response.data.success){
-
-        }
-    })
-
-
-
-
+    if(item.receiveMenge>item.appointMenge){
+        Toast.info('收货数不能大于预约数 !!!', 2);
+    }else{
+        const data =  {"orderNo":item.orderNo,"id":item.id,"dealStatus":"确认","receiveMenge":item.receiveMenge,"appointMenge":item.appointMenge,"objectVersionNumber":item.objectVersionNumber};
+        axios.post('/api/public/mobile/wl/receive/appoint/approve?userId=10021',data).then(function(response){
+            if(response.data.success){
+                Toast.info('收货成功', 2);
+                _this.setState({
+                    approveHidden:true,
+                    rejectHidden:false
+                })
+            }else{
+                Toast.info('收货失败'+response.data.message, 2);
+            }
+        })
+    }
 
 }
 
 
+function mobileReject(item,_this,reason) {
+    reason = document.getElementById("reason").value;
+    const data =  {"orderNo":item.orderNo,"id":item.id,"dealStatus":"拒绝","receiveMenge":"0","remark":reason,"appointMenge":item.appointMenge,"objectVersionNumber":item.objectVersionNumber};
+    axios.post('/api/public/mobile/wl/receive/appoint/reject?userId=10021',data).then(function(response){
+        if(response.data.success){
+            Toast.info('拒绝成功', 2);
+            _this.setState({
+                approveHidden:false,
+                rejectHidden:true
+            })
+        }else{
+            Toast.info('拒绝失败'+response.data.message, 2);
+        }
+    })
+
+}
 
 
+
+function test(value) {
+    console.log(`输入的内容:${value}`);
+}
 
 export default class wlConfirmDetail extends React.Component{
     constructor(props){
         super(props)
         this.state={
             approveHidden:false,
-            rejectHidden:false
+            rejectHidden:false,
+            textAreaHidden:false,
+            orderDelivery:[],
+            modal1: false,
         }
     }
 
-
+    //预约数量控制
     onReceiveMenge=(receiveMenge,appointMenge)=>{
 
         if(receiveMenge == null){
@@ -64,6 +74,11 @@ export default class wlConfirmDetail extends React.Component{
 
     componentDidMount() {
         const data=this.props.location.detail;
+
+        this.setState({
+            orderDelivery:data
+        })
+        //按钮隐藏控制
         const value = data.dealStatus;
         if(value == null){
             this.setState({
@@ -85,11 +100,26 @@ export default class wlConfirmDetail extends React.Component{
     }
 
 
+    showModal = key => (e) => {
+        e.preventDefault(); // 修复 Android 上点击穿透
+        this.setState({
+            [key]: true,
+        });
+    }
+    onClose = key => () => {
+        this.setState({
+            [key]: false,
+        });
+    }
+
+
+
     render() {
-        const detail= this.props.location.detail;
+        const detail= this.state.orderDelivery;
+        const _this = this;
         return(
             <WingBlank size="sm">
-            <div className="datails">
+            <div className="datails" style={{'marginBottom': '100px'}}>
                 <Flex>
                     <div className="text_left flex1">预约日期:</div>
                     <div className="text_right flex1 colorBlack">{moment(detail.appointDate).format('YYYY-MM-DD')}</div>
@@ -138,25 +168,48 @@ export default class wlConfirmDetail extends React.Component{
                         editable={false}
                         rows={3}
                         style={{ color:'black' ,backgroundColor:'rgb(204, 191, 191)',borderColor: 'rgb(169, 169, 169)'}}
-                        value="测试"
+                        value={detail.printeryRemark}
                     />
-
-
                 <InputItem
                     type="money"
                     clear
                     style={{borderColor: '#404040'}}
                     value={this.onReceiveMenge(detail.receiveMenge,detail.appointMenge)}
                 >物流收货数量</InputItem>
+
             </div>
 
-                <div style={{position: 'absolute', bottom: 0, left: 0, right: 0 }}>
+
+                <div id="footer">
                     <div hidden={this.state.approveHidden}>
-                    <WingBlank size="md"><Button  type="ghost"  style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">同意</Button></WingBlank>
+                    <WingBlank size="md"><Button  type="ghost" onClick={()=>mobileApproce(detail,_this)} style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">同意</Button></WingBlank>
                     </div>
-                    <div hidden={this.state.rejectHidden}>
-                    <WingBlank size="md"><Button  type="ghost"  style={{color: 'red', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} size="small">拒绝</Button></WingBlank>
+                    <div hidden={this.state.rejectHidden} >
+                        <WingBlank size="md"><Button  type="ghost"  onClick={this.showModal('modal1')}    style={{color: 'red', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} size="small">拒绝</Button></WingBlank>
                     </div>
+
+
+                    <Modal
+                        visible={this.state.modal1}
+                        transparent
+                        maskClosable={false}
+                        onClose={this.onClose('modal1')}
+                        title="Title"
+                        footer={[{ text: '取消', onPress: () => { console.log('cancel'); this.onClose('modal1')(); } },
+                            { text: '确认', onPress: () => {mobileReject(detail,_this,''); this.onClose('modal1')(); } }
+                        ]}
+                        // afterClose={() => { alert('afterClose'); }}
+                    >
+                        <div style={{ height: 100, overflow: 'scroll' }}>
+                            <TextareaItem
+                                id="reason"
+                                rows={3}
+                                style={{ color:'black' ,backgroundColor:'#f7f7f7',borderColor: 'rgb(169, 169, 169)'}}
+                            />
+                        </div>
+                    </Modal>
+
+
                 </div>
             </WingBlank>
         );
