@@ -3,8 +3,9 @@ import { Flex, ImagePicker,NavBar,Icon } from 'antd-mobile';
 import '../common.css';
 import { Player } from 'video-react';
 import "./video-react.css";
-import creatHistory from 'history/createHashHistory'  //返回上一页这段代码
-const history = creatHistory();//返回上一页这段代码
+import {createHashHistory} from 'history'  //返回上一页这段代码
+const history = createHashHistory();//返回上一页这段代码
+
 
 const data = [{
     url: 'https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg'

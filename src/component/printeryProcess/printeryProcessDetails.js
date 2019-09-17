@@ -4,8 +4,9 @@ import {Link} from 'react-router-dom';
 import '../common.css';
 import './printeryProcess.css'
 import axios from "axios/index";
-import creatHistory from 'history/createHashHistory'  //返回上一页这段代码
-const history = creatHistory();//返回上一页这段代码
+import {createHashHistory} from 'history'  //返回上一页这段代码
+const history = createHashHistory();//返回上一页这段代码
+
 
 //数据查询
 function query(_this,orderNo) {

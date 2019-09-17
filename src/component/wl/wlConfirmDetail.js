@@ -1,8 +1,8 @@
 import React from 'react';
-import {Button, List, Radio, WingBlank, WhiteSpace, Modal, ActivityIndicator, Toast, Flex} from 'antd-mobile';
+import { Flex,WingBlank, WhiteSpace,List,TextareaItem,InputItem} from 'antd-mobile';
 import axios from "axios";
-
-
+import '../wl/wlConfirm.css';
+import moment from 'moment'
 
 
 
@@ -20,12 +20,13 @@ export default class wlConfirmDetail extends React.Component{
 
 
     render() {
-        const detail= this.state.detail;
+        const detail= this.props.location.detail;
         return(
+            <WingBlank size="sm">
             <div className="datails">
                 <Flex>
                     <div className="text_left flex1">预约日期:</div>
-                    <div className="text_right flex1 colorBlack">{detail.appointDate}</div>
+                    <div className="text_right flex1 colorBlack">{moment(detail.appointDate).format('YYYY-MM-DD')}</div>
                 </Flex>
                 <Flex>
                     <div className="text_left flex1">预约时段:</div>
@@ -65,10 +66,23 @@ export default class wlConfirmDetail extends React.Component{
                 </Flex>
                 <Flex>
                     <div className="text_left flex1">备注:</div>
-
                 </Flex>
+                    <TextareaItem
+                        disabled={true}
+                        editable={false}
+                        rows={3}
+                        style={{ color:'black' ,backgroundColor:'rgb(204, 191, 191)',borderColor: 'rgb(169, 169, 169)'}}
+                        value="测试"
+                    />
 
+
+                <InputItem
+                    type="money"
+                    clear
+                    style={{borderColor: '#404040'}}
+                >物流收货数量</InputItem>
             </div>
+            </WingBlank>
         );
     }
 

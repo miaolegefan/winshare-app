@@ -8,8 +8,8 @@ import {createHashHistory} from 'history'  //返回上一页这段代码
 const history = createHashHistory();//返回上一页这段代码
 
 
-
-function query(_this,dealStatus) {
+//查询
+function query(_this) {
     axios.post('/api/public/wl/receive/appoint/query?userId=10021',{}).then(function(response){
         if(response.data.success){
             _this.setState({
@@ -22,7 +22,27 @@ function query(_this,dealStatus) {
 }
 
 
-const { Option } = Select;
+//状态查询
+function search(arr, q) {
+
+    if(q =='未处理'){
+        arr =   arr.filter(function (v) {
+            return  v.dealStatus == null;
+        })
+    }else if(q == '已同意'){
+        arr =  arr.filter(function (v) {
+            return  v.dealStatus == '确认';
+        })
+    }else if(q =='已拒绝'){
+        arr =  arr.filter(function (v) {
+            return  v.dealStatus == '拒绝';
+        })
+    }
+    return arr;
+}
+
+
+
 export default class wlConfirm extends React.Component{
 
 constructor(props){
@@ -30,7 +50,7 @@ constructor(props){
     this.state={
         orderDelivery:[],
         search:[],
-        locale: 'English',
+        locale: '全部 ',
     }
 }
 
@@ -44,10 +64,30 @@ componentDidMount() {
         history.goBack();  //返回上一页这段代码
     }
 
+
+    //筛选
+    onSearch = (val) => {
+        const value = search(this.state.search,val);
+        this.setState({
+            orderDelivery: value
+        });
+    }
+
     onChange = (value) => {
         this.setState({
             locale: value[0],
         });
+    }
+    onColor = (value)=>{
+        let a ='';
+        if(value == null){
+            a = <span style={{color:'#108ee9'}}>未处理</span>;
+        }else if(value == '确认'){
+            a = <span style={{color:'#00ff00'}}>已同意</span>;
+        }else if(value == '拒绝'){
+            a = <span style={{color:'red'}}>已拒绝</span>;
+        }
+    return a;
     }
 
 render() {
@@ -57,7 +97,7 @@ render() {
             <section className="section">
                 <Flex>
                     <div className="font07 text_left flex1">{moment(item.appointDate).format('YYYY-MM-DD')}{item.appointPeriod}</div>
-                    <div className="font07 text_right flex1" >{item.dealStatus}</div>
+                    <div className="font07 text_right flex1" >{this.onColor(item.dealStatus)}</div>
                 </Flex>
                 <Flex>
                     <div className="text_left flex3 colorBlack"><strong>{item.bookName}</strong></div>
@@ -102,7 +142,7 @@ render() {
         </Link>
     ));
 
-    const languages = [
+    const choose = [
         {
             value: '未处理',
             label: '未处理',
@@ -120,7 +160,7 @@ render() {
         <div>
             <NavBar mode="light" icon={<Icon type="left" />} onLeftClick={this.comeback}>
                 <Picker
-                    data={languages}
+                    data={choose}
                     onChange={this.onChange}
                     cols={1}
                     value={[locale]}

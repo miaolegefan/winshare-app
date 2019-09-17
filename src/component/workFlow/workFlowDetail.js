@@ -8,9 +8,11 @@ import {
 } from 'antd-mobile';
 import axios from "axios";
 import '../tabs.css';
-import History from './workFlowHistory';
+import WflHistory from './workFlowHistory';
 import WflForm from './workFlowForm';
-import creatHistory from 'history/createHashHistory'  //返回上一页这段代码
+import {createHashHistory} from 'history'  //返回上一页这段代码
+const history = createHashHistory();//返回上一页这段代码
+
 //获取历史记录
 function getDetail(_this,id) {
     axios.post('/api/public/workFlow/runtime/tasks/'+id+'/details?userId=10021',{}).then(function(response){
@@ -44,7 +46,6 @@ function getMessage(_this,processId) {
 
 
 
-const history = creatHistory();//返回上一页这段代码
 export default class workFlowDetail extends React.Component{
 
     constructor(props) {
@@ -88,7 +89,7 @@ export default class workFlowDetail extends React.Component{
                         <WflForm  message={message} taskId={taskId}/>
                     </div>
                     <div style={{  alignItems: 'right', justifyContent: 'right', height: '100%', backgroundColor: '#fff' }}>
-                        <History  history={historyData} />
+                        <WflHistory  history={historyData} />
                     </div>
                 </Tabs>
             </div>
