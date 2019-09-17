@@ -7,7 +7,7 @@ import creatHistory from 'history/createHashHistory'  //返回上一页这段代
 const history = creatHistory();//返回上一页这段代码
 
 function query(_this,inputCondition) {
-    axios.post('/api/public/moblie-manuscript/query?userId='+localStorage.userId,{'inputCondition':inputCondition}).then(function(response){
+    axios.post('/api/public/moblie-manuscript/query?userId='+sessionStorage.userId,{'inputCondition':inputCondition}).then(function(response){
         if(response.data.success){
             _this.setState({
                 manuscript : response.data.rows,
