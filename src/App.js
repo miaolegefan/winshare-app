@@ -20,6 +20,7 @@ import workFlow from  './component/workFlow/workFlow';
 import workFlowDetail from './component/workFlow/workFlowDetail';
 import wlConfirm from './component/wl/wlConfirm';
 import wlConfirmDetail from './component/wl/wlConfirmDetail';
+import BasicInputExample from './component/wl/InputItem'
 
 class App extends React.PureComponent{
   render(){
@@ -27,7 +28,7 @@ class App extends React.PureComponent{
       <Router >
         <Switch>
 			<Route exact path='/add' component={PrinteryProcessEnclosureAdd}/>
-			<Route exact path='/' component={Home}/>
+			<Route exact path='/' component={wlConfirm}/>
 			<Route path='/home' component={Home}/>
 			<Route path='/home2' component={Home2}/>
 			<Route exact path='/manuscript' component={Manuscript}/> 
