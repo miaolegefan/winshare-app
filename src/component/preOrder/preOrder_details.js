@@ -6,7 +6,6 @@ import '../tabs.css'
 import {createHashHistory} from 'history'  //返回上一页这段代码
 const history = createHashHistory();//返回上一页这段代码
 
-
 export default class PreOrderDetails extends React.Component {
   constructor(props) {
     super(props);

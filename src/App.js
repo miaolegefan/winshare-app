@@ -5,6 +5,7 @@ import Home2 from './component/home2';
 import Manuscript from './component/manuscript/manuscript';
 import ManuscriptDetails from './component/manuscript/manuscrip_details';
 import PreLogin from './component/login/preLogin';
+import GetWechatUser from './component/login/getWechatUser';
 import PreOrder from './component/preOrder/preOrder';
 import PreOrderDetails from './component/preOrder/preOrder_details';
 import PrinteryProcess from './component/printeryProcess/printeryProcess'
@@ -19,6 +20,7 @@ import workFlow from  './component/workFlow/workFlow';
 import workFlowDetail from './component/workFlow/workFlowDetail';
 import wlConfirm from './component/wl/wlConfirm';
 import wlConfirmDetail from './component/wl/wlConfirmDetail';
+
 class App extends React.PureComponent{
   render(){
     return (

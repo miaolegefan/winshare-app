@@ -5,7 +5,6 @@ import '../common.css';
 import {createHashHistory} from 'history'  //返回上一页这段代码
 const history = createHashHistory();//返回上一页这段代码
 
-
 export default class ManuscriptDetails extends React.Component {
     constructor(props) {
         super(props);

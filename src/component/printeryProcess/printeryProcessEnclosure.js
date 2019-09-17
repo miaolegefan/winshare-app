@@ -6,7 +6,6 @@ import "./video-react.css";
 import {createHashHistory} from 'history'  //返回上一页这段代码
 const history = createHashHistory();//返回上一页这段代码
 
-
 const data = [{
     url: 'https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg'
 }, {

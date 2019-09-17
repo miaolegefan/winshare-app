@@ -44,8 +44,6 @@ function getMessage(_this,processId) {
     })
 }
 
-
-
 export default class workFlowDetail extends React.Component{
 
     constructor(props) {

@@ -7,7 +7,6 @@ import axios from "axios";
 import {createHashHistory} from 'history'  //返回上一页这段代码
 const history = createHashHistory();//返回上一页这段代码
 
-
 //数据查询
 function query(_this) {
 	axios.post('/api/public/moblie-printeryProcess/query?userId=10021',{}).then(function(response){
