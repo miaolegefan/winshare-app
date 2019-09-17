@@ -163,34 +163,18 @@ export default class wlConfirmDetail extends React.Component{
                 <Flex>
                     <div className="text_left flex1">备注:</div>
                 </Flex>
-<<<<<<< HEAD
                 <Flex>
                     <div className="margin-left margin-right colorBlack" style={{ border:'thin #E8E8E8 solid'}}>
                         {detail.remark}
                     </div>
                 </Flex>
 
-=======
-                    <TextareaItem
-                        disabled={true}
-                        editable={false}
-                        rows={3}
-                        style={{ color:'black' ,backgroundColor:'rgb(204, 191, 191)',borderColor: 'rgb(169, 169, 169)'}}
-                        value={detail.printeryRemark}
-                    />
->>>>>>> master
                 <InputItem
                     type="digit"
                     clear
                     style={{borderColor: '#404040'}}
-<<<<<<< HEAD
-                    defaultValue={this.onReceiveMenge(detail.receiveMenge,detail.appointMenge)}
-                ><div className="text_left flex1">物流收货数量:</div></InputItem>
-=======
-                    value={this.onReceiveMenge(detail.receiveMenge,detail.appointMenge)}
+                defaultValue={this.onReceiveMenge(detail.receiveMenge,detail.appointMenge)}
                 >物流收货数量</InputItem>
-
->>>>>>> master
             </div>
 
 
