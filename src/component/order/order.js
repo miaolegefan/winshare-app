@@ -4,8 +4,8 @@ import { Flex, WhiteSpace,WingBlank,SearchBar,NavBar, Icon } from 'antd-mobile';
 import {Link} from 'react-router-dom';
 import moment from 'moment'
 import axios from "axios";
-import creatHistory from 'history/createHashHistory'  //返回上一页这段代码
-const history = creatHistory();//返回上一页这段代码
+import {createHashHistory} from 'history'  //返回上一页这段代码
+const history = createHashHistory();//返回上一页这段代码
 
 function query(_this) {//数据查询
 	axios.post('/api/public/moblie-order/query?userId='+sessionStorage.userId,{}).then(function(response){

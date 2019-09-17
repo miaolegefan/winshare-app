@@ -3,8 +3,8 @@ import ManuscriptComponent from './manuscript_component'
 import axios from 'axios';
 import {Button, SearchBar,NavBar, Icon,WhiteSpace } from 'antd-mobile';
 import '../tabs.css';
-import creatHistory from 'history/createHashHistory'  //返回上一页这段代码
-const history = creatHistory();//返回上一页这段代码
+import {createHashHistory} from 'history'  //返回上一页这段代码
+const history = createHashHistory();//返回上一页这段代码
 
 function query(_this,inputCondition) {
     axios.post('/api/public/moblie-manuscript/query?userId='+sessionStorage.userId,{'inputCondition':inputCondition}).then(function(response){

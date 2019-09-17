@@ -4,8 +4,8 @@ import '../common.css';
 import {Link} from 'react-router-dom';
 import moment from 'moment'
 import axios from "axios";
-import creatHistory from 'history/createHashHistory'  //返回上一页这段代码
-const history = creatHistory();//返回上一页这段代码
+import {createHashHistory} from 'history'  //返回上一页这段代码
+const history = createHashHistory();//返回上一页这段代码
 
 //数据查询
 function query(_this) {

@@ -4,8 +4,8 @@ import OrderDetailsHead from './order_details_head.js';
 import OrderDetailsCost from './order_details_cost.js';
 import OrderDetailsItem from './order_details_item.js';
 import '../tabs.css';
-import creatHistory from 'history/createHashHistory'  //返回上一页这段代码
-const history = creatHistory();//返回上一页这段代码
+import {createHashHistory} from 'history'  //返回上一页这段代码
+const history = createHashHistory();//返回上一页这段代码
 
 export default class OrderDetails extends React.Component {
 	 constructor(props) {

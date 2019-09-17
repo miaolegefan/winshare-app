@@ -2,8 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import { Flex, WhiteSpace,NavBar,Icon } from 'antd-mobile';
 import '../common.css';
-import creatHistory from 'history/createHashHistory'  //返回上一页这段代码
-const history = creatHistory();//返回上一页这段代码
+import {createHashHistory} from 'history'  //返回上一页这段代码
+const history = createHashHistory();//返回上一页这段代码
 
 export default class ManuscriptDetails extends React.Component {
     constructor(props) {

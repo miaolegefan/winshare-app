@@ -6,8 +6,8 @@ import '../common.css';
 import moment from 'moment'
 import { Flex, WhiteSpace,WingBlank,SearchBar,NavBar, Icon} from 'antd-mobile';
 import axios from "axios";
-import creatHistory from 'history/createHashHistory'  //返回上一页这段代码
-const history = creatHistory();//返回上一页这段代码
+import {createHashHistory} from 'history'  //返回上一页这段代码
+const history = createHashHistory();//返回上一页这段代码
 //数据查询
 function query(_this) {
 	axios.post('/api/public/moblie-preOrder/query?userId='+sessionStorage.userId,{}).then(function(response){
