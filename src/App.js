@@ -18,6 +18,8 @@ import RoleChoose from './component/roleChoose/roleChoose';
 import Address from './component/address/address';
 import workFlow from  './component/workFlow/workFlow';
 import workFlowDetail from './component/workFlow/workFlowDetail';
+import wlConfirm from './component/wl/wlConfirm';
+import wlConfirmDetail from './component/wl/wlConfirmDetail';
 
 class App extends React.PureComponent{
   render(){
@@ -41,6 +43,8 @@ class App extends React.PureComponent{
 			<Route path='/address' component={Address}/>
 			<Route exact path='/workFlow' component={workFlow}/>
 			<Route exact path='/workFlow/details/:id' component={workFlowDetail}/>
+            <Route exact path='/wlConfirm' component={wlConfirm}/>
+            <Route exact path='/wlConfirm/detail' component={wlConfirmDetail}/>
         </Switch>
       </Router>
     )

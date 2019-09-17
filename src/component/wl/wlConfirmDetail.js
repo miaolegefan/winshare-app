@@ -26,46 +26,49 @@ export default class wlConfirmDetail extends React.Component{
             <div className="datails">
                 <Flex>
                     <div className="text_left flex1">预约日期:</div>
-                    <div className="text_right flex1 colorBlack">{moment(detail.appointDate).format('YYYY-MM-DD')}</div>
+                    <div className="text_left flex1 colorBlack">{moment(detail.appointDate).format('YYYY-MM-DD')}</div>
                 </Flex>
                 <Flex>
                     <div className="text_left flex1">预约时段:</div>
-                    <div className="text_right flex1 colorBlack">{detail.appointPeriod}</div>
+                    <div className="text_left flex1 colorBlack">{detail.appointPeriod}</div>
                 </Flex>
                 <Flex>
                     <div className="text_left flex1">送货方:</div>
-                    <div className="text_right flex1 colorBlack">{detail.sender}</div>
+                    <div className="text_left flex1 colorBlack">{detail.sender}</div>
                 </Flex>
                 <Flex>
                     <div className="text_left flex1">书名:</div>
-                    <div className="text_right flex1 colorBlack">{detail.bookName}</div>
+                    <div className="text_left flex1 colorBlack">{detail.bookName}</div>
                 </Flex>
                 <Flex>
                     <div className="text_left flex1">商品编码:</div>
-                    <div className="text_right flex2 colorBlack">{detail.bookCode}</div>
+                    <div className="text_left flex1 colorBlack">{detail.bookCode}</div>
                 </Flex>
                 <Flex>
                     <div className="text_left flex1">预约数量:</div>
-                    <div className="text_right flex1 colorBlack">{detail.appointMenge}</div>
+                    <div className="text_left flex1 colorBlack">{detail.appointMenge}</div>
                 </Flex>
                 <Flex>
                     <div className="text_left flex1">册包数:</div>
-                    <div className="text_right flex1 colorBlack">{detail.volumeMenge}</div>
+                    <div className="text_left flex1 colorBlack">{detail.volumeMenge}</div>
                 </Flex>
                 <Flex>
                     <div className="text_left flex1">车数量:</div>
-                    <div className="text_right flex1 colorBlack">{detail.carsMenge}</div>
+                    <div className="text_left flex1 colorBlack">{detail.carsMenge}</div>
                 </Flex>
                 <Flex>
                     <div className="text_left flex1">装订厂联系人:</div>
-                    <div className="text_right flex1 colorBlack">{detail.binderyContact}</div>
+                    <div className="text_left flex1 colorBlack">{detail.binderyContact}</div>
                 </Flex>
                 <Flex>
                     <div className="text_left flex1">装订厂联系电话:</div>
-                    <div className="text_right flex1 colorBlack">{detail.binderyTel}</div>
+                    <div className="text_left flex1 colorBlack">{detail.binderyTel}</div>
                 </Flex>
                 <Flex>
                     <div className="text_left flex1">备注:</div>
+                </Flex>
+                <Flex>
+                    <div className="margin-left margin-right colorBlack">这是备注这是备注这是备注这是备注这是备注这是备注这是备注这是备注这是备注这是备注</div>
                 </Flex>
                     <TextareaItem
                         disabled={true}
