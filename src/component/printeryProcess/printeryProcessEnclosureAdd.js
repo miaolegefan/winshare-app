@@ -10,6 +10,7 @@ import {createHashHistory} from 'history'  //返回上一页这段代码
 const history = createHashHistory();//返回上一页这段代码
 
 
+
 function save(_this) {
 
     const d = _this.state.time;
