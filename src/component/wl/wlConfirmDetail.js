@@ -1,9 +1,43 @@
 import React from 'react';
-import { Flex,WingBlank, WhiteSpace,List,TextareaItem,InputItem} from 'antd-mobile';
+import { Flex,WingBlank, Button,List,TextareaItem,InputItem} from 'antd-mobile';
 import axios from "axios";
 import '../wl/wlConfirm.css';
 import moment from 'moment'
 
+
+function mobileApproce(item) {
+
+
+
+
+    axios.post('/api/public/mobile/wl/receive/appoint/approve?userId=10021',{}).then(function(response){
+        if(response.data.success){
+
+        }
+    })
+
+
+
+
+
+}
+
+
+function mobileReject(item) {
+
+
+
+    axios.post('/api/public/moblie-preOrder/query?userId=10021',{}).then(function(response){
+        if(response.data.success){
+
+        }
+    })
+
+
+
+
+
+}
 
 
 
@@ -12,11 +46,43 @@ import moment from 'moment'
 export default class wlConfirmDetail extends React.Component{
     constructor(props){
         super(props)
+        this.state={
+            approveHidden:false,
+            rejectHidden:false
+        }
     }
 
 
+    onReceiveMenge=(receiveMenge,appointMenge)=>{
+
+        if(receiveMenge == null){
+            receiveMenge = appointMenge;
+        }
+        return receiveMenge;
+    }
 
 
+    componentDidMount() {
+        const data=this.props.location.detail;
+        const value = data.dealStatus;
+        if(value == null){
+            this.setState({
+                approveHidden:false,
+                rejectHidden:false
+            })
+        }else if(value == '确认'){
+            this.setState({
+                approveHidden:true,
+                rejectHidden:false
+            })
+
+        }else if(value == '拒绝'){
+            this.setState({
+                approveHidden:false,
+                rejectHidden:true
+            })
+        }
+    }
 
 
     render() {
@@ -80,8 +146,18 @@ export default class wlConfirmDetail extends React.Component{
                     type="money"
                     clear
                     style={{borderColor: '#404040'}}
+                    value={this.onReceiveMenge(detail.receiveMenge,detail.appointMenge)}
                 >物流收货数量</InputItem>
             </div>
+
+                <div style={{position: 'absolute', bottom: 0, left: 0, right: 0 }}>
+                    <div hidden={this.state.approveHidden}>
+                    <WingBlank size="md"><Button  type="ghost"  style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">同意</Button></WingBlank>
+                    </div>
+                    <div hidden={this.state.rejectHidden}>
+                    <WingBlank size="md"><Button  type="ghost"  style={{color: 'red', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} size="small">拒绝</Button></WingBlank>
+                    </div>
+                </div>
             </WingBlank>
         );
     }
