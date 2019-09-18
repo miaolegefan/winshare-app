@@ -84,12 +84,13 @@ if(type == 'add'){
 
 
 const data = [{
-    url:'http://10.100.5.148/image/winShare.jpg'
+    // url:'http://10.100.5.148/image/winShare.jpg'
+    url:'C:/Users/xingm/Desktop/报销/winShare.jpg'
 }];
 
 export default class PrinteryProcessEnclosureAdd extends React.Component{
     state = {
-        image: [],
+        image: data,
         time: new Date(),
         video:'',
         remark:'',

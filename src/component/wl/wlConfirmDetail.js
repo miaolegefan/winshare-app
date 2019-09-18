@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex,WingBlank, Button,List,TextareaItem,InputItem,Toast,Modal,Icon} from 'antd-mobile';
+import { Flex,WingBlank, Button,List,TextareaItem,InputItem,Toast,Modal,Form} from 'antd-mobile';
 import axios from "axios";
 import '../wl/wlConfirm.css';
 import moment from 'moment'
@@ -10,18 +10,19 @@ function mobileApproce(item,_this) {
     if(item.receiveMenge>item.appointMenge){
         Toast.info('收货数不能大于预约数 !!!', 2);
     }else{
-        const data =  {"orderNo":item.orderNo,"id":item.id,"dealStatus":"确认","receiveMenge":item.receiveMenge,"appointMenge":item.appointMenge,"objectVersionNumber":item.objectVersionNumber};
-        axios.post('/api/public/mobile/wl/receive/appoint/approve?userId=10021',data).then(function(response){
-            if(response.data.success){
-                Toast.info('收货成功', 2);
-                _this.setState({
-                    approveHidden:true,
-                    rejectHidden:false
-                })
-            }else{
-                Toast.info('收货失败'+response.data.message, 2);
-            }
-        })
+        // const receiveMenge = document.getElementById("receiveMenge").value;
+        // const data =  {"orderNo":item.orderNo,"id":item.id,"dealStatus":"确认","receiveMenge":receiveMenge,"appointMenge":item.appointMenge,"objectVersionNumber":item.objectVersionNumber};
+        // axios.post('/api/public/mobile/wl/receive/appoint/approve?userId=10021',data).then(function(response){
+        //     if(response.data.success){
+        //         Toast.info('收货成功', 2);
+        //         _this.setState({
+        //             approveHidden:true,
+        //             rejectHidden:false
+        //         })
+        //     }else{
+        //         Toast.info('收货失败'+response.data.message, 2);
+        //     }
+        // })
     }
 
 }
@@ -46,9 +47,6 @@ function mobileReject(item,_this,reason) {
 
 
 
-function test(value) {
-    console.log(`输入的内容:${value}`);
-}
 
 export default class wlConfirmDetail extends React.Component{
     constructor(props){
@@ -63,12 +61,13 @@ export default class wlConfirmDetail extends React.Component{
     }
 
     //预约数量控制
-    onReceiveMenge=(receiveMenge,appointMenge)=>{
+    onReceiveMenge=(item)=>{
 
-        if(receiveMenge == null){
-            receiveMenge = appointMenge;
+        if(item.receiveMenge == null||item.receiveMenge=='0'){
+            item.receiveMenge = item.appointMenge;
         }
-        return receiveMenge;
+
+        return item.receiveMenge;
     }
 
 
@@ -112,11 +111,16 @@ export default class wlConfirmDetail extends React.Component{
         });
     }
 
-
+    onChange=(value)=>{
+       document.getElementById("receiveMenge").value = value;
+        console.log(value)
+    }
 
     render() {
         const detail= this.state.orderDelivery;
+
         const _this = this;
+       const {receiveMengeValue} = this.state;
         return(
             <WingBlank size="sm">
             <div className="datails" style={{'marginBottom': '100px'}}>
@@ -169,12 +173,19 @@ export default class wlConfirmDetail extends React.Component{
                     </div>
                 </Flex>
 
-                <InputItem
-                    type="digit"
-                    clear
-                    style={{borderColor: '#404040'}}
-                defaultValue={this.onReceiveMenge(detail.receiveMenge,detail.appointMenge)}
-                >物流收货数量</InputItem>
+
+
+
+                    <InputItem
+                        type="digit"
+                        id="receiveMenge"
+                        clear
+                        autoAdjustHeight={true}
+                        style={{borderColor: '#404040'}}
+                        // onChange={event => {this.onChange(event)}}
+                        defaultValue={0}
+                        // value={this.onReceiveMenge(detail)}
+                    >物流收货数量</InputItem>
             </div>
 
 
@@ -196,7 +207,6 @@ export default class wlConfirmDetail extends React.Component{
                         footer={[{ text: '取消', onPress: () => { console.log('cancel'); this.onClose('modal1')(); } },
                             { text: '确认', onPress: () => {mobileReject(detail,_this,''); this.onClose('modal1')(); } }
                         ]}
-                        // afterClose={() => { alert('afterClose'); }}
                     >
                         <div style={{ height: 100, overflow: 'scroll' }}>
                             <TextareaItem
