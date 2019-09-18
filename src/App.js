@@ -20,7 +20,6 @@ import workFlow from  './component/workFlow/workFlow';
 import workFlowDetail from './component/workFlow/workFlowDetail';
 import wlConfirm from './component/wl/wlConfirm';
 import wlConfirmDetail from './component/wl/wlConfirmDetail';
-import BasicInputExample from './component/wl/InputItem'
 
 class App extends React.PureComponent{
   render(){
