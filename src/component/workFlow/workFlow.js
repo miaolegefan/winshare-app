@@ -22,7 +22,7 @@ function search(arr, q) {
 
 function getMyTasks(_this) {
 
-    axios.post('/api/public/workFlow/getMyTasks?userId=10021',{}).then(function(response){
+    axios.post('/api/public/workFlow/getMyTasks?userId='+sessionStorage.userId,{}).then(function(response){
         if(response.status == '200'){
           _this.setState(
               {

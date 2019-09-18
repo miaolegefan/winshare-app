@@ -15,7 +15,7 @@ export default class roleChoose extends React.Component{
 
     componentDidMount(){
         const that=this;
-        axios.post('/api/public/role-choose/query?userId=10021',{}).then(function(response){
+        axios.post('/api/public/role-choose/query?userId='+sessionStorage.userId,{}).then(function(response){
             if(response.data.success){
                data = response.data.rows;
                that.setState({loading:false})

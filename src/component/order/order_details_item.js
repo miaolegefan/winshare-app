@@ -19,7 +19,7 @@ function getItem(orderNo,_this) {
 //状态改变
 function changeConfrim(printeryIsConfirm,_this) {
 	const orderNo = _this.props.orderNo;
-	axios.post('/api/public/moblie-order/confirm?userId=10021',{orderNo,printeryIsConfirm}).then(function(response){
+	axios.post('/api/public/moblie-order/confirm?userId='+sessionStorage.userId,{orderNo,printeryIsConfirm}).then(function(response){
 		if(response.data.success){
 			if(printeryIsConfirm == '1'){
 				_this.setState({

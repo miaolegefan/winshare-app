@@ -35,7 +35,7 @@ function queryPermission(_this) {//人员角色查询
 		resourceType: "site"
 	}];
 
-	axios.post('/api/public/checkPermission/query?userId=10021&roleId=101',codes).then(function(response){
+	axios.post('/api/public/checkPermission/query?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId,codes).then(function(response){
 		if(response.data.success){
 			const res =response.data.rows;
 			for(var i=0;i<res.length;i++){
