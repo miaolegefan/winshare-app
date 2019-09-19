@@ -1,7 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router,Route,Switch} from 'react-router-dom';
 import Home from './component/home';
-import Home2 from './component/home2';
 import Manuscript from './component/manuscript/manuscript';
 import ManuscriptDetails from './component/manuscript/manuscrip_details';
 import PreLogin from './component/login/preLogin';
@@ -31,7 +30,6 @@ class App extends React.PureComponent{
 			<Route exact path='/add' component={PrinteryProcessEnclosureAdd}/>
 			<Route exact path='/' component={GetWechatUser}/>
 			<Route path='/home' component={Home}/>
-			<Route path='/home2' component={Home2}/>
 			<Route exact path='/manuscript' component={Manuscript}/> 
 			<Route path='/manuscript/details' component={ManuscriptDetails}/>
 			<Route path='/roleChoose' component={RoleChoose}/>
