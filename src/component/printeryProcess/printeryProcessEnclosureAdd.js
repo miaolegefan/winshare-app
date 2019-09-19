@@ -10,18 +10,27 @@ import {createHashHistory} from 'history'  //返回上一页这段代码
 const history = createHashHistory();//返回上一页这段代码
 
 
-
 function save(_this) {
+
+    /*保存之前先调用获取当前地址*/
 
     const d = _this.state.time;
     const newDate = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' '
         + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
 
+    const image = _this.state.image;
+    //将图片拼接成字符串，并用逗号隔开
+    var attPic = "";
+    image.map((item, index)=>(attPic+=item.data+","))
+    if (attPic.length > 0) {
+        attPic = attPic.substr(0, attPic.length - 1);
+    }
+
     axios.post('/api/public/moblie-printeryProcess/add?userId='+sessionStorage.userId,{
         'orderNo':_this.state.orderNo,
         'time':newDate,
-        'attPic':_this.state.attPic,
-        'attVideo':_this.state.attVideo,
+        'attPic': attPic,
+        'attVideo':_this.state.video,
         'remark':_this.state.remark,
         'produceStatus':_this.state.produceStatus,
     }).then(function(response){
@@ -37,74 +46,73 @@ function save(_this) {
 }
 
 
-function upload(before,image,type,index) {
+function upload(before,image,type,index,_this) {
 
-if(type == 'add'){
-    const len = image.length;
-    let formData = new FormData();
-    const file = image[len - 1].file;
-    formData.append("file", file);
-    axios({
-        method: 'post',
-        url: '/api/public/mobile-upload',
-        data: formData,
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        }
-    })
-        .then(
-            res => {
-                console.log('上传成功！')
+    if(type == 'add'){
+        const len = image.length;
+        let formData = new FormData();
+        const file = image[len - 1].file;
+        const url = image[len - 1].url;//文件对应的前端生成的url 用来前端展示 因为后台返回的只有文件名称
+        formData.append("file", file);
+        axios({
+            method: 'post',
+            url: '/api/public/mobile-upload',
+            data: formData,
+            headers: {
+                'Content-Type': 'multipart/form-data'
             }
-        )
-        .catch(
-            err => {
-                Toast.info('该图片上传失败!!!', 1);
-            }
-        )
-}else if(type == 'remove'){
+        }).then(
+                res => {
+                    console.log('上传成功！')
+                    let newImage = {
+                        url:url,
+                        data:res.data
+                    }
+                    _this.setState({
+                        image :before.concat(newImage)
+                    })
+                }
+            ).catch(
+                err => {
+                    Toast.info('该图片上传失败!!!', 1);
+                }
+            )
+    }else if(type == 'remove'){
+        _this.setState({
+            image:image
+        })
+        console.log(image)
 
-
-
+    }
 
 }
 
-}
-
-const data = [{
-    url:'http://10.100.5.148/image/winShare.jpg'
-}];
 
 export default class PrinteryProcessEnclosureAdd extends React.Component{
     state = {
-        image: data,
+        image: [],
         time: new Date(),
         video:'',
         remark:'',
-        produceStatus:'',//this.props.location.state.item.produceStatus,//生产状态
-        orderNo:'',//this.props.location.state.item.orderNo,//印单号
+        produceStatus:this.props.location.state.item.produceStatus,//生产状态
+        orderNo:this.props.location.state.item.orderNo,//印单号
+        //获取地址所用的值
+        beta: true,// 必须这么写，否则wx.invoke调用形式的jsapi会有问题
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: 'wwb67a7fe3bcd6865f', // 必填，企业微信的corpID
+        agentid: 'VT0qg6Jdjqp-8EKCMXOlmTjSzqcGHtcpQ_PedCYHyW0', // 必填，企业微信的应用id
+        timestamp: '', // 必填，生成签名的时间戳
+        nonceStr: '', // 必填，生成签名的随机串
+        signature: '',// 必填，签名，见 附录-JS-SDK使用权限签名算法
+        jsApiList: [
+            'getLocation'
+        ] // 必填，需要使用的JS接口列表，凡是要调用的接口都需要传进来
 
     }
     onChange = (image, type, index) => {
         console.log(image, type, index);
         const before = this.state.image;
-        this.setState({
-            image,
-
-        });
-
-        upload(before,image,type,index);
-    };
-    handleUpload = (e) => {
-        e.preventDefault();
-
-        let file = e.target.files[0];
-        const formdata = new FormData();
-        formdata.append('file', file);
-
-        for (var value of formdata.values()) {
-            console.log(value);
-        }
+        upload(before,image,type,index,this);
     };
 
     //视频文件保存成功后

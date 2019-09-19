@@ -68,7 +68,7 @@ export default class PrinteryProcessEnclosure extends React.Component{
                 </Player>
                 <div className="margin-left">备注说明</div>
                 <div style={{border: "thin #E8E8E8 solid",height: "200px",marginLeft: "0.16rem",marginRight: "0.16rem"}}>
-                    {"备注说明测试"}
+                    {remark}
                 </div>
 
             </div>
