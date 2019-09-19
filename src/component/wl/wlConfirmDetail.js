@@ -10,9 +10,8 @@ function mobileApproce(item,_this) {
     if(item.receiveMenge>item.appointMenge){
         Toast.info('收货数不能大于预约数 !!!', 2);
     }else{
-        const receiveMenge = document.getElementById("receiveMenge").value;
-        const data =  {"orderNo":item.orderNo,"id":item.id,"dealStatus":"确认","receiveMenge":receiveMenge,"appointMenge":item.appointMenge,"objectVersionNumber":item.objectVersionNumber};
-        axios.post('/api/public/mobile/wl/receive/appoint/approve?userId=10021',data).then(function(response){
+        const data =  {"orderNo":item.orderNo,"id":item.id,"dealStatus":"确认","receiveMenge":item.receiveMenge,"appointMenge":item.appointMenge,"objectVersionNumber":item.objectVersionNumber};
+        axios.post('/api/public/mobile/wl/receive/appoint/approve?userId='+sessionStorage.userId,data).then(function(response){
             if(response.data.success){
                 Toast.info('收货成功', 2);
                 _this.setState({
@@ -31,7 +30,7 @@ function mobileApproce(item,_this) {
 function mobileReject(item,_this,reason) {
     reason = document.getElementById("reason").value;
     const data =  {"orderNo":item.orderNo,"id":item.id,"dealStatus":"拒绝","receiveMenge":"0","remark":reason,"appointMenge":item.appointMenge,"objectVersionNumber":item.objectVersionNumber};
-    axios.post('/api/public/mobile/wl/receive/appoint/reject?userId=10021',data).then(function(response){
+    axios.post('/api/public/mobile/wl/receive/appoint/reject?userId='+sessionStorage.userId,data).then(function(response){
         if(response.data.success){
             Toast.info('拒绝成功', 2);
             _this.setState({
@@ -114,7 +113,6 @@ export default class wlConfirmDetail extends React.Component{
 
     render() {
         const detail= this.props.location.detail;
-
         const _this = this;
        const {receiveMengeValue} = this.state;
         return(

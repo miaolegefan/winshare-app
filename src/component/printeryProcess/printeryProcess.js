@@ -9,7 +9,7 @@ const history = createHashHistory();//返回上一页这段代码
 
 //数据查询
 function query(_this) {
-	axios.post('/api/public/moblie-printeryProcess/query?userId=10021',{}).then(function(response){
+	axios.post('/api/public/moblie-printeryProcess/query?userId='+sessionStorage.userId,{}).then(function(response){
 		if(response.data.success){
 			_this.setState({
 				printeryProcess : response.data.rows,
@@ -51,6 +51,28 @@ export default class PrinteryProcess extends React.Component{
     }
 
 	render(){
+        const status = [
+            {
+                value: '0',
+                meaning: '待开机',
+            },
+            {
+                value: '1',
+                meaning: '开机',
+            }, {
+                value: '2',
+                meaning: '装订',
+            }, {
+                value: '3',
+                meaning: '质检',
+            }, {
+                value: '4',
+                meaning: '开始送货',
+            }, {
+                value: '5',
+                meaning: '完成送货',
+            },
+        ];
 		const printeryProcessList = this.state.printeryProcess.map((item,index) => (
 			<Link to={{pathname:'/printeryProcess/details/'+item.orderNo,item:item}} key={index}>
 				<section className="section">
@@ -60,7 +82,7 @@ export default class PrinteryProcess extends React.Component{
 					</Flex>
 					<Flex>
 						<div className="text_left flex2 colorBlack"><strong>{item.bookName}</strong></div>
-						<div className="font07 text_right flex1" >{item.produceStatus===null?"未开机":item.produceStatus}</div>
+						<div className="font07 text_right flex1" >{status[item.produceStatus].meaning}</div>
 					</Flex>
 					<Flex>
 						<div className="font07 text_left flex1">
