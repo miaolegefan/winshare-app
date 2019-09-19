@@ -10,19 +10,19 @@ function mobileApproce(item,_this) {
     if(item.receiveMenge>item.appointMenge){
         Toast.info('收货数不能大于预约数 !!!', 2);
     }else{
-        // const receiveMenge = document.getElementById("receiveMenge").value;
-        // const data =  {"orderNo":item.orderNo,"id":item.id,"dealStatus":"确认","receiveMenge":receiveMenge,"appointMenge":item.appointMenge,"objectVersionNumber":item.objectVersionNumber};
-        // axios.post('/api/public/mobile/wl/receive/appoint/approve?userId=10021',data).then(function(response){
-        //     if(response.data.success){
-        //         Toast.info('收货成功', 2);
-        //         _this.setState({
-        //             approveHidden:true,
-        //             rejectHidden:false
-        //         })
-        //     }else{
-        //         Toast.info('收货失败'+response.data.message, 2);
-        //     }
-        // })
+        const receiveMenge = document.getElementById("receiveMenge").value;
+        const data =  {"orderNo":item.orderNo,"id":item.id,"dealStatus":"确认","receiveMenge":receiveMenge,"appointMenge":item.appointMenge,"objectVersionNumber":item.objectVersionNumber};
+        axios.post('/api/public/mobile/wl/receive/appoint/approve?userId=10021',data).then(function(response){
+            if(response.data.success){
+                Toast.info('收货成功', 2);
+                _this.setState({
+                    approveHidden:true,
+                    rejectHidden:false
+                })
+            }else{
+                Toast.info('收货失败'+response.data.message, 2);
+            }
+        })
     }
 
 }
@@ -111,13 +111,9 @@ export default class wlConfirmDetail extends React.Component{
         });
     }
 
-    onChange=(value)=>{
-       document.getElementById("receiveMenge").value = value;
-        console.log(value)
-    }
 
     render() {
-        const detail= this.state.orderDelivery;
+        const detail= this.props.location.detail;
 
         const _this = this;
        const {receiveMengeValue} = this.state;
@@ -174,17 +170,13 @@ export default class wlConfirmDetail extends React.Component{
                 </Flex>
 
 
-
-
                     <InputItem
                         type="digit"
                         id="receiveMenge"
                         clear
                         autoAdjustHeight={true}
                         style={{borderColor: '#404040'}}
-                        // onChange={event => {this.onChange(event)}}
-                        defaultValue={0}
-                        // value={this.onReceiveMenge(detail)}
+                        defaultValue={this.onReceiveMenge(detail)}
                     >物流收货数量</InputItem>
             </div>
 

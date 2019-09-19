@@ -20,7 +20,9 @@ import workFlow from  './component/workFlow/workFlow';
 import workFlowDetail from './component/workFlow/workFlowDetail';
 import wlConfirm from './component/wl/wlConfirm';
 import wlConfirmDetail from './component/wl/wlConfirmDetail';
-
+import invDc from './component/invDc/invDcHead';
+import invDcDetail from './component/invDc/invDcDetail';
+import invDcMore from './component/invDc/invDcMore';
 class App extends React.PureComponent{
   render(){
     return (
@@ -45,6 +47,9 @@ class App extends React.PureComponent{
 			<Route exact path='/workFlow/details/:id' component={workFlowDetail}/>
             <Route exact path='/wlConfirm' component={wlConfirm}/>
             <Route exact path='/wlConfirm/detail' component={wlConfirmDetail}/>
+			<Route exact path='/invDc' component={invDc}/>
+			<Route exact path='/invDc/detail/:orderNo' component={invDcDetail}/>
+			<Route exact path='/invDc/data/more' component={invDcMore}/>
         </Switch>
       </Router>
     )
