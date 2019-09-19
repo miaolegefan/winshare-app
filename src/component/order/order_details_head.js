@@ -12,7 +12,9 @@ export default class OrderDetailsHead extends React.Component {
 	render(){
 		
 		const orderHead= this.state.orderHead;
-		return(	<div className="datails">
+		return(
+
+				<div className="datails">
 				<Flex>
 					<div className="text_left flex1">通知单编号:</div>
 					<div className="text_right flex1 colorBlack">{orderHead.noticeNo}</div>
@@ -155,6 +157,7 @@ export default class OrderDetailsHead extends React.Component {
 				</Flex>
 
 			</div>
+
 
 		)
 	}

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Tabs,NavBar,Icon} from 'antd-mobile';
+import {Tabs,NavBar,Icon,WingBlank} from 'antd-mobile';
 import OrderDetailsHead from './order_details_head.js';
 import OrderDetailsCost from './order_details_cost.js';
 import OrderDetailsItem from './order_details_item.js';
@@ -33,10 +33,10 @@ export default class OrderDetails extends React.Component {
                        onLeftClick={this.comeback}>
                </NavBar>
 	         <Tabs tabs={tabs2} initialPage={0} tabBarInactiveTextColor='#108ee9'>
-	 			<div style={{ display: 'flex', alignItems: 'right', justifyContent: 'right',backgroundColor: '#fff' }}>
+				 <WingBlank size="sm"><div style={{ display: 'flex', alignItems: 'right', justifyContent: 'right',backgroundColor: '#fff' }}>
 	 				<OrderDetailsHead item={item}/>
 
-	 			</div>
+				 </div></WingBlank>
 	 			<div style={{  alignItems: 'right', justifyContent: 'right', height: '100%', backgroundColor: '#fff' }}>
 					<OrderDetailsItem orderNo={item.orderNo} rolePermission={rolePermission} printeryConfirm={item.printeryIsConfirm}/>
 	 			</div>

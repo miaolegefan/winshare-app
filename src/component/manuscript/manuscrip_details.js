@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from 'axios';
-import { Flex, WhiteSpace,NavBar,Icon } from 'antd-mobile';
+import {Flex, WhiteSpace, NavBar, Icon, WingBlank} from 'antd-mobile';
 import '../common.css';
-import {createHashHistory} from 'history'  //返回上一页这段代码
+import moment from 'moment';
+import {createHashHistory} from 'history'
 const history = createHashHistory();//返回上一页这段代码
 
 export default class ManuscriptDetails extends React.Component {
@@ -19,8 +20,9 @@ export default class ManuscriptDetails extends React.Component {
 
     render() {
         const manuscript = this.state.manuscriptItem;
-        return (
-		 <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }}>
+        return ( <WingBlank size="sm">
+		 {/*<div style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }}>*/}
+				<div className="datails" style={{'marginBottom': '100px'}}>
              <NavBar mode="light" icon={<Icon type="left" />}
                      onLeftClick={this.comeback}>
              </NavBar>
@@ -49,19 +51,20 @@ export default class ManuscriptDetails extends React.Component {
 					</Flex>
 					<Flex>
 						<div className="text_left flex1">定稿日期:</div>
-						<div className="text_right flex1 colorBlack">{manuscript.finalDate}</div>
+						<div className="text_right flex1 colorBlack">{moment(manuscript.finalDate).format('YYYY-MM-DD')}</div>
 					</Flex>
 					<Flex>
 						<div className="text_left flex1">计划出片日期:</div>
-						<div className="text_right flex1 colorBlack">{manuscript.planReleaseDate}</div>
+						<div className="text_right flex1 colorBlack">{moment(manuscript.planReleaseDate).format('YYYY-MM-DD')}</div>
 					</Flex>
 					<Flex>
 						<div className="text_left flex1">实际到片日期:</div>
-						<div className="text_right flex1 colorBlack">{manuscript.arriveDate}</div>
+						<div className="text_right flex1 colorBlack">{moment(manuscript.arriveDate).format('YYYY-MM-DD')}</div>
 					</Flex>
 				</div>
 			</div>
 			</div>
+			</WingBlank>
         );
     }
 }
