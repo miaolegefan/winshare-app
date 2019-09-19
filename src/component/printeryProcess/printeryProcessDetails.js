@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex,NavBar,Icon } from 'antd-mobile';
+import { Flex,NavBar,Icon,WingBlank,Button, } from 'antd-mobile';
 import {Link} from 'react-router-dom';
 import '../common.css';
 import './printeryProcess.css'
@@ -7,6 +7,11 @@ import axios from "axios/index";
 import {createHashHistory} from 'history'  //返回上一页这段代码
 const history = createHashHistory();//返回上一页这段代码
 
+function add(_this) {
+
+	const item =_this.state;
+	_this.props.history.push('/add',item)
+}
 //数据查询
 function query(_this,orderNo) {
     axios.post('/api/public/moblie-printeryProcess/query?userId='+sessionStorage.userId,{orderNo:orderNo}).then(function(response){
@@ -42,13 +47,35 @@ export default class PrinteryProcessDetails extends React.Component {
 
 	render(){
 		const item = this.state.item;
+		const _this = this;
+        const status = [
+            {
+                value: '0',
+                meaning: '开机',
+            }, {
+                value: '1',
+                meaning: '装订',
+            }, {
+                value: '2',
+                meaning: '质检',
+            }, {
+                value: '3',
+                meaning: '开始送货',
+            }, {
+                value: '4',
+                meaning: '完成送货',
+            }, {
+                value: '5',
+                meaning: '',
+            },
+        ];
 		return(
 			<div>
 
                 <NavBar mode="light" icon={<Icon type="left" />}
                         onLeftClick={this.comeback}>
                 </NavBar>
-				<section className="section" hidden={item.isOpen===undefined || item.isOpen==='0' }>
+				<section className="section" hidden={item.isOpen===null || item.isOpen==='0' }>
                     <Link to={{pathname:'/printeryProcess/details/en/enclosure',time:item.openTime,remark:item.openRemark,}}>
 
 						<Flex>
@@ -63,7 +90,7 @@ export default class PrinteryProcessDetails extends React.Component {
 					</Link>
 				</section>
 
-				<section className="section" hidden={item.isBind===undefined || item.isBind==='0' }>
+				<section className="section" hidden={item.isBind===null || item.isBind==='0' }>
 					<Flex>
 						<div className="font15 colorBlack flex1"> 
 							装订
@@ -74,7 +101,7 @@ export default class PrinteryProcessDetails extends React.Component {
 						</div>
 					</Flex>
 				</section>
-				<section className="section" hidden={item.isQuality===undefined || item.isQuality==='0' }>
+				<section className="section" hidden={item.isQuality===null || item.isQuality==='0' }>
 					<Flex>
 						<div className="font15 colorBlack flex1"> 
 							质检
@@ -85,7 +112,7 @@ export default class PrinteryProcessDetails extends React.Component {
 						</div>
 					</Flex>
 				</section>
-				<section className="section" hidden={item.isStartSend===undefined || item.isStartSend==='0' }>
+				<section className="section" hidden={item.isStartSend===null || item.isStartSend==='0' }>
 					<Flex>
 						<div className="font15 colorBlack flex1"> 
 							开始送货
@@ -96,7 +123,7 @@ export default class PrinteryProcessDetails extends React.Component {
 						</div>
 					</Flex>
 				</section>
-				<section className="section" hidden={item.isFinishSend===undefined || item.isFinishSend==='0' }>
+				<section className="section" hidden={item.isFinishSend===null || item.isFinishSend==='0' }>
 					<Flex>
 						<div className="font15 colorBlack flex1"> 
 							结束送货
@@ -107,6 +134,14 @@ export default class PrinteryProcessDetails extends React.Component {
 						</div>
 					</Flex>
 				</section>
+
+                <div style={{position: 'absolute', bottom: 0, left: 0, right: 0 }} hidden={item.produceStatus==='5' }>
+                    <WingBlank size="md">
+                        <Button  type="ghost" onClick={()=>add(_this)}   style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">
+							增加 {item.produceStatus?status[item.produceStatus].meaning:''} 进度
+						</Button>
+                    </WingBlank>
+                </div>
 			</div>
 		)
 	}

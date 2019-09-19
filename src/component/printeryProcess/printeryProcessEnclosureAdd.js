@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, ImagePicker,WingBlank,Button,Toast,NavBar,Icon} from 'antd-mobile';
+import { Flex, ImagePicker,WingBlank,Button,Toast,NavBar,Icon,InputItem} from 'antd-mobile';
 import '../common.css';
 import { Player } from 'video-react';
 import "./video-react.css";
@@ -18,18 +18,15 @@ function save(_this) {
         + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
 
     axios.post('/api/public/moblie-printeryProcess/add?userId='+sessionStorage.userId,{
-        'orderNo':"W420180012",
+        'orderNo':_this.state.orderNo,
         'time':newDate,
-        'attPic':"123",
-        'attVideo':"123",
-        'remark':"123",
-        'produceStatus':"1",
+        'attPic':_this.state.attPic,
+        'attVideo':_this.state.attVideo,
+        'remark':_this.state.remark,
+        'produceStatus':_this.state.produceStatus,
     }).then(function(response){
         if(response.data.success){
-            // _this.setState({
-            //     manuscript : response.data.rows,
-            //     search:response.data.rows
-            // });
+            history.goBack();
         }else{
             Toast.info(response.data.message);
         }
@@ -74,18 +71,8 @@ if(type == 'add'){
 
 }
 
-
-
-
-
-
-
-
-
-
 const data = [{
-    // url:'http://10.100.5.148/image/winShare.jpg'
-    url:'C:/Users/xingm/Desktop/报销/winShare.jpg'
+    url:'http://10.100.5.148/image/winShare.jpg'
 }];
 
 export default class PrinteryProcessEnclosureAdd extends React.Component{
@@ -94,8 +81,8 @@ export default class PrinteryProcessEnclosureAdd extends React.Component{
         time: new Date(),
         video:'',
         remark:'',
-        produceStatus:'',//生产状态
-        orderNo:'',//印单号
+        produceStatus:'',//this.props.location.state.item.produceStatus,//生产状态
+        orderNo:'',//this.props.location.state.item.orderNo,//印单号
 
     }
     onChange = (image, type, index) => {
@@ -120,9 +107,24 @@ export default class PrinteryProcessEnclosureAdd extends React.Component{
         }
     };
 
+    //视频文件保存成功后
+    videoSave=(value)=>{
+        this.setState({
+            video: value
+            }
+        )
+    }
     //返回按钮
     comeback=()=>{
         history.goBack();  //返回上一页这段代码
+    }
+
+    //备注输入change事件
+    remarkOnchang=(value)=>{
+        this.setState({
+                remark: value
+            }
+        )
     }
 
     render() {
@@ -132,6 +134,7 @@ export default class PrinteryProcessEnclosureAdd extends React.Component{
         const _this = this;
         return (
             <div className="backgroundWhite line3" style={{height:"-webkit-fill-available"}}>
+                <div>
                 <NavBar mode="light" icon={<Icon type="left" />}
                         onLeftClick={this.comeback}>
                 </NavBar>
@@ -151,19 +154,22 @@ export default class PrinteryProcessEnclosureAdd extends React.Component{
                 />
                 <div className="margin-left">附件视频</div>
 
-                <Player ref="player" videoId="video-1" style={{hidden:true}}>
-                    <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"/>
-                </Player>
+                <Upload multiple action={'/api/public/mobile-upload'}
+                        limit={2} getSuccessFileUrl ={this.videoSave} />
 
-                <Upload multiple action={'/api/public/mobile-upload'} />
-
-                <input type="file" onChange={this.handleUpload}/>
                 <div className="margin-left">备注说明</div>
-                <div style={{border: "thin #E8E8E8 solid",height: "200px",marginLeft: "0.16rem",marginRight: "0.16rem"}}>
-                    {this.state.remark}
+                    <InputItem
+                        type="digit"
+                        id="receiveMenge"
+                        clear
+                        autoAdjustHeight={true}
+                        style={{borderColor: '#404040'}}
+                        default={this.state.remark}
+                        onChange={this.remarkOnchang}
+                    ></InputItem>
                 </div>
 
-                <div style={{position: 'absolute', bottom: 0, left: 0, right: 0 }}>
+                <div style={{position: 'absolute', bottom: 0,width:'100%' }}>
                     <WingBlank size="md">
                         <Button  type="ghost" onClick={()=>save(_this)}   style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">保存</Button>
                     </WingBlank>
