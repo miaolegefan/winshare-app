@@ -27,7 +27,22 @@ class Home extends React.Component {
 				  text: '生产进度',
 				  imgSrc: require('../assets/15.png'),
 				  link:"/printeryProcess"
-			  }
+			  },
+		  	 {
+			   text: '物流确认',
+			   imgSrc: require('../assets/21.png'),
+			   link:"/wlConfirm"
+		   },
+		   {
+			   text: '我的待办',
+			   imgSrc: require('../assets/22.png'),
+			   link:"/workFlow"
+		   },
+		   {
+			   text: '入库地址',
+			   imgSrc: require('../assets/25.png'),
+			   link:"/invDc"
+		   }
 		  ]
        
         return (

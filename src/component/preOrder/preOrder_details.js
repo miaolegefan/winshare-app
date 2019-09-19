@@ -1,8 +1,9 @@
 import React from 'react'
-import {Tabs,NavBar,Icon} from 'antd-mobile';
+import {Tabs, NavBar, Icon, WingBlank, Button} from 'antd-mobile';
 import PreOrderDetailsHead from './preOrder_details_head'
 import PreOrderDetailsItem from './preOrder_details_item'
 import '../tabs.css'
+import '../common.css';
 import {createHashHistory} from 'history'  //返回上一页这段代码
 const history = createHashHistory();//返回上一页这段代码
 
@@ -26,15 +27,16 @@ export default class PreOrderDetails extends React.Component {
 		{ title: '明细信息', sub: '2' },
 	];
     return (
-      <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }}>
-          <NavBar mode="light" icon={<Icon type="left" />}
+
+		  <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }}>
+		  <NavBar mode="light" icon={<Icon type="left" />}
                   onLeftClick={this.comeback}>
           </NavBar>
         <Tabs tabs={tabs2} initialPage={0} tabBarInactiveTextColor='#108ee9'>
-			<div style={{ display: 'flex', alignItems: 'right', justifyContent: 'right', height: '100%', backgroundColor: '#fff' }}>
+			<div className='section' >
 				<PreOrderDetailsHead item= {item} rolePermission={rolePermission}/>
 			</div>
-			<div style={{  alignItems: 'right', justifyContent: 'right', height: '100%', backgroundColor: '#fff' }}>
+			<div className='section' >
 				<PreOrderDetailsItem preOrderNo= {item.preOrderNo}/>
 			</div>
 		</Tabs>

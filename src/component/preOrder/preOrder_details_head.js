@@ -21,6 +21,7 @@ function changePrinteryConfrim(preOrderNo,printeryConfirm,_this) {
 					cancelPrinteryConfirm:true
 				});
 			}
+			Toast.info('更改印厂确认状态成功', 2);
 		}else{
 			Toast.info('更改印厂确认状态失败', 2);
 		}
@@ -44,6 +45,7 @@ function changeMaterialsConfrim(preOrderNo,materialsConfirm,_this) {
 					cancelMaterialsConfirm:true
 				});
 			}
+			Toast.info('更改物资确认状态成功', 2);
 		}else{
 			Toast.info('更改物资确认状态失败', 2);
 		}
@@ -113,8 +115,8 @@ export default class PreOrderDetailsHead extends React.Component {
         const _this = this;
         return (
 
-			<div style={{width:'95%'}}>
-			<div id="pre" style={{ marginBottom:'200px'}}>
+			<div >
+			<div id="pre" style={{	marginBottom: '400px'}}>
 				<Flex>
 				  <div className="text_left flex1">预印单号</div>
 				  <div className="text_right flex1 colorBlack">{preOrderHead.preOrderNo}</div>
@@ -164,20 +166,22 @@ export default class PreOrderDetailsHead extends React.Component {
 				  <div className="text_right flex1 colorBlack">{preOrderHead.preMenge}</div>
 				</Flex>
 			</div>
-			<div style={{position: 'absolute', bottom: 0, left: 0, right: 0 }}>
-			<div hidden={this.state.printeyConfirm} >
-				<WingBlank size="md"><Button  type="ghost" onClick={()=>changePrinteryConfrim(preOrderHead.preOrderNo,'1',_this)} style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">印厂接收确认</Button></WingBlank>
-			</div>
-			<div hidden={this.state.materialsConfirm}>
-				<WingBlank size="md"><Button  type="ghost" onClick={()=>changeMaterialsConfrim(preOrderHead.preOrderNo,'1',_this)} style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">物资公司接收确认</Button></WingBlank>
-			</div>
-			<div hidden={this.state.cancelPrinteryConfirm}>
-				<WingBlank size="md"><Button  type="ghost" onClick={()=>changePrinteryConfrim(preOrderHead.preOrderNo,'0',_this)} style={{color: '#787878', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} size="small">取消印厂接收确认</Button></WingBlank>
-			</div>
-			<div hidden={this.state.cancelMaterialsConfirm}>
-				<WingBlank size="md"><Button id="p1" type="ghost" onClick={()=>changeMaterialsConfrim(preOrderHead.preOrderNo,'0',_this)} style={{color: '#787878', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} size="small">取消物资公司接收确认</Button></WingBlank>
-			</div>
-		</div>
+
+				<div style={{marginTop: '100px',bottom:'90px'}} id="footer">
+					<div hidden={this.state.printeyConfirm} >
+						<WingBlank size="md"><Button  type="ghost" onClick={()=>changePrinteryConfrim(preOrderHead.preOrderNo,'1',_this)} style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">印厂接收确认</Button></WingBlank>
+					</div>
+					<div hidden={this.state.materialsConfirm}>
+						<WingBlank size="md"><Button  type="ghost" onClick={()=>changeMaterialsConfrim(preOrderHead.preOrderNo,'1',_this)} style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">物资公司接收确认</Button></WingBlank>
+					</div>
+					<div hidden={this.state.cancelPrinteryConfirm}>
+						<WingBlank size="md"><Button  type="ghost" onClick={()=>changePrinteryConfrim(preOrderHead.preOrderNo,'0',_this)} style={{color: '#787878', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} size="small">取消印厂接收确认</Button></WingBlank>
+					</div>
+					<div hidden={this.state.cancelMaterialsConfirm}>
+						<WingBlank size="md"><Button id="p1" type="ghost" onClick={()=>changeMaterialsConfrim(preOrderHead.preOrderNo,'0',_this)} style={{color: '#787878', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} size="small">取消物资公司接收确认</Button></WingBlank>
+					</div>
+				</div>
+
 		    </div>
 
         );

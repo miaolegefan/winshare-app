@@ -62,17 +62,11 @@ if(type == 'add'){
                 Toast.info('该图片上传失败!!!', 1);
             }
         )
-}else if(type == 'remove'){
-
-
-
-
 }
-
 }
 
 const data = [{
-    url:'http://10.100.5.148/image/winShare.jpg'
+    url:'http://localhost:8080/images/123.jpg'
 }];
 
 export default class PrinteryProcessEnclosureAdd extends React.Component{

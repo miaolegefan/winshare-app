@@ -135,6 +135,8 @@ export default class PrinteryProcessDetails extends React.Component {
 					</Flex>
 				</section>
 
+
+
                 <div style={{position: 'absolute', bottom: 0, left: 0, right: 0 }} hidden={item.produceStatus==='5' }>
                     <WingBlank size="md">
                         <Button  type="ghost" onClick={()=>add(_this)}   style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">

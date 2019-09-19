@@ -6,8 +6,26 @@
 	color: #787878;
 	margin-left: 0.16rem;
     margin-right: 0.16rem;
-	line-height:3
+	line-height:3;
 }
+
+#footer {
+	/*display: flex;*/
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	z-index: 10;
+	max-width: 750px;
+	width: 100%;
+	/*height: 110px;*/
+	left: 0;
+	bottom: 0;
+	background:  #fff;
+	margin: auto;
+
+}
+
+
 .datails{
 	width: 100%;
 	line-height:3;
@@ -24,6 +42,7 @@
 	margin-right: 0.16rem;
 	color: #787878;
 	background: white;
+	marginBottom: 200px
 }
 
 /* 字体大小 07表示占70% */

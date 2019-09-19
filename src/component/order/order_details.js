@@ -35,7 +35,6 @@ export default class OrderDetails extends React.Component {
 	         <Tabs tabs={tabs2} initialPage={0} tabBarInactiveTextColor='#108ee9'>
 				 <WingBlank size="sm"><div style={{ display: 'flex', alignItems: 'right', justifyContent: 'right',backgroundColor: '#fff' }}>
 	 				<OrderDetailsHead item={item}/>
-
 				 </div></WingBlank>
 	 			<div style={{  alignItems: 'right', justifyContent: 'right', height: '100%', backgroundColor: '#fff' }}>
 					<OrderDetailsItem orderNo={item.orderNo} rolePermission={rolePermission} printeryConfirm={item.printeryIsConfirm}/>
