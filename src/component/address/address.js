@@ -60,30 +60,9 @@ function post(_this) {
 }
 
 
-//已废弃
-// function getAddress(latitude, longitude,_this) {
-//     // 生成 QQMapWX 实例
-//     let qqmapsdk = new QQMapWX({
-//         key: 'V5FBZ-BOIRO-WVKW4-SVJHK-UT7TO-LJB3Q'
-//     })
-//
-//     // reverseGeocoder 为 QQMapWX 解析 经纬度的方法
-//     qqmapsdk.reverseGeocoder({
-//         location: {latitude,longitude},
-//         success(res) {
-//             console.log('success', res)
-//             _this.setState({
-//                 res:res
-//             });
-//         }
-//     })
-// }
-
-
 
 function getAddress(latitude,longitude,_this) {
         axios.get('/gaode?key=11e37c585c344bc452157caba51bcb80&location='+longitude+','+latitude).then(function(response){
-
             if(response.status == '200'){
                 console.log(response);
                 _this.setState({
@@ -120,7 +99,7 @@ constructor(props){
         post(this);
     }
     render() {
-    const _this = this;
+        const _this = this;
         return(<div>  {this.state.address}</div>);
     }
 }

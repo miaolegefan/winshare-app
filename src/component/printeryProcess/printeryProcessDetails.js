@@ -76,7 +76,7 @@ export default class PrinteryProcessDetails extends React.Component {
                         onLeftClick={this.comeback}>
                 </NavBar>
 				<section className="section" hidden={item.isOpen===null || item.isOpen==='0' }>
-                    <Link to={{pathname:'/printeryProcess/details/en/enclosure',time:item.openTime,remark:item.openRemark,}}>
+                    <Link to={{pathname:'/printeryProcess/details/en/enclosure',time:item.openTime,remark:item.openRemark,imagePath:item.openAttPic,filePath:item.openAttVideo}}>
 
 						<Flex>
 							<div className="font15 colorBlack flex1">
