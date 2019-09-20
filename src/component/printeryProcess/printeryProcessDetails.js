@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex,NavBar,Icon,WingBlank,Button, } from 'antd-mobile';
+import { Flex,NavBar,Icon,WingBlank,Button, Toast} from 'antd-mobile';
 import {Link} from 'react-router-dom';
 import '../common.css';
 import './printeryProcess.css'
@@ -9,8 +9,22 @@ const history = createHashHistory();//返回上一页这段代码
 
 function add(_this) {
 
-	const item =_this.state;
-	_this.props.history.push('/add',item)
+	if('0'==_this.state.item.produceStatus) {
+        //新增按钮增加逻辑判断
+        axios.get('/api/public/moblie-printeryProcess/isAdd?orderNo=' + _this.state.item.orderNo + '&produceStatus=' + _this.state.item.produceStatus)
+			.then(function (response) {
+				if(response.data.success){
+                    const item =_this.state;
+                    _this.props.history.push('/add',item)
+				}else{
+                    Toast.info(response.data.message);
+				}
+            })
+
+    }else{
+		const item =_this.state;
+		_this.props.history.push('/add',item)
+    }
 }
 //数据查询
 function query(_this,orderNo) {
