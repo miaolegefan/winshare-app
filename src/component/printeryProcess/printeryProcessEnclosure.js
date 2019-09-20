@@ -1,5 +1,5 @@
 import React from 'react';
-import {Flex, ImagePicker, NavBar, Icon, Button} from 'antd-mobile';
+import {Flex, ImagePicker, NavBar, Icon, Button,WhiteSpace} from 'antd-mobile';
 import '../common.css';
 import { Player } from 'video-react';
 import axios from "axios";
@@ -83,11 +83,14 @@ export default class PrinteryProcessEnclosure extends React.Component{
         const remark = this.props.location.remark;
 
         const filesList = files.map((item,index) =>(
+
             <div key={index}>
                 <Player ref="player" >
                     <source src={item.url}/>
                 </Player>
+                <WhiteSpace size="lg"/>
             </div>
+
         ))
 
 
