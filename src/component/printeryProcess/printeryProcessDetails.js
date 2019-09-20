@@ -105,48 +105,61 @@ export default class PrinteryProcessDetails extends React.Component {
 				</section>
 
 				<section className="section" hidden={item.isBind===null || item.isBind==='0' }>
-					<Flex>
-						<div className="font15 colorBlack flex1"> 
-							装订
-						</div>
-						<div className="flex3">
-							<div>{item.bindTime}</div>
-							<div>{item.bindRemark}</div>
-						</div>
-					</Flex>
+                    <Link to={{pathname:'/printeryProcess/details/en/enclosure',time:item.bindTime,remark:item.bindRemark,
+						imagePath:item.bindAttPic,filePath:item.bindAttVideo}}>
+
+						<Flex>
+							<div className="font15 colorBlack flex1">
+								装订
+							</div>
+							<div className="flex3">
+								<div>{item.bindTime}</div>
+								<div>{item.bindRemark}</div>
+							</div>
+						</Flex>
+					</Link>
 				</section>
 				<section className="section" hidden={item.isQuality===null || item.isQuality==='0' }>
-					<Flex>
-						<div className="font15 colorBlack flex1"> 
-							质检
-						</div>
-						<div className="flex3">
-							<div>{item.qualityTime}</div>
-							<div>{item.qualityRemark}</div>
-						</div>
-					</Flex>
+                    <Link to={{pathname:'/printeryProcess/details/en/enclosure',time:item.qualityTime,remark:item.qualityRemark,
+						imagePath:item.qualityAttPic,filePath:item.qualityAttVideo}}>
+						<Flex>
+							<div className="font15 colorBlack flex1">
+								质检
+							</div>
+							<div className="flex3">
+								<div>{item.qualityTime}</div>
+								<div>{item.qualityRemark}</div>
+							</div>
+						</Flex>
+					</Link>
 				</section>
 				<section className="section" hidden={item.isStartSend===null || item.isStartSend==='0' }>
-					<Flex>
-						<div className="font15 colorBlack flex1"> 
-							开始送货
-						</div>
-						<div className="flex3">
-							<div>{item.startSendTime}</div>
-							<div>{item.startSendRemark}</div>
-						</div>
-					</Flex>
+                    <Link to={{pathname:'/printeryProcess/details/en/enclosure',time:item.startSendTime,remark:item.startSendRemark,
+						imagePath:item.startSendAttPic,filePath:item.startSendAttVideo}}>
+						<Flex>
+							<div className="font15 colorBlack flex1">
+								开始送货
+							</div>
+							<div className="flex3">
+								<div>{item.startSendTime}</div>
+								<div>{item.startSendRemark}</div>
+							</div>
+						</Flex>
+					</Link>
 				</section>
 				<section className="section" hidden={item.isFinishSend===null || item.isFinishSend==='0' }>
-					<Flex>
-						<div className="font15 colorBlack flex1"> 
-							结束送货
-						</div>
-						<div className="flex3">
-							<div>{item.finishSendTime}</div>
-							<div>{item.finishSendRemark}</div>
-						</div>
-					</Flex>
+                    <Link to={{pathname:'/printeryProcess/details/en/enclosure',time:item.finishSendTime,remark:item.finishSendRemark,
+						imagePath:item.finishSendAttPic,filePath:item.finishSendAttVideo}}>
+                        <Flex>
+							<div className="font15 colorBlack flex1">
+								结束送货
+							</div>
+							<div className="flex3">
+								<div>{item.finishSendTime}</div>
+								<div>{item.finishSendRemark}</div>
+							</div>
+						</Flex>
+					</Link>
 				</section>
 
 
