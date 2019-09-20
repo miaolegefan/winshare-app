@@ -1,28 +1,67 @@
 import React from 'react';
-import { Flex, ImagePicker,NavBar,Icon } from 'antd-mobile';
+import {Flex, ImagePicker, NavBar, Icon, Button,WhiteSpace} from 'antd-mobile';
 import '../common.css';
 import { Player } from 'video-react';
+import axios from "axios";
 import "./video-react.css";
 import {createHashHistory} from 'history'  //返回上一页这段代码
 const history = createHashHistory();//返回上一页这段代码
 
-const data = [{
-    url: 'https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg'
-}, {
-    url: 'https://zos.alipayobjects.com/rmsportal/hqQWgTXdrlmVVYi.jpeg',
-}];
+
+
+
+
+
+
 
 export default class PrinteryProcessEnclosure extends React.Component{
-    state = {
-        files: data,
-        multiple: false,
+    constructor(props) {
+        super(props)
+        this.state={
+            files: [],
+            images:[],
+            multiple: false,
+        }
     }
-    onChange = (files, type, index) => {
-        console.log(files, type, index);
+
+    componentWillMount() {
+        const files = this.props.location.filePath;
+        let filePath = [];
+        const images = this.props.location.imagePath;
+        let imagePath=[];
+        if(files != null){
+            const arr = files.split(",");
+            for(let i=0;i<arr.length;i++){
+                const url ={
+                    url:"http://localhost:8080/images/"+arr[i]
+                }
+                filePath.push(url)
+            }
+        }
+        if(images != null){
+            const arr = images.split(",");
+            for(let i=0;i<arr.length;i++){
+                const url ={
+                    url:"http://localhost:8080/images/"+arr[i]
+                }
+                imagePath.push(url)
+            }
+        }
         this.setState({
-            files,
+            files:filePath,
+            images:imagePath
+        })
+    }
+
+
+    onChange = (images, type, index) => {
+        console.log(images, type, index);
+        this.setState({
+            images,
         });
     };
+
+
     onAddImageClick = (e) => {
         e.preventDefault();
         // this.setState({
@@ -39,9 +78,22 @@ export default class PrinteryProcessEnclosure extends React.Component{
     }
 
     render() {
-        const { files } = this.state;
+        const { files,images } = this.state;
         const time = this.props.location.time;
         const remark = this.props.location.remark;
+
+        const filesList = files.map((item,index) =>(
+
+            <div key={index}>
+                <Player ref="player" >
+                    <source src={item.url}/>
+                </Player>
+                <WhiteSpace size="lg"/>
+            </div>
+
+        ))
+
+
         return (
             <div className="backgroundWhite line3" style={{height:"-webkit-fill-available"}}>
                 <NavBar mode="light" icon={<Icon type="left" />}
@@ -54,7 +106,7 @@ export default class PrinteryProcessEnclosure extends React.Component{
                 </Flex>
                 <div className="margin-left">附件图片</div>
                 <ImagePicker
-                    files={files}
+                    files={images}
                     onChange={this.onChange}
                     onImageClick={(index, fs) => console.log(index, fs)}
                     selectable={false}//隐藏添加按钮
@@ -63,9 +115,7 @@ export default class PrinteryProcessEnclosure extends React.Component{
                     //capture={"camera"}//打开手机摄像头
                 />
                 <div className="margin-left">附件视频</div>
-                <Player ref="player" videoId="video-1">
-                    <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"/>
-                </Player>
+                {filesList}
                 <div className="margin-left">备注说明</div>
                 <div style={{border: "thin #E8E8E8 solid",height: "200px",marginLeft: "0.16rem",marginRight: "0.16rem"}}>
                     {remark}

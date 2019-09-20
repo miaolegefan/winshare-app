@@ -41,7 +41,7 @@ export default class workFlowForm extends React.Component{
         return(
             <div>
                 {messageList}
-                <div style={{position: 'absolute', bottom: 0, left: 0, right: 0 ,marginBottom:'95px'}}>
+                <div   style={{marginTop: '100px',bottom:'90px'}} id="footer">
                 <WingBlank size="md"><Button  type="ghost" onClick={()=>submit(taskId,'APPROVED')} style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">同意</Button></WingBlank>
                 <WingBlank size="md"><Button  type="ghost" onClick={()=>submit(taskId,'REJECTED')} style={{color: 'red', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} size="small">拒绝</Button></WingBlank>
                 </div>

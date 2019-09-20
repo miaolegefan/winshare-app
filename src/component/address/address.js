@@ -63,7 +63,6 @@ function post(_this) {
 
 function getAddress(latitude,longitude,_this) {
         axios.get('/gaode?key=11e37c585c344bc452157caba51bcb80&location='+longitude+','+latitude).then(function(response){
-
             if(response.status == '200'){
                 console.log(response);
                 _this.setState({

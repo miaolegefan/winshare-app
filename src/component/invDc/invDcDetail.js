@@ -119,32 +119,32 @@ export default class invDcDetail  extends React.Component{
             <div className="datails" style={{'marginBottom': '100px'}}>
                 <Flex>
                     <div className="text_left flex2">制单日期:</div>
-                    <div className="text_left flex3 colorBlack">{moment(detail.orderDate).format('YYYY-MM-DD')}</div>
+                    <div className="text_left flex2 colorBlack">{moment(detail.orderDate).format('YYYY-MM-DD')}</div>
                 </Flex>
                 <Flex>
                     <div className="text_left flex2">征订日期:</div>
-                    <div className="text_left flex3 colorBlack">{detail.season}</div>
+                    <div className="text_left flex2 colorBlack">{detail.season}</div>
                 </Flex>
                 <Flex>
                     <div className="text_left flex2">征订代码:</div>
-                    <div className="text_left flex3 colorBlack">{detail.subCode}</div>
+                    <div className="text_left flex2 colorBlack">{detail.subCode}</div>
                 </Flex>
                 <Flex>
                     <div className="text_left flex2">印厂:</div>
-                    <div className="text_left flex3 colorBlack">{detail.printeryName}</div>
+                    <div className="text_left flex2 colorBlack">{detail.printeryName}</div>
                 </Flex>
                 <Flex>
                     <div className="text_left flex2">商品编码:</div>
-                    <div className="text_left flex3 colorBlack">{detail.bookCode}</div>
+                    <div className="text_left flex2 colorBlack">{detail.bookCode}</div>
                 </Flex>
                 <Flex>
                     <div className="text_left flex2">商品名称:</div>
-                    <div className="text_left flex3 colorBlack">{detail.bookName}</div>
+                    <div className="text_left flex2 colorBlack">{detail.bookName}</div>
                 </Flex>
                 <WhiteSpace size="lg"/>
                 <Flex>
                     <div className="text_left flex2">批次号:</div>
-                    <div className="text_left flex3 colorBlack">{batch}</div>
+                    <div className="text_left flex2 colorBlack">{batch}</div>
                 </Flex>
 
                 <Picker data={inv}
@@ -179,7 +179,7 @@ export default class invDcDetail  extends React.Component{
             <div>
                 <NavBar mode="light" icon={<Icon type="left" />} onLeftClick={this.comeback}/>
                 {detailUi}
-                <div id="footer">
+                <div  id="footer">
                     <div hidden={this.state.hidden}>
                     <WingBlank size="md"><Button  type="ghost"  onClick={()=>save(detail,this)} style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">保存</Button></WingBlank>
                     </div>

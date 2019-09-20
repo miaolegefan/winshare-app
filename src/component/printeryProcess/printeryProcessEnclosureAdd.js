@@ -13,11 +13,9 @@ const history = createHashHistory();//返回上一页这段代码
 function save(_this) {
 
     /*保存之前先调用获取当前地址*/
-
     const d = _this.state.time;
     const newDate = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' '
         + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
-
     const image = _this.state.image;
     //将图片拼接成字符串，并用逗号隔开
     var attPic = "";
@@ -40,9 +38,6 @@ function save(_this) {
             Toast.info(response.data.message);
         }
     })
-
-
-
 }
 
 
@@ -52,7 +47,7 @@ function upload(before,image,type,index,_this) {
         const len = image.length;
         let formData = new FormData();
         const file = image[len - 1].file;
-        const url = image[len - 1].url;//文件对应的前端生成的url 用来前端展示 因为后台返回的只有文件名称
+        // const url = image[len - 1].url;//文件对应的前端生成的url 用来前端展示 因为后台返回的只有文件名称
         formData.append("file", file);
         axios({
             method: 'post',
@@ -63,14 +58,16 @@ function upload(before,image,type,index,_this) {
             }
         }).then(
                 res => {
+                if(res.data.success){
                     console.log('上传成功！')
-                    let newImage = {
-                        url:url,
-                        data:res.data
+                    const url = {
+                        url:"http://localhost:8080/images/"+res.data.message,
+                        data:res.data.message
                     }
                     _this.setState({
-                        image :before.concat(newImage)
+                        image :_this.state.image.concat(url)
                     })
+                }
                 }
             ).catch(
                 err => {
@@ -86,7 +83,6 @@ function upload(before,image,type,index,_this) {
     }
 
 }
-
 
 export default class PrinteryProcessEnclosureAdd extends React.Component{
     state = {
@@ -106,7 +102,7 @@ export default class PrinteryProcessEnclosureAdd extends React.Component{
     //视频文件保存成功后
     videoSave=(value)=>{
         this.setState({
-            video: value
+            video: value.message
             }
         )
     }
@@ -145,13 +141,11 @@ export default class PrinteryProcessEnclosureAdd extends React.Component{
                     onImageClick={(index, fs) => console.log(index, fs)}
                     selectable={image.length < 5}
                     multiple={true}
-                    // onAddImageClick={upload}
-                    // capture={"camera"}
                 />
                 <div className="margin-left">附件视频</div>
 
                 <Upload multiple action={'/api/public/mobile-upload'}
-                        limit={2} getSuccessFileUrl ={this.videoSave} />
+                        limit={2} getSuccessFileUrl ={this.videoSave} accept="audio/*, video/*,.MOV,.mov"/>
 
                 <div className="margin-left">备注说明</div>
                     <InputItem
@@ -170,9 +164,6 @@ export default class PrinteryProcessEnclosureAdd extends React.Component{
                         <Button  type="ghost" onClick={()=>save(_this)}   style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">保存</Button>
                     </WingBlank>
                 </div>
-
-
-
             </div>
         );
     }

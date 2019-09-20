@@ -1,12 +1,5 @@
 import React from 'react';
 import {
-    Button,
-    List,
-    Radio,
-    WingBlank,
-    WhiteSpace,
-    Modal,
-    ActivityIndicator,
     Toast,
     Flex,
     NavBar,
@@ -15,6 +8,8 @@ import {
 import axios from "axios";
 import {Link} from "react-router-dom";
 import moment from 'moment'
+import {createHashHistory} from 'history'  //返回上一页这段代码
+const history = createHashHistory();//返回上一页这段代码
 
 function search(arr, q) {
     return arr.filter(v => Object.values(v).some(v => new RegExp(q + '').test(v)));
@@ -24,12 +19,16 @@ function getMyTasks(_this) {
 
     axios.post('/api/public/workFlow/getMyTasks?userId='+sessionStorage.userId,{}).then(function(response){
         if(response.status == '200'){
+            //除去社会送书流程
+            const arr =  response.data.data.filter(function (v) {
+                return  v.processName.indexOf("退书") == -1;
+            })
           _this.setState(
               {
-                  myTask: response.data.data,
+                  myTask: arr,
                   search:response.data.data
               }
-          )
+          );
         }else{
             Toast.info('获取待办失败', 1);
         }
@@ -53,6 +52,10 @@ export default class workFlow extends React.Component{
 
         getMyTasks(this);
 
+    }
+    //返回按钮
+    comeback=()=>{
+        history.goBack();  //返回上一页这段代码
     }
 
     //查询事件
