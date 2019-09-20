@@ -8,7 +8,7 @@ const history = createHashHistory();//返回上一页这段代码
 
 //获取INV为空的印单（类型为正常的）
 function getOrderData(_this) {
-    axios.post('/api/public/moblie-invDcData/query?userId=10021',{}).then(function(response){
+    axios.post('/api/public/moblie-invDcData/query?userId='+sessionStorage.userId,{}).then(function(response){
         if(response.data.success){
             _this.setState({
                 orderInv : response.data.rows,
@@ -59,7 +59,7 @@ export default class invDcHead extends React.Component{
 
     render() {
         const orderList = this.state.orderInv.map((item,index) =>(
-                <Link to={{pathname:'/invDc/detail/'+item.orderNo}} key={index}>
+                <Link to={{pathname:'/invDc/detail/'+item.orderNo,orderDetail:item}} key={index}>
                     <section className="section">
                         <Flex>
                             <div className="font07 text_left flex1">{item.orderDate}</div>

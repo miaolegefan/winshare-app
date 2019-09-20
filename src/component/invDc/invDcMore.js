@@ -6,8 +6,9 @@ import {createHashHistory} from 'history'  //返回上一页这段代码
 const history = createHashHistory();//返回上一页这段代码
 
 
-function getData(_this) {
-    axios.post('/api/public/moblie-inv-more/query',{}).then(function(response){
+function getData(season,subCode,_this) {
+    const data ={"season":season,"subCode":subCode};
+    axios.post('/api/public/moblie-inv-more/query',data).then(function(response){
         if(response.data.success){
             _this.setState({
                 data : response.data.rows,
@@ -38,7 +39,8 @@ export default class invDcMore extends React.Component{
 
 
     componentWillMount() {
-        getData(this);
+
+        getData(this.props.location.season,this.props.location.subCode,this);
     }
     //返回按钮
     comeback=()=>{

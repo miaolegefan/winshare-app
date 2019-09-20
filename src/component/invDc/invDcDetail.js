@@ -68,7 +68,7 @@ function getOrderData(_this,orderNo) {
 
 //获取入库DC下拉列表
 function getInvDc(_this) {
-    axios.post('/api/public/moblie-inv/select',{}).then(function(response){
+    axios.get('/api/public/moblie-inv/select').then(function(response){
         if(response.data.success){
             _this.setState({
                 invSelect : response.data.rows,
@@ -96,6 +96,7 @@ export default class invDcDetail  extends React.Component{
 
     componentWillMount() {
         const orderNo = this.props.match.params.orderNo;
+        const detail = this.props.location.orderDetail;
         getBatchId(this);
         getInvDc(this);
         getOrderData(this,orderNo);
@@ -108,7 +109,9 @@ export default class invDcDetail  extends React.Component{
 
     //跳转更多
     onSkip=()=>{
-        this.props.history.push('/invDc/data/more')
+        const season = this.props.location.orderDetail.season;
+        const subCode = this.props.location.orderDetail.subCode;
+        this.props.history.push({pathname:'/invDc/data/more/',season:season,subCode:subCode});
     }
 
     render() {
