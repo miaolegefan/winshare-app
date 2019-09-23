@@ -97,7 +97,12 @@ function getAddress(latitude,longitude,_this) {
             _this.setState({
                 address:response.data.message,
             });
-
+            //如果有父级，则将地址返回给父级
+            if(_this.props.getAddress){
+                _this.props.getAddress(response.data.message)
+            }else{
+                console.log(_this.props.getAddress);
+            }
         }
     })
 
@@ -132,6 +137,6 @@ constructor(props){
     }
     render() {
         const _this = this;
-        return(<div ref={this.state.address}>  {this.state.address}</div>);
+        return(<div > </div>);
     }
 }
