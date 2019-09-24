@@ -2,7 +2,8 @@ import React from 'react';
 import './style.scss';
 import { Grid,WhiteSpace } from 'antd-mobile';
 import {Link} from 'react-router-dom'
-		
+import PrinteryAmount from './printeryAmount/printeryAmount'
+
 class Home extends React.Component {
     render() {
        
@@ -60,6 +61,7 @@ class Home extends React.Component {
 					    )
 					}
                 />
+				<PrinteryAmount/>
 				</div>
             </div>
         )

@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Flex, WhiteSpace,WingBlank,Button,Toast } from 'antd-mobile';
 import '../common.css';
-
+import moment from 'moment'
 
 //印厂状态改变
 function changePrinteryConfrim(preOrderNo,printeryConfirm,_this) {
@@ -147,7 +147,10 @@ export default class PreOrderDetailsHead extends React.Component {
 				</Flex>
 				<Flex >
 				  <div  className="text_left flex1">印厂接收确认时间</div>
-				  <div className="text_right flex1 colorBlack">{preOrderHead.printeryConfirmDate}</div>
+				  <div className="text_right flex1 colorBlack">
+                      {preOrderHead.printeryConfirmDate?
+						  moment(preOrderHead.printeryConfirmDate).format('YYYY-MM-DD'):
+                          preOrderHead.printeryConfirmDate}</div>
 				</Flex>
 				<Flex >
 				  <div  className="text_left flex1">物资公司接收确认</div>
@@ -155,7 +158,10 @@ export default class PreOrderDetailsHead extends React.Component {
 				</Flex>
 				<Flex >
 				  <div  className="text_left flex1">物资公司接收确认时间</div>
-				  <div className="text_right flex1 colorBlack">{preOrderHead.materialsConfirmDate}</div>
+				  <div className="text_right flex1 colorBlack">
+                      {preOrderHead.materialsConfirmDate?
+                          moment(preOrderHead.materialsConfirmDate).format('YYYY-MM-DD'):
+                          preOrderHead.materialsConfirmDate}</div>
 				</Flex>
 				<Flex >
 				  <div  className="text_left flex1">物资公司接收确认人</div>

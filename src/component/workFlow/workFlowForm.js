@@ -25,17 +25,21 @@ export default class workFlowForm extends React.Component{
     render() {
         const message = this.props.message;
         const taskId = this.props.taskId;
-        const messageList = message.split('。').map((item,index) => (
-            <section className="section">
-            <Flex>
-                <div className="font08 text_left flex1">
+        let messageList = [];
+        if(message){
+             messageList = message.split('。').map((item,index) => (
+                <section className="section">
                     <Flex>
-                        <div className="text_left">{item}</div>
+                        <div className="font08 text_left flex1">
+                            <Flex>
+                                <div className="text_left">{item}</div>
+                            </Flex>
+                        </div>
                     </Flex>
-                </div>
-            </Flex>
-            </section>
-        ));
+                </section>
+            ));
+        }
+
         
 
         return(

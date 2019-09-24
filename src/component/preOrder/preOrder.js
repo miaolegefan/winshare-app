@@ -105,11 +105,11 @@ export default class PreOrder extends React.Component{
 						<WhiteSpace/>
 						<Flex className="font07"  >
 							<div className="text_left ">印厂确认时间:</div>
-							<div className="text_left margin-left">{moment(preOrderItem.printeryConfirmDate).format('YYYY-MM-DD')}</div>
+							<div className="text_left margin-left">{preOrderItem.printeryConfirmDate?moment(preOrderItem.printeryConfirmDate).format('YYYY-MM-DD'):preOrderItem.printeryConfirmDate}</div>
 						</Flex>
 						<Flex className="font07">
 						  <div className="text_left ">物资公司确认时间:</div>
-						  <div className="text_left margin-left">{moment(preOrderItem.materialsConfirmDate).format('YYYY-MM-DD')}</div>
+						  <div className="text_left margin-left">{preOrderItem.materialsConfirmDate?moment(preOrderItem.materialsConfirmDate).format('YYYY-MM-DD'):preOrderItem.materialsConfirmDate}</div>
 						</Flex>
 					</div>
 		        </section>

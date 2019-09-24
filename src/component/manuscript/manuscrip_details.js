@@ -51,15 +51,15 @@ export default class ManuscriptDetails extends React.Component {
 					</Flex>
 					<Flex>
 						<div className="text_left flex1">定稿日期:</div>
-						<div className="text_right flex1 colorBlack">{moment(manuscript.finalDate).format('YYYY-MM-DD')}</div>
+						<div className="text_right flex1 colorBlack">{manuscript.finalDate?moment(manuscript.finalDate).format('YYYY-MM-DD'):manuscript.finalDate}</div>
 					</Flex>
 					<Flex>
 						<div className="text_left flex1">计划出片日期:</div>
-						<div className="text_right flex1 colorBlack">{moment(manuscript.planReleaseDate).format('YYYY-MM-DD')}</div>
+						<div className="text_right flex1 colorBlack">{manuscript.planReleaseDate?moment(manuscript.planReleaseDate).format('YYYY-MM-DD'):manuscript.planReleaseDate}</div>
 					</Flex>
 					<Flex>
 						<div className="text_left flex1">实际到片日期:</div>
-						<div className="text_right flex1 colorBlack">{moment(manuscript.arriveDate).format('YYYY-MM-DD')}</div>
+						<div className="text_right flex1 colorBlack">{manuscript.arriveDate?moment(manuscript.arriveDate).format('YYYY-MM-DD'):manuscript.arriveDate}</div>
 					</Flex>
 				</div>
 			</div>
