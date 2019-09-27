@@ -11,7 +11,9 @@ const history = createHashHistory();//返回上一页这段代码
 
 //数据查询
 function query(_this) {
-	axios.post('/api/public/moblie-preOrder/query?userId='+sessionStorage.userId,{}).then(function(response){
+	axios.post('/api/public/moblie-preOrder/query?userId='+sessionStorage.userId,{
+        printeryCode:sessionStorage.printeryCode,
+	}).then(function(response){
 		if(response.data.success){
 			_this.setState({
 				preOrder : response.data.rows,
@@ -103,6 +105,10 @@ export default class PreOrder extends React.Component{
 						</Flex>
 						<Flex style={{color:'#000000'}}><strong>{preOrderItem.bookName}</strong></Flex>
 						<WhiteSpace/>
+                       <Flex className="font07"  >
+                           <div className="text_left ">印数:</div>
+                           <div className="text_left margin-left">{preOrderItem.preMenge}</div>
+                       </Flex>
 						<Flex className="font07"  >
 							<div className="text_left ">印厂确认时间:</div>
 							<div className="text_left margin-left">{preOrderItem.printeryConfirmDate?moment(preOrderItem.printeryConfirmDate).format('YYYY-MM-DD'):preOrderItem.printeryConfirmDate}</div>

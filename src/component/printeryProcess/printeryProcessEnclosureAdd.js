@@ -12,7 +12,6 @@ const history = createHashHistory();//返回上一页这段代码
 
 function save(_this) {
 
-    /*保存之前先调用获取当前地址*/
     const d = _this.state.time;
     const newDate = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' '
         + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
@@ -151,6 +150,7 @@ export default class PrinteryProcessEnclosureAdd extends React.Component{
                     onImageClick={(index, fs) => console.log(index, fs)}
                     selectable={image.length < 5}
                     multiple={true}
+                    capture={"camera"}//打开手机摄像头
                 />
                 <div className="margin-left">附件视频</div>
 

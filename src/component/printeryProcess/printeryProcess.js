@@ -9,7 +9,9 @@ const history = createHashHistory();//返回上一页这段代码
 
 //数据查询
 function query(_this) {
-	axios.post('/api/public/moblie-printeryProcess/query?userId='+sessionStorage.userId,{}).then(function(response){
+	axios.post('/api/public/moblie-printeryProcess/query?userId='+sessionStorage.userId,{
+        printeryCode:sessionStorage.printeryCode,
+	}).then(function(response){
 		if(response.data.success){
 			_this.setState({
 				printeryProcess : response.data.rows,
@@ -125,6 +127,10 @@ export default class PrinteryProcess extends React.Component{
 								<div className="text_left flex3 margin-left">{item.finishSendTime?moment(item.finishSendTime).format('YYYY-MM-DD'):item.finishSendTime}</div>
 							</Flex>
 						</div>
+					</Flex>
+					<Flex className="font07 text_left flex1">
+                        <div className="text_left">印数:</div>
+						<div className="text_left margin-left">{item.printMenge}</div>
 					</Flex>
 				</section>
 			</Link>

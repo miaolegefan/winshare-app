@@ -8,7 +8,9 @@ import {createHashHistory} from 'history'  //返回上一页这段代码
 const history = createHashHistory();//返回上一页这段代码
 
 function query(_this) {//数据查询
-	axios.post('/api/public/moblie-order/query?userId='+sessionStorage.userId,{}).then(function(response){
+	axios.post('/api/public/moblie-order/query?userId='+sessionStorage.userId,{
+         printeryCode:sessionStorage.printeryCode,
+	}).then(function(response){
 		if(response.data.success){
 			_this.setState({
 				order : response.data.rows,
@@ -91,7 +93,7 @@ export default class Order extends React.Component{
 					</Flex>
 					<Flex>
 						<div className="text_left flex3 colorBlack"><strong>{item.bookName}</strong></div>
-						<div className="font07 text_right flex2" >{moment(item.auditDate).format('YYYY-MM-DD')}</div>
+						<div className="font07 text_right flex2" >{item.auditDate?moment(item.auditDate).format('YYYY-MM-DD'):item.auditDate}</div>
 					</Flex>
 					<Flex>
 						<div className="font07 text_left flex1">

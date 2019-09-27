@@ -6,8 +6,10 @@ import '../tabs.css';
 import {createHashHistory} from 'history'  //返回上一页这段代码
 const history = createHashHistory();//返回上一页这段代码
 
-function query(_this,inputCondition) {
-    axios.post('/api/public/moblie-manuscript/query?userId='+sessionStorage.userId,{'inputCondition':inputCondition}).then(function(response){
+function query(_this) {
+    axios.post('/api/public/moblie-manuscript/query?userId='+sessionStorage.userId,{
+        printeryCode:sessionStorage.printeryCode,
+    }).then(function(response){
         if(response.data.success){
             _this.setState({
                 manuscript : response.data.rows,

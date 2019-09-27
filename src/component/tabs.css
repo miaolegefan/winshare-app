@@ -11,15 +11,15 @@
 }
 
 .am-navbar-left{
-    flex: 1;
+    flex: 1 !important;
 }
 .am-navbar-right{
-    flex:0
+    flex:0 !important;
 }
 .am-navbar-title{
-    flex:8;
-    height:100%;
-    -ms-flex-align:center
+    flex:8 !important;
+    height:100% !important;
+    -ms-flex-align:center !important;
 }
 .am-search {
     position: relative;

@@ -17,7 +17,9 @@ function search(arr, q) {
 
 function getMyTasks(_this) {
 
-    axios.post('/api/public/workFlow/getMyTasks?userId='+sessionStorage.userId,{}).then(function(response){
+    axios.post('/api/public/workFlow/getMyTasks?userId='+sessionStorage.userId,{
+        printeryCode:sessionStorage.printeryCode,
+    }).then(function(response){
         if(response.status == '200'){
             //除去社会送书流程
             const arr =  response.data.data.filter(function (v) {

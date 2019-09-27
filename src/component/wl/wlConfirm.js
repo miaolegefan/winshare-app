@@ -10,7 +10,9 @@ const history = createHashHistory();//返回上一页这段代码
 
 //查询
 function query(_this) {
-    axios.post('/api/public/wl/receive/appoint/query?userId='+sessionStorage.userId,{}).then(function(response){
+    axios.post('/api/public/wl/receive/appoint/query?userId='+sessionStorage.userId,{
+        printeryCode:sessionStorage.printeryCode,
+    }).then(function(response){
         if(response.data.success){
             _this.setState({
                 orderDelivery : response.data.rows,

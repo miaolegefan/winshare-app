@@ -4,6 +4,7 @@ import {Picker,List} from 'antd-mobile';
 // 引入 ECharts 主模块
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/pie';
+import 'echarts/lib/chart/bar';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
@@ -49,6 +50,8 @@ export default class PrinteryAmount extends React.Component{
         //先查询该用户可以查看的印单
         getPrintert(this);
         queryPrinteryAmount(this);
+        //默认全部变量 印厂为空
+        sessionStorage.printeryCode='';
     }
     componentDidMount(){
 
@@ -113,10 +116,80 @@ export default class PrinteryAmount extends React.Component{
         return option
     };
 
+    getOption2 =(_this)=> {
+        const printMenge = _this.state.printMenge;
+        const inputMenge = _this.state.inputMenge;
+        const appointMenge = _this.state.appointMenge;
+        let option = {
+            title:{
+                text:'',
+                x:'center'
+            },
+            tooltip:{
+                trigger:'axis',
+                textStyle:{
+                    fontSize:25,
+                },
+            },
+            grid: {
+                top: 20,
+                left: '3%',
+                right: '4%',
+                bottom: 5,
+                containLabel: true,
+                height: 450,
+            },
+            xAxis:{
+                data:['开单数','入库数','预约数'],
+                axisLabel: { //调整x轴的lable
+                    fontSize: 25 // 让字体变大
+                }
+            },
+            yAxis:{
+                type:'value',
+                axisLabel:{
+                    fontSize:25
+                }
+            },
+            series:[
+                {
+                    type:'bar',
+                    barWidth : 50,//柱图宽度
+                    data:[printMenge,inputMenge,appointMenge],
+                    itemStyle: {
+                        normal: {
+                            //每根柱子颜色设置
+                            color: function(params) {
+                                let colorList = [
+                                    "#c23531",
+                                    "#2f4554",
+                                    "#61a0a8",
+                                ];
+                                return colorList[params.dataIndex];
+                            }
+                        }
+                    },
+                    //柱状图上显示数据
+                    label: {
+                        show: "true",
+                        position: "top",
+                        color: "#FFF",
+                        fontWeight: "bolder",
+                        backgroundColor: "auto",
+                        fontSize: "20"
+                    },
+                }
+            ]
+        }
+        return option
+    };
+
     onChange = (value) => {
         this.setState({
             printery: value[0],
         });
+        //全局变量印厂为当前页面选的印厂
+        sessionStorage.printeryCode=value[0];
         queryPrinteryAmount(this);
     }
 
@@ -139,7 +212,7 @@ export default class PrinteryAmount extends React.Component{
                 >
                     <List.Item style={{width:"100%"}} arrow="horizontal">印厂</List.Item>
                 </Picker>
-                <ReactEcharts option={this.getOption(this)} theme="Imooc"  style={{ height: 800 }}/>
+                <ReactEcharts option={this.getOption2(this)} theme="Imooc"  style={{ height: 800 }}/>
             </div>
         </div>)
     }
