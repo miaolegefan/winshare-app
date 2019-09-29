@@ -42,6 +42,12 @@ export default class roleChoose extends React.Component{
            Toast.info('请选择需要登录的角色', 1);
        }else{
         sessionStorage.roleId = id;
+        sessionStorage.grids = '';
+        data.map((item,index)=>{
+            if(item.id == id){
+                sessionStorage.grids = item.grids;
+            }
+        })
         //调取后端接口获取角色权限
 
            //跳转
