@@ -10,7 +10,7 @@ function mobileApproce(item,_this) {
     if(item.receiveMenge>item.appointMenge){
         Toast.info('收货数不能大于预约数 !!!', 2);
     }else{
-        const data =  {"orderNo":item.orderNo,"id":item.id,"dealStatus":"确认","receiveMenge":item.receiveMenge,"appointMenge":item.appointMenge,"objectVersionNumber":item.objectVersionNumber};
+        const data =  {"orderNo":item.orderNo,"id":item.id,"dealStatus":"CONFIRM","receiveMenge":item.receiveMenge,"appointMenge":item.appointMenge,"objectVersionNumber":item.objectVersionNumber};
         axios.post('/api/public/mobile/wl/receive/appoint/approve?userId='+sessionStorage.userId,data).then(function(response){
             if(response.data.success){
                 Toast.info('收货成功', 2);
@@ -29,7 +29,7 @@ function mobileApproce(item,_this) {
 
 function mobileReject(item,_this,reason) {
     reason = document.getElementById("reason").value;
-    const data =  {"orderNo":item.orderNo,"id":item.id,"dealStatus":"拒绝","receiveMenge":"0","remark":reason,"appointMenge":item.appointMenge,"objectVersionNumber":item.objectVersionNumber};
+    const data =  {"orderNo":item.orderNo,"id":item.id,"dealStatus":"REJECT","receiveMenge":"0","remark":reason,"appointMenge":item.appointMenge,"objectVersionNumber":item.objectVersionNumber};
     axios.post('/api/public/mobile/wl/receive/appoint/reject?userId='+sessionStorage.userId,data).then(function(response){
         if(response.data.success){
             Toast.info('拒绝成功', 2);
@@ -83,13 +83,13 @@ export default class wlConfirmDetail extends React.Component{
                 approveHidden:false,
                 rejectHidden:false
             })
-        }else if(value == '确认'){
+        }else if(value == 'CONFIRM'){
             this.setState({
                 approveHidden:true,
                 rejectHidden:false
             })
 
-        }else if(value == '拒绝'){
+        }else if(value == 'REJECT'){
             this.setState({
                 approveHidden:false,
                 rejectHidden:true

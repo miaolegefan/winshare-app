@@ -33,11 +33,11 @@ function search(arr, q) {
         })
     }else if(q == '已同意'){
         arr =  arr.filter(function (v) {
-            return  v.dealStatus == '确认';
+            return  v.dealStatus == 'CONFIRM';
         })
     }else if(q =='已拒绝'){
         arr =  arr.filter(function (v) {
-            return  v.dealStatus == '拒绝';
+            return  v.dealStatus == 'REJECT';
         })
     }
     return arr;
@@ -84,14 +84,15 @@ componentDidMount() {
         this.setState({
             locale: value[0],
         });
+        this.onSearch(value[0])
     }
     onColor = (value)=>{
         let a ='';
         if(value == null){
             a = <span style={{color:'#108ee9'}}>未处理</span>;
-        }else if(value == '确认'){
+        }else if(value == 'CONFIRM'){
             a = <span style={{color:'#00ff00'}}>已同意</span>;
-        }else if(value == '拒绝'){
+        }else if(value == 'REJECT'){
             a = <span style={{color:'red'}}>已拒绝</span>;
         }
     return a;
