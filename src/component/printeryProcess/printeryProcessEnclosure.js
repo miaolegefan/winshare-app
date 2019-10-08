@@ -34,7 +34,7 @@ export default class PrinteryProcessEnclosure extends React.Component{
             for(let i=0;i<arr.length;i++){
                 const url ={
                     // url:"http://localhost:3000/image/"+arr[i]
-                    url:"/image/"+arr[i]
+                    url:"/images/"+arr[i]
                 }
                 filePath.push(url)
             }
@@ -44,7 +44,7 @@ export default class PrinteryProcessEnclosure extends React.Component{
             for(let i=0;i<arr.length;i++){
                 const url ={
                     // url:"http://localhost:3000/image/"+arr[i]
-                    url:"/image/"+arr[i]
+                    url:"/images/"+arr[i]
                 }
                 imagePath.push(url)
             }

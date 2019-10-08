@@ -3,6 +3,7 @@ import './style.scss';
 import { Grid,WhiteSpace } from 'antd-mobile';
 import {Link} from 'react-router-dom'
 import PrinteryAmount from './printeryAmount/printeryAmount'
+import WorkFlow from  './workFlow/workFlow';
 
 class Home extends React.Component {
     render() {
@@ -21,10 +22,10 @@ class Home extends React.Component {
 				link:"/order"
 			},
 			{
-                id:'PreOrder',
+                id:'preOrder',
 				text: '预印单',
 				imgSrc: require('../assets/14.png'),
-				link:"/PreOrder"
+				link:"/preOrder"
 			},
 			{
                 id:'printeryProcess',
@@ -62,8 +63,6 @@ class Home extends React.Component {
             }
         })
         return (
-
-
             <div className="qqmusic-home-body">
 			<div className="qqmusic-mycenter-top">
 			    <div style={{background: 'white'}}>我的应用<WhiteSpace/></div>
@@ -79,6 +78,10 @@ class Home extends React.Component {
 					}
                 />
 				<PrinteryAmount/>
+				<div style={{marginTop:"10px",background: 'white'}}>
+                    <div >我的代办<WhiteSpace/></div>
+					<WorkFlow hiddenNavBar={true} />
+				</div>
 				</div>
             </div>
         )

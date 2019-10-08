@@ -45,6 +45,7 @@ export default class workFlow extends React.Component{
     constructor(props) {
         super(props);
         this.state={
+            hiddenNavBar:this.props.hiddenNavBar?this.props.hiddenNavBar:false,
             myTask:[],
             search:[]
         }
@@ -115,17 +116,17 @@ export default class workFlow extends React.Component{
         ));
 
 
-
-
-
+        const hiddenNavBar = this.state.hiddenNavBar;
         return(
             <div>
-                <NavBar mode="light" icon={<Icon type="left" />} onLeftClick={this.comeback}>
-                    <SearchBar style={{width:"100%"}}
-                               placeholder="Search"
-                               showCancelButton={true}
-                               onChange={this.onSearch}/>
-                </NavBar>
+                <div hidden={hiddenNavBar}>
+                    <NavBar mode="light" icon={<Icon type="left" />} onLeftClick={this.comeback} >
+                        <SearchBar style={{width:"100%"}}
+                                   placeholder="Search"
+                                   showCancelButton={true}
+                                   onChange={this.onSearch}/>
+                    </NavBar>
+                </div>
                 {myTaskList}
             </div>
         );

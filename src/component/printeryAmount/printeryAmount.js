@@ -132,9 +132,13 @@ export default class PrinteryAmount extends React.Component{
                 },
             },
             grid: {
-                top: 20,
+                /*top: '2%',
                 left: '3%',
-                right: '4%',
+                right: '4%',*/
+                x:25,
+                y:45,
+                x2:5,
+                y2:20,
                 bottom: 5,
                 containLabel: true,
                 height: 450,
@@ -212,7 +216,7 @@ export default class PrinteryAmount extends React.Component{
                 >
                     <List.Item style={{width:"100%"}} arrow="horizontal">印厂</List.Item>
                 </Picker>
-                <ReactEcharts option={this.getOption2(this)} theme="Imooc"  style={{ height: 800 }}/>
+                <ReactEcharts option={this.getOption2(this)} theme="Imooc"  style={{ height: 600,backgroundColor: '#fff' }}/>
             </div>
         </div>)
     }
