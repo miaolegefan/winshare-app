@@ -1,9 +1,10 @@
 import React from 'react';
-import { Flex,WingBlank, Button,List,TextareaItem,InputItem,Toast,Modal,Form} from 'antd-mobile';
+import { Flex,WingBlank, Button,NavBar, Icon,TextareaItem,InputItem,Toast,Modal,Form} from 'antd-mobile';
 import axios from "axios";
 import '../wl/wlConfirm.css';
 import moment from 'moment'
-
+import {createHashHistory} from 'history'
+const history = createHashHistory();//返回上一页这段代码
 
 function mobileApproce(item,_this) {
 
@@ -110,78 +111,85 @@ export default class wlConfirmDetail extends React.Component{
         });
     }
 
-
+    //返回按钮
+    comeback=()=>{
+        history.goBack();  //返回上一页这段代码
+    }
     render() {
         const detail= this.props.location.detail;
         const _this = this;
        const {receiveMengeValue} = this.state;
         return(
             <WingBlank size="sm">
-                <div>
+                <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }}>
 
-            <div className="datails" style={{'marginBottom': '100px'}}>
-                <Flex>
-                    <div className="text_left flex1">预约日期:</div>
-                    <div className="text_right flex1 colorBlack">{moment(detail.appointDate).format('YYYY-MM-DD')}</div>
-                </Flex>
-                <Flex>
-                    <div className="text_left flex1">预约时段:</div>
-                    <div className="text_right flex1 colorBlack">{detail.appointPeriod}</div>
-                </Flex>
-                <Flex>
-                    <div className="text_left flex1">送货方:</div>
-                    <div className="text_right flex1 colorBlack">{detail.sender}</div>
-                </Flex>
-                <Flex>
-                    <div className="text_left flex1">书名:</div>
-                    <div className="text_right flex1 colorBlack">{detail.bookName}</div>
-                </Flex>
-                <Flex>
-                    <div className="text_left flex1">商品编码:</div>
-                    <div className="text_right flex1 colorBlack">{detail.bookCode}</div>
-                </Flex>
-                <Flex>
-                    <div className="text_left flex1">预约数量:</div>
-                    <div className="text_right flex1 colorBlack">{detail.appointMenge}</div>
-                </Flex>
-                <Flex>
-                    <div className="text_left flex1">册包数:</div>
-                    <div className="text_right flex1 colorBlack">{detail.volumeMenge}</div>
-                </Flex>
-                <Flex>
-                    <div className="text_left flex1">车数量:</div>
-                    <div className="text_right flex1 colorBlack">{detail.carsMenge}</div>
-                </Flex>
-                <Flex>
-                    <div className="text_left flex1">装订厂联系人:</div>
-                    <div className="text_right flex1 colorBlack">{detail.binderyContact}</div>
-                </Flex>
-                <Flex>
-                    <div className="text_left flex1">装订厂联系电话:</div>
-                    <div className="text_right flex1 colorBlack">{detail.binderyTel}</div>
-                </Flex>
-                <Flex>
-                    <div className="text_left flex1">备注:</div>
-                </Flex>
-                <Flex>
-                    <div className="margin-left margin-right colorBlack" style={{ border:'thin #E8E8E8 solid'}}>
-                        {detail.remark}
-                    </div>
-                </Flex>
-
-
-                    <InputItem
-                        type="digit"
-                        id="receiveMenge"
-                        clear
-                        autoAdjustHeight={true}
-                        style={{borderColor: '#404040'}}
-                        defaultValue={this.onReceiveMenge(detail)}
-                    >物流收货数量</InputItem>
-            </div>
+                    <NavBar mode="light" icon={<Icon type="left" />}
+                            onLeftClick={this.comeback}>
+                    </NavBar>
+                    <div style={{ display: 'flex', alignItems: 'right', height: '100%',justifyContent: 'right',backgroundColor: '#fff' }}>
+                        <div className="datails" style={{'marginBottom': '100px'}}>
+                            <Flex>
+                                <div className="text_left flex1">预约日期:</div>
+                                <div className="text_right flex1 colorBlack">{moment(detail.appointDate).format('YYYY-MM-DD')}</div>
+                            </Flex>
+                            <Flex>
+                                <div className="text_left flex1">预约时段:</div>
+                                <div className="text_right flex1 colorBlack">{detail.appointPeriod}</div>
+                            </Flex>
+                            <Flex>
+                                <div className="text_left flex1">送货方:</div>
+                                <div className="text_right flex1 colorBlack">{detail.sender}</div>
+                            </Flex>
+                            <Flex>
+                                <div className="text_left flex1">书名:</div>
+                                <div className="text_right flex1 colorBlack">{detail.bookName}</div>
+                            </Flex>
+                            <Flex>
+                                <div className="text_left flex1">商品编码:</div>
+                                <div className="text_right flex1 colorBlack">{detail.bookCode}</div>
+                            </Flex>
+                            <Flex>
+                                <div className="text_left flex1">预约数量:</div>
+                                <div className="text_right flex1 colorBlack">{detail.appointMenge}</div>
+                            </Flex>
+                            <Flex>
+                                <div className="text_left flex1">册包数:</div>
+                                <div className="text_right flex1 colorBlack">{detail.volumeMenge}</div>
+                            </Flex>
+                            <Flex>
+                                <div className="text_left flex1">车数量:</div>
+                                <div className="text_right flex1 colorBlack">{detail.carsMenge}</div>
+                            </Flex>
+                            <Flex>
+                                <div className="text_left flex1">装订厂联系人:</div>
+                                <div className="text_right flex1 colorBlack">{detail.binderyContact}</div>
+                            </Flex>
+                            <Flex>
+                                <div className="text_left flex1">装订厂联系电话:</div>
+                                <div className="text_right flex1 colorBlack">{detail.binderyTel}</div>
+                            </Flex>
+                            <Flex>
+                                <div className="text_left flex1">备注:</div>
+                            </Flex>
+                            <Flex>
+                                <div className="margin-left margin-right colorBlack" style={{ border:'thin #E8E8E8 solid'}}>
+                                    {detail.remark}
+                                </div>
+                            </Flex>
 
 
-                <div id="footer">
+                                <InputItem
+                                    type="digit"
+                                    id="receiveMenge"
+                                    clear
+                                    autoAdjustHeight={true}
+                                    style={{borderColor: '#404040'}}
+                                    defaultValue={this.onReceiveMenge(detail)}
+                                >物流收货数量</InputItem>
+                        </div>
+
+
+                <div  style={{bottom:'8%',position: 'absolute',width:'100%'}}>
                     <div hidden={this.state.approveHidden}>
                     <WingBlank size="md"><Button  type="ghost" onClick={()=>mobileApproce(detail,_this)} style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">同意</Button></WingBlank>
                     </div>
@@ -208,6 +216,7 @@ export default class wlConfirmDetail extends React.Component{
                             />
                         </div>
                     </Modal>
+                </div>
 
 
                 </div>

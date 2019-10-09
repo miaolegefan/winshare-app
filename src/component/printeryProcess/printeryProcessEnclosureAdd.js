@@ -171,7 +171,7 @@ export default class PrinteryProcessEnclosureAdd extends React.Component{
 
                 <Address getAddress={this.getAddress.bind(this)}/>
 
-                <div style={{position: 'absolute', bottom: 0,width:'100%' }}>
+                <div style={{position: 'absolute', bottom: '2%',width:'100%' }}>
                     <WingBlank size="md">
                         <Button  type="ghost" onClick={()=>save(_this)}   style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">保存</Button>
                     </WingBlank>

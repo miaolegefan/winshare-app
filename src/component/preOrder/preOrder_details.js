@@ -33,10 +33,11 @@ export default class PreOrderDetails extends React.Component {
                   onLeftClick={this.comeback}>
           </NavBar>
         <Tabs tabs={tabs2} initialPage={0} tabBarInactiveTextColor='#108ee9'>
-			<div className='section' >
-				<PreOrderDetailsHead item= {item} rolePermission={rolePermission}/>
+            <div style={{  alignItems: 'right', justifyContent: 'right', height: '100%', backgroundColor: '#fff' }}>
+                <PreOrderDetailsHead item= {item} rolePermission={rolePermission}/>
 			</div>
-			<div className='section' >
+
+            <div style={{  alignItems: 'right', justifyContent: 'right', height: '100%', backgroundColor: '#fff' }}>
 				<PreOrderDetailsItem preOrderNo= {item.preOrderNo}/>
 			</div>
 		</Tabs>

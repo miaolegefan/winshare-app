@@ -2,7 +2,8 @@ import React from 'react';
 import axios from "axios";
 import {Link} from "react-router-dom";
 import {Flex, Icon, NavBar, SearchBar,Toast} from "antd-mobile";
-import {createHashHistory} from 'history'  //返回上一页这段代码
+import {createHashHistory} from 'history'
+import moment from "moment/moment";  //返回上一页这段代码
 const history = createHashHistory();//返回上一页这段代码
 
 
@@ -78,8 +79,10 @@ export default class invDcHead extends React.Component{
                             </div>
                             <div className="font07 text_right flex1" >
                                 <Flex>
-                                    <div className="text_right flex3">要求送书日期:</div>
-                                    <div className="text_left flex1 margin-left">{item.requireSendDate}</div>
+                                    <div className="text_right flex1">要求送书日期:</div>
+                                    <div className="text_left flex1 margin-left">
+                                        {item.requireSendDate?moment(item.requireSendDate).format('YYYY-MM-DD'):item.requireSendDate}
+                                    </div>
                                 </Flex>
                             </div>
                         </Flex>
@@ -92,7 +95,7 @@ export default class invDcHead extends React.Component{
                             </div>
                             <div className="font07 text_right flex1" >
                                 <Flex>
-                                    <div className="text_right flex3">征订代码:</div>
+                                    <div className="text_right flex1">征订代码:</div>
                                     <div className="text_left flex1 margin-left">{item.subCode}</div>
                                 </Flex>
                             </div>

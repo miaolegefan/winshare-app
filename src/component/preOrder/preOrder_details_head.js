@@ -116,7 +116,7 @@ export default class PreOrderDetailsHead extends React.Component {
         return (
 
 			<div >
-			<div id="pre" style={{	marginBottom: '400px'}}>
+			<div style={{	marginBottom: '400px'}} className="datails">
 				<Flex>
 				  <div className="text_left flex1">预印单号</div>
 				  <div className="text_right flex1 colorBlack">{preOrderHead.preOrderNo}</div>
@@ -173,7 +173,7 @@ export default class PreOrderDetailsHead extends React.Component {
 				</Flex>
 			</div>
 
-				<div style={{marginTop: '100px',bottom:'90px'}} id="footer">
+				<div style={{bottom:'8%',position: 'absolute',width:'100%'}} id="footer">
 					<div hidden={this.state.printeyConfirm} >
 						<WingBlank size="md"><Button  type="ghost" onClick={()=>changePrinteryConfrim(preOrderHead.preOrderNo,'1',_this)} style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">印厂接收确认</Button></WingBlank>
 					</div>

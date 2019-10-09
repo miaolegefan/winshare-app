@@ -156,7 +156,7 @@ export default class OrderDetailsItem extends React.Component {
 					{orderItemList}
 				</div>
 
-				<div style={{bottom:'90px',position: 'absolute',width:'100%'}} >
+				<div style={{bottom:'8%',position: 'absolute',width:'100%'}}>
 					<div hidden={this.state.printey} >
 						<WingBlank size="md"><Button  type="ghost"  onClick={()=>changeConfrim('1',_this)} style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">印厂接收确认</Button></WingBlank>
 					</div>

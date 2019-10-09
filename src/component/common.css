@@ -15,7 +15,7 @@
 	align-items: center;
 	position: relative;
 	z-index: 10;
-	max-width: 750px;
+	/*max-width: 750px;*/
 	width: 100%;
 	/*height: 110px;*/
 	left: 0;
@@ -25,9 +25,9 @@
 
 }
 
-
 .datails{
 	width: 100%;
+	padding:0.16rem;
 	line-height:3;
 	margin-left: 0.16rem;
 	margin-right: 0.16rem;

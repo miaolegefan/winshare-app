@@ -1,13 +1,3 @@
-.datails{
-    width: 100%;
-    line-height:3;
-    margin-left: 0.20px;
-    margin-right: 0.20px;
-    color: #787878;
-    background: white;
-}
-
-
 element.style {
     font-size: 100px;
     background: white;
@@ -29,9 +19,9 @@ body {
     /*display: flex;*/
     justify-content: center;
     align-items: center;
-    position: fixed;
+    position: relative;
     z-index: 10;
-    max-width: 750px;
+   /* max-width: 750px;*/
     width: 100%;
     /*height: 110px;*/
     left: 0;

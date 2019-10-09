@@ -20,9 +20,9 @@ export default class ManuscriptDetails extends React.Component {
 
     render() {
         const manuscript = this.state.manuscriptItem;
-        return ( <WingBlank size="sm">
-		 {/*<div style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }}>*/}
-				<div className="datails" style={{'marginBottom': '100px'}}>
+        return (
+		 <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }}>
+
              <NavBar mode="light" icon={<Icon type="left" />}
                      onLeftClick={this.comeback}>
              </NavBar>
@@ -64,7 +64,6 @@ export default class ManuscriptDetails extends React.Component {
 				</div>
 			</div>
 			</div>
-			</WingBlank>
         );
     }
 }
