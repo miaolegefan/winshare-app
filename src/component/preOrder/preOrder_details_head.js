@@ -116,7 +116,7 @@ export default class PreOrderDetailsHead extends React.Component {
         return (
 
 			<div >
-			<div style={{	marginBottom: '400px'}} className="datails">
+			<div style={{	marginBottom: '400px',    width: 'auto'}} className="datails">
 				<Flex>
 				  <div className="text_left flex1">预印单号</div>
 				  <div className="text_right flex1 colorBlack">{preOrderHead.preOrderNo}</div>

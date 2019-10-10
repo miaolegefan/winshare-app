@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, ImagePicker,WingBlank,Button,Toast,NavBar,Icon,InputItem} from 'antd-mobile';
+import { Flex, ImagePicker,WingBlank,Button,Toast,NavBar,Icon,InputItem,ActivityIndicator} from 'antd-mobile';
 import '../common.css';
 import { Player } from 'video-react';
 import "./video-react.css";
@@ -43,6 +43,9 @@ function save(_this) {
 function upload(before,image,type,index,_this) {
 
     if(type == 'add'){
+        _this.setState({
+            imageAnimating:true //图片上传中
+        })
         const len = image.length;
         let formData = new FormData();
         const file = image[len - 1].file;
@@ -65,13 +68,17 @@ function upload(before,image,type,index,_this) {
                         data:res.data.message
                     }
                     _this.setState({
-                        image :_this.state.image.concat(newImage)
+                        image :_this.state.image.concat(newImage),
+                        imageAnimating:false,//图片上传结束
                     })
                 }
                 }
             ).catch(
                 err => {
                     Toast.info('该图片上传失败!!!', 1);
+                    _this.setState({
+                        imageAnimating:false,//图片上传结束
+                    })
                 }
             )
     }else if(type == 'remove'){
@@ -93,6 +100,7 @@ export default class PrinteryProcessEnclosureAdd extends React.Component{
         produceStatus:this.props.location.state.item.produceStatus,//生产状态
         orderNo:this.props.location.state.item.orderNo,//印单号
         address:'',
+        imageAnimating:false,//图片是否上传中
     }
 
     onChange = (image, type, index) => {
@@ -152,7 +160,13 @@ export default class PrinteryProcessEnclosureAdd extends React.Component{
                     multiple={true}
                     capture={"camera"}//打开手机摄像头
                 />
-                <div className="margin-left">附件视频</div>
+                    <ActivityIndicator
+                        toast
+                        text="Loading..."
+                        animating={this.state.imageAnimating}
+                    />
+
+                    <div className="margin-left">附件视频</div>
 
                 <Upload multiple action={'/api/public/mobile-upload'}
                         limit={2} getSuccessFileUrl ={this.videoSave} accept="audio/*, video/*,.MOV,.mov"/>
