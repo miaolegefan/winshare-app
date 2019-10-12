@@ -11,14 +11,23 @@ module.exports = function(app) {
     },
    }));
    app.use(proxy('/api', { 
-    target: 'http://10.100.5.148:8080/',
-    // target: 'http://localhost:8080/',
+    // target: 'http://10.100.5.148:8080/',
+    target: 'http://localhost:8080/',
     secure: false,
     changeOrigin: true,
     pathRewrite: {
      "^/api": "/api"
     },
    }));
+    app.use(proxy('/images', {
+        // target: 'http://10.100.5.148:8080/',
+        target: 'http://localhost:8080/',
+        secure: false,
+        changeOrigin: true,
+        pathRewrite: {
+            "^/images": "/images"
+        },
+    }));
 
     app.use(proxy('/gaode', {
         target: 'https://restapi.amap.com/v3/geocode/regeo',

@@ -100,6 +100,14 @@ export default class invDcHead extends React.Component{
                                 </Flex>
                             </div>
                         </Flex>
+                        <Flex>
+                            <div className="font07 text_left flex1">
+                                <Flex>
+                                    <div className="text_left ">印数:</div>
+                                    <div className="text_left margin-left">{item.printMenge}</div>
+                                </Flex>
+                            </div>
+                        </Flex>
                     </section>
                 </Link>
             )

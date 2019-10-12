@@ -183,11 +183,12 @@ export default class PrinteryProcessEnclosureAdd extends React.Component{
                     ></InputItem>
                 </div>
 
+                <div className="margin-left">当前位置</div>
                 <Address getAddress={this.getAddress.bind(this)}/>
 
                 <div style={{position: 'absolute', bottom: '2%',width:'100%' }}>
                     <WingBlank size="md">
-                        <Button  type="ghost" onClick={()=>save(_this)}   style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">保存</Button>
+                        <Button  type="ghost" onClick={()=>save(_this)}   style={{color: '#108ee9',backgroundColor: 'white', borderRadius: '5px', border: '1px solid #108ee9'}}  >保存</Button>
                     </WingBlank>
                 </div>
             </div>

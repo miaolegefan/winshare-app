@@ -97,7 +97,7 @@ export default class PrinteryProcessEnclosure extends React.Component{
 
         ))
 
-
+        const address = this.props.location.address;
         return (
             <div className="backgroundWhite line3" style={{height:"-webkit-fill-available"}}>
                 <NavBar mode="light" icon={<Icon type="left" />}
@@ -120,6 +120,10 @@ export default class PrinteryProcessEnclosure extends React.Component{
                 />
                 <div className="margin-left">附件视频</div>
                 {filesList}
+                <div className="margin-left">位置</div>
+                <div style={{border: "thin #E8E8E8 solid",marginLeft: "0.16rem",marginRight: "0.16rem"}}>
+                    {address}
+                </div>
                 <div className="margin-left">备注说明</div>
                 <div style={{border: "thin #E8E8E8 solid",height: "200px",marginLeft: "0.16rem",marginRight: "0.16rem"}}>
                     {remark}

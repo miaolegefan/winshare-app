@@ -189,10 +189,10 @@ export default class wlConfirmDetail extends React.Component{
 
                     <div  id="footer" style={{bottom:'8%',width:'100%'}}>
                         <div hidden={this.state.approveHidden}>
-                        <WingBlank size="md"><Button  type="ghost" onClick={()=>mobileApproce(detail,_this)} style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">同意</Button></WingBlank>
+                        <WingBlank size="md"><Button  type="ghost" onClick={()=>mobileApproce(detail,_this)} style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} >同意</Button></WingBlank>
                         </div>
                         <div hidden={this.state.rejectHidden} >
-                            <WingBlank size="md"><Button  type="ghost"  onClick={this.showModal('modal1')}    style={{color: 'red', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} size="small">拒绝</Button></WingBlank>
+                            <WingBlank size="md"><Button  type="ghost"  onClick={this.showModal('modal1')}    style={{color: 'red', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} >拒绝</Button></WingBlank>
                         </div>
 
 

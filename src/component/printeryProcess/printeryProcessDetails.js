@@ -90,7 +90,8 @@ export default class PrinteryProcessDetails extends React.Component {
                         onLeftClick={this.comeback}>
                 </NavBar>
 				<section className="section" hidden={item.isOpen===null || item.isOpen==='0' }>
-                    <Link to={{pathname:'/printeryProcess/details/en/enclosure',time:item.openTime,remark:item.openRemark,imagePath:item.openAttPic,filePath:item.openAttVideo}}>
+                    <Link to={{pathname:'/printeryProcess/details/en/enclosure',time:item.openTime,remark:item.openRemark,
+						imagePath:item.openAttPic,filePath:item.openAttVideo,address:item.openAttAddress}}>
 
 						<Flex>
 							<div className="font15 colorBlack flex1">
@@ -106,7 +107,7 @@ export default class PrinteryProcessDetails extends React.Component {
 
 				<section className="section" hidden={item.isBind===null || item.isBind==='0' }>
                     <Link to={{pathname:'/printeryProcess/details/en/enclosure',time:item.bindTime,remark:item.bindRemark,
-						imagePath:item.bindAttPic,filePath:item.bindAttVideo}}>
+						imagePath:item.bindAttPic,filePath:item.bindAttVideo,address:item.bindAttAddress}}>
 
 						<Flex>
 							<div className="font15 colorBlack flex1">
@@ -121,7 +122,7 @@ export default class PrinteryProcessDetails extends React.Component {
 				</section>
 				<section className="section" hidden={item.isQuality===null || item.isQuality==='0' }>
                     <Link to={{pathname:'/printeryProcess/details/en/enclosure',time:item.qualityTime,remark:item.qualityRemark,
-						imagePath:item.qualityAttPic,filePath:item.qualityAttVideo}}>
+						imagePath:item.qualityAttPic,filePath:item.qualityAttVideo,address:item.qualityAttAddress}}>
 						<Flex>
 							<div className="font15 colorBlack flex1">
 								质检
@@ -135,7 +136,7 @@ export default class PrinteryProcessDetails extends React.Component {
 				</section>
 				<section className="section" hidden={item.isStartSend===null || item.isStartSend==='0' }>
                     <Link to={{pathname:'/printeryProcess/details/en/enclosure',time:item.startSendTime,remark:item.startSendRemark,
-						imagePath:item.startSendAttPic,filePath:item.startSendAttVideo}}>
+						imagePath:item.startSendAttPic,filePath:item.startSendAttVideo,address:item.startSendAttAddress}}>
 						<Flex>
 							<div className="font15 colorBlack flex1">
 								开始送货
@@ -149,7 +150,7 @@ export default class PrinteryProcessDetails extends React.Component {
 				</section>
 				<section className="section" hidden={item.isFinishSend===null || item.isFinishSend==='0' }>
                     <Link to={{pathname:'/printeryProcess/details/en/enclosure',time:item.finishSendTime,remark:item.finishSendRemark,
-						imagePath:item.finishSendAttPic,filePath:item.finishSendAttVideo}}>
+						imagePath:item.finishSendAttPic,filePath:item.finishSendAttVideo,address:item.finishSendAttAddress}}>
                         <Flex>
 							<div className="font15 colorBlack flex1">
 								结束送货
@@ -166,8 +167,8 @@ export default class PrinteryProcessDetails extends React.Component {
 
                 <div style={{position: 'absolute', bottom: '2%', left: 0, right: 0 }} hidden={item.produceStatus==='5' }>
                     <WingBlank size="md">
-                        <Button  type="ghost" onClick={()=>add(_this)}   style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">
-							增加 {item.produceStatus?status[item.produceStatus].meaning:''} 进度
+                        <Button  type="ghost" onClick={()=>add(_this)}   style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  >
+							 {"增加"+(item.produceStatus?status[item.produceStatus].meaning:'')+"进度"}
 						</Button>
                     </WingBlank>
                 </div>

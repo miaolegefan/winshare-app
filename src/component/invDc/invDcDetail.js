@@ -137,6 +137,10 @@ export default class invDcDetail  extends React.Component{
                     <div className="text_left flex2 colorBlack">{detail.printeryName}</div>
                 </Flex>
                 <Flex>
+                    <div className="text_left flex2">印数:</div>
+                    <div className="text_left flex2 colorBlack">{detail.printMenge}</div>
+                </Flex>
+                <Flex>
                     <div className="text_left flex2">商品编码:</div>
                     <div className="text_left flex2 colorBlack">{detail.bookCode}</div>
                 </Flex>
@@ -171,7 +175,7 @@ export default class invDcDetail  extends React.Component{
                 <WhiteSpace size="lg"/>
                 <Flex>
                     <div className="font07 text_right flex1" >
-                        <Button  onClick={this.onSkip}  inline size="small" style={{ marginRight: '4px' }}>查看更多</Button>
+                        <Button  onClick={this.onSkip}  inline style={{ marginRight: '4px' }}>查看更多</Button>
                     </div>
                 </Flex>
             </div>
@@ -184,7 +188,7 @@ export default class invDcDetail  extends React.Component{
                 {detailUi}
                 <div  id="footer">
                     <div hidden={this.state.hidden}>
-                    <WingBlank size="md"><Button  type="ghost"  onClick={()=>save(detail,this)} style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">保存</Button></WingBlank>
+                    <WingBlank size="md"><Button  type="ghost"  onClick={()=>save(detail,this)} style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} >保存</Button></WingBlank>
                     </div>
                 </div>
             </div>

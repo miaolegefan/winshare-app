@@ -175,16 +175,16 @@ export default class PreOrderDetailsHead extends React.Component {
 
 				<div style={{bottom:'8%',position: 'absolute',width:'100%'}} id="footer">
 					<div hidden={this.state.printeyConfirm} >
-						<WingBlank size="md"><Button  type="ghost" onClick={()=>changePrinteryConfrim(preOrderHead.preOrderNo,'1',_this)} style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">印厂接收确认</Button></WingBlank>
+						<WingBlank size="md"><Button  type="ghost" onClick={()=>changePrinteryConfrim(preOrderHead.preOrderNo,'1',_this)} style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  >印厂接收确认</Button></WingBlank>
 					</div>
 					<div hidden={this.state.materialsConfirm}>
-						<WingBlank size="md"><Button  type="ghost" onClick={()=>changeMaterialsConfrim(preOrderHead.preOrderNo,'1',_this)} style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  size="small">物资公司接收确认</Button></WingBlank>
+						<WingBlank size="md"><Button  type="ghost" onClick={()=>changeMaterialsConfrim(preOrderHead.preOrderNo,'1',_this)} style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} >物资公司接收确认</Button></WingBlank>
 					</div>
 					<div hidden={this.state.cancelPrinteryConfirm}>
-						<WingBlank size="md"><Button  type="ghost" onClick={()=>changePrinteryConfrim(preOrderHead.preOrderNo,'0',_this)} style={{color: '#787878', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} size="small">取消印厂接收确认</Button></WingBlank>
+						<WingBlank size="md"><Button  type="ghost" onClick={()=>changePrinteryConfrim(preOrderHead.preOrderNo,'0',_this)} style={{color: '#787878', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} >取消印厂接收确认</Button></WingBlank>
 					</div>
 					<div hidden={this.state.cancelMaterialsConfirm}>
-						<WingBlank size="md"><Button id="p1" type="ghost" onClick={()=>changeMaterialsConfrim(preOrderHead.preOrderNo,'0',_this)} style={{color: '#787878', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} size="small">取消物资公司接收确认</Button></WingBlank>
+						<WingBlank size="md"><Button id="p1" type="ghost" onClick={()=>changeMaterialsConfrim(preOrderHead.preOrderNo,'0',_this)} style={{color: '#787878', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} >取消物资公司接收确认</Button></WingBlank>
 					</div>
 				</div>
 
