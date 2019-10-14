@@ -28,7 +28,8 @@ function add(_this) {
 }
 //数据查询
 function query(_this,orderNo) {
-    axios.post('/api/public/moblie-printeryProcess/query?userId='+sessionStorage.userId,{orderNo:orderNo}).then(function(response){
+    axios.post('/api/public/moblie-printeryProcess/query?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId,{
+    	orderNo:orderNo}).then(function(response){
         if(response.data.success){
 
         	if(response.data.rows.length > 0){

@@ -7,7 +7,8 @@ import moment from 'moment'
 //印厂状态改变
 function changePrinteryConfrim(preOrderNo,printeryConfirm,_this) {
 
-	axios.post('/api/public/moblie-preOrder/confirm?userId='+sessionStorage.userId,{preOrderNo,printeryConfirm}).then(function(response){
+	axios.post('/api/public/moblie-preOrder/confirm?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId,{
+		preOrderNo,printeryConfirm}).then(function(response){
 		if(response.data.success){
 			if(printeryConfirm == '1'){
 				_this.setState({
@@ -32,7 +33,8 @@ function changePrinteryConfrim(preOrderNo,printeryConfirm,_this) {
 //物资状态改变
 function changeMaterialsConfrim(preOrderNo,materialsConfirm,_this) {
 
-	axios.post('/api/public/moblie-preOrder/confirm?userId='+sessionStorage.userId,{preOrderNo,materialsConfirm}).then(function(response){
+	axios.post('/api/public/moblie-preOrder/confirm?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId,{
+		preOrderNo,materialsConfirm}).then(function(response){
 		if(response.data.success){
 			if(materialsConfirm == '1'){
 				_this.setState({

@@ -15,7 +15,7 @@ const history = createHashHistory();//返回上一页这段代码
 
 //获取历史记录
 function getDetail(_this,id) {
-    axios.post('/api/public/workFlow/runtime/tasks/'+id+'/details?userId='+sessionStorage.userId,{}).then(function(response){
+    axios.post('/api/public/workFlow/runtime/tasks/'+id+'/details?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId,{}).then(function(response){
         if(response.status == '200'){
             _this.setState(
                 {

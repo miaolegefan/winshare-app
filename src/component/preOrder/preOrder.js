@@ -11,7 +11,7 @@ const history = createHashHistory();//返回上一页这段代码
 
 //数据查询
 function query(_this) {
-	axios.post('/api/public/moblie-preOrder/query?userId='+sessionStorage.userId,{
+	axios.post('/api/public/moblie-preOrder/query?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId,{
         printeryCode:sessionStorage.printeryCode,
 	}).then(function(response){
 		if(response.data.success){

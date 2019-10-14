@@ -17,7 +17,7 @@ function search(arr, q) {
 
 function getMyTasks(_this) {
 
-    axios.post('/api/public/workFlow/getMyTasks?userId='+sessionStorage.userId,{
+    axios.post('/api/public/workFlow/getMyTasks?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId,{
         printeryCode:sessionStorage.printeryCode,
     }).then(function(response){
         if(response.status == '200'){

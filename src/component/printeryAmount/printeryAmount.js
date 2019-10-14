@@ -13,7 +13,7 @@ import ReactEcharts from 'echarts-for-react';
 
 //先查询该用户可以查看的印单
 function getPrintert(_this) {
-    axios.get('/api/public/moblie/getPrintert?userId='+sessionStorage.userId).then(function(response){
+    axios.get('/api/public/moblie/getPrintert?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId).then(function(response){
         if(response.data.success){
             _this.setState({
                 printeryList : response.data.rows
@@ -23,7 +23,7 @@ function getPrintert(_this) {
 }
 //查印厂开单数、入库数、预约数
 function queryPrinteryAmount(_this) {
-    axios.post('/api/public/moblie/queryPrinteryAmount?userId='+sessionStorage.userId,{
+    axios.post('/api/public/moblie/queryPrinteryAmount?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId,{
         printeryCode:_this.state.printery,
     }).then(function(response){
         if(response.data.success){
