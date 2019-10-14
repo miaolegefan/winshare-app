@@ -34,10 +34,12 @@ export default class InvcDcBatch extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            orderInv : this.props.location.orderInv,
-            checked: false,//
+            orderInvCheck : this.props.location.orderInvCheck,
+            checked: true,//是否上传sap
             invSelect:[],//入库DC下拉列表
+            sValue:[],//入库dc选中的值
             batch:'无',//批次号
+            hidden:false,
         }
     }
     componentWillMount(){
@@ -50,8 +52,45 @@ export default class InvcDcBatch extends React.Component{
     }
     //保存方法
     batchSave=(_this)=>{
+        //入库地址是否选择
+        if(_this.state.sValue.length>0) {
 
-        
+            //是否上传SAP
+            const isUploadSap = _this.state.checked ? 'Y' : 'N';
+            //入库地点code
+            const DcCode = _this.state.sValue[0].split("-")[0];
+            //入库地点名称
+            const DcName = _this.state.sValue[0].split("-")[1];
+            let orderInvList = [];
+            let orderInvCheck = _this.state.orderInvCheck;
+
+            orderInvCheck.map((item) => {
+                let orderInv = {
+                    "orderNo": item.orderNo,
+                    "id": item.id,
+                    "inv": DcName,
+                    "batchId": _this.state.batch,
+                    "invCode": DcCode,
+                    "isUploadSap": isUploadSap,
+                    "objectVersionNumber": item.objectVersionNumber
+                };
+                orderInvList.push(orderInv)
+            })
+
+            axios.post('/api/public/moblie-inv/batchsave', orderInvList).then(function (response) {
+                if (response.data.success) {
+                    Toast.info('保存成功', 3);
+                    _this.setState({
+                        hidden: true
+                    })
+                    history.goBack();  //返回上一页这段代码
+                } else {
+                    Toast.info('保存失败 !!!', 3);
+                }
+            })
+        }else{
+            Toast.info('请选择入库地址 !!!', 3);
+        }
     }
     render() {
         const batch = this.state.batch;         //批次

@@ -21,25 +21,38 @@ function getBatchId(_this) {
 }
 //保存
 function save(detail,_this) {
+    //入库地址是否选择
+    if(_this.state.sValue.length>0) {
 
-    //是否上传SAP
-    const isUploadSap = _this.state.checked?'Y':'N';
-    //入库地点code
-    const DcCode= _this.state.sValue[0].split("-")[0];
-    //入库地点名称
-    const DcName =  _this.state.sValue[0].split("-")[1];
-    const data =  {"orderNo":detail.orderNo,"id":detail.id,"inv":DcName,"batchId":_this.state.batch,"invCode":DcCode,"isUploadSap":isUploadSap,"objectVersionNumber":detail.objectVersionNumber};
+        //是否上传SAP
+        const isUploadSap = _this.state.checked ? 'Y' : 'N';
+        //入库地点code
+        const DcCode = _this.state.sValue[0].split("-")[0];
+        //入库地点名称
+        const DcName = _this.state.sValue[0].split("-")[1];
+        const data = {
+            "orderNo": detail.orderNo,
+            "id": detail.id,
+            "inv": DcName,
+            "batchId": _this.state.batch,
+            "invCode": DcCode,
+            "isUploadSap": isUploadSap,
+            "objectVersionNumber": detail.objectVersionNumber
+        };
 
-    axios.post('/api/public/moblie-inv/save',data).then(function(response){
-        if(response.data.success){
-            Toast.info('保存成功', 3);
-            _this.setState({
-                hidden:true
-            })
-        }else {
-            Toast.info('保存失败 !!!', 3);
-        }
-    })
+        axios.post('/api/public/moblie-inv/save', data).then(function (response) {
+            if (response.data.success) {
+                Toast.info('保存成功', 3);
+                _this.setState({
+                    hidden: true
+                })
+            } else {
+                Toast.info('保存失败 !!!', 3);
+            }
+        })
+    }else{
+        Toast.info('请选择入库地址 !!!', 3);
+    }
 }
 
 //查询数据
