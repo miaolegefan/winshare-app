@@ -23,7 +23,7 @@ function save(_this) {
         attPic = attPic.substr(0, attPic.length - 1);
     }
 
-    axios.post('/api/public/moblie-printeryProcess/add?userId='+sessionStorage.userId,{
+    axios.post('/api/public/moblie-printeryProcess/add?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId,{
         'orderNo':_this.state.orderNo,
         'time':newDate,
         'attPic': attPic,

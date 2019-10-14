@@ -6,7 +6,8 @@ import axios from "axios";
 function submit(taskId,value) {
 
 const data = {"assignee":null,"action":"complete","comment":"","variables":[{"name":"approveResult","value":value}],"jumpTarget":null,"carbonCopyUsers":""};
-        axios.post('/api/public/mobile-task/action/'+taskId+'?userId='+sessionStorage.userId,data).then(function (response) {
+        axios.post('/api/public/mobile-task/action/'+taskId+'?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId,
+            data).then(function (response) {
             if(response.status == '200'){
                 Toast.info('审批成功', 2);
                 //跳转

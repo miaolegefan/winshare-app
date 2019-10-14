@@ -20,7 +20,8 @@ function getCost(orderNo,_this) {
 
 function confirmCost(costState,_this) {
 	const orderNo = _this.props.orderNo;
-	axios.post('/api/public/moblie-order/confirm?userId='+sessionStorage.userId,{orderNo,costState}).then(function(response){
+	axios.post('/api/public/moblie-order/confirm?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId,{
+		orderNo,costState}).then(function(response){
 		if(response.data.success){
 				if(costState == '1'){
 					_this.setState({

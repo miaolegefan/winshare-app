@@ -7,7 +7,7 @@ import {createHashHistory} from 'history'  //返回上一页这段代码
 const history = createHashHistory();//返回上一页这段代码
 
 function query(_this) {
-    axios.post('/api/public/moblie-manuscript/query?userId='+sessionStorage.userId,{
+    axios.post('/api/public/moblie-manuscript/query?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId,{
         printeryCode:sessionStorage.printeryCode,
     }).then(function(response){
         if(response.data.success){

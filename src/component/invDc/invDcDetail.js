@@ -45,7 +45,7 @@ function save(detail,_this) {
 //查询数据
 function getOrderData(_this,orderNo) {
     const data = {"orderNo":orderNo};
-    axios.post('/api/public/moblie-invDcData/query?userId=10021',data).then(function(response){
+    axios.post('/api/public/moblie-invDcData/query?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId,data).then(function(response){
         if(response.data.success){
             _this.setState({
                 detail : response.data.rows[0],

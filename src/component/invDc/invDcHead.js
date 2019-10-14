@@ -9,7 +9,7 @@ const history = createHashHistory();//返回上一页这段代码
 
 //获取INV为空的印单（类型为正常的）
 function getOrderData(_this) {
-    axios.post('/api/public/moblie-invDcData/query?userId='+sessionStorage.userId,{}).then(function(response){
+    axios.post('/api/public/moblie-invDcData/query?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId,{}).then(function(response){
         if(response.data.success){
             _this.setState({
                 orderInv : response.data.rows,

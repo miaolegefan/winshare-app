@@ -12,7 +12,8 @@ function mobileApproce(item,_this) {
         Toast.info('收货数不能大于预约数 !!!', 2);
     }else{
         const data =  {"orderNo":item.orderNo,"id":item.id,"dealStatus":"CONFIRM","receiveMenge":item.receiveMenge,"appointMenge":item.appointMenge,"objectVersionNumber":item.objectVersionNumber};
-        axios.post('/api/public/mobile/wl/receive/appoint/approve?userId='+sessionStorage.userId,data).then(function(response){
+        axios.post('/api/public/mobile/wl/receive/appoint/approve?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId,
+            data).then(function(response){
             if(response.data.success){
                 Toast.info('收货成功', 2);
                 _this.setState({
@@ -31,7 +32,8 @@ function mobileApproce(item,_this) {
 function mobileReject(item,_this,reason) {
     reason = document.getElementById("reason").value;
     const data =  {"orderNo":item.orderNo,"id":item.id,"dealStatus":"REJECT","receiveMenge":"0","remark":reason,"appointMenge":item.appointMenge,"objectVersionNumber":item.objectVersionNumber};
-    axios.post('/api/public/mobile/wl/receive/appoint/reject?userId='+sessionStorage.userId,data).then(function(response){
+    axios.post('/api/public/mobile/wl/receive/appoint/reject?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId,
+        data).then(function(response){
         if(response.data.success){
             Toast.info('拒绝成功', 2);
             _this.setState({
