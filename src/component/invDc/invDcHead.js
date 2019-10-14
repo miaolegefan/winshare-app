@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from "axios";
 import {Link} from "react-router-dom";
-import {Flex, Icon, NavBar, SearchBar,Toast,Checkbox} from "antd-mobile";
+import {Flex, Icon, NavBar, SearchBar,Toast,Checkbox,Button} from "antd-mobile";
 import {createHashHistory} from 'history'
 import moment from "moment/moment";  //返回上一页这段代码
 const history = createHashHistory();//返回上一页这段代码
@@ -106,6 +106,21 @@ export default class invDcHead extends React.Component{
         })
     }
 
+    //批量选择入库地址
+    batchSave=(_this)=>{
+        let orderInv = _this.state.orderInv;
+        let orderInvCheck = [];
+        orderInv.map((item)=>{
+            if(item.checked){
+                orderInvCheck.push(item);
+            }
+        })
+        if(orderInvCheck.length>0) {
+            this.props.history.push({pathname: '/invDcBatch', orderInvCheck: orderInvCheck});
+        }else{
+            Toast.info('请选择需要更新入库地址的数据', 1);
+        }
+    }
 
     render() {
         const orderList = this.state.orderInv.map((item,index) =>(
@@ -183,10 +198,9 @@ export default class invDcHead extends React.Component{
                 {orderList}
                 </div>
                <div >
-
-                    <CheckboxItem style={{backgroundColor:'#ABABAB'}}checked={this.state.allCheck} onChange={() => this.allCheckOnChange(this)}>
-
-                    </CheckboxItem>
+                   <CheckboxItem style={{backgroundColor:'#ABABAB'}}checked={this.state.allCheck} onChange={() => this.allCheckOnChange(this)}>
+                       <Button  type="primary" onClick={()=>this.batchSave(this)} size="small"  style={{}} >批量选择入库地址</Button>
+                   </CheckboxItem>
 
                </div>
             </div>

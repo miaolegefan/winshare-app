@@ -21,6 +21,7 @@ import workFlowDetail from './component/workFlow/workFlowDetail';
 import wlConfirm from './component/wl/wlConfirm';
 import wlConfirmDetail from './component/wl/wlConfirmDetail';
 import invDc from './component/invDc/invDcHead';
+import invDcBatch from './component/invDc/invcDcBatch';
 import invDcDetail from './component/invDc/invDcDetail';
 import invDcMore from './component/invDc/invDcMore';
 import PrinteryAmount from './component/printeryAmount/printeryAmount'
@@ -49,6 +50,7 @@ class App extends React.PureComponent{
             <Route exact path='/wlConfirm/detail' component={wlConfirmDetail}/>
 			<Route exact path='/invDc' component={invDc}/>
 			<Route exact path='/invDc/detail/:orderNo' component={invDcDetail}/>
+            <Route exact path='/invDcBatch' component={invDcBatch}/>
 			<Route exact path='/invDc/data/more' component={invDcMore}/>
             <Route exact path='/printeryAmount' component={PrinteryAmount}/>
         </Switch>
