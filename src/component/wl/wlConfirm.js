@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, List, Radio, WingBlank, WhiteSpace, Modal, Picker, Toast, Flex, NavBar, Icon} from 'antd-mobile';
+import {List, Picker, Flex, NavBar, Icon,PullToRefresh} from 'antd-mobile';
 import axios from "axios";
 import {Link} from "react-router-dom";
 import moment from 'moment'
@@ -10,13 +10,18 @@ const history = createHashHistory();//返回上一页这段代码
 
 //查询
 function query(_this) {
-    axios.post('/api/public/wl/receive/appoint/query?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId,{
+    axios.post('/api/public/wl/receive/appoint/query?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId+
+        '&page='+_this.state.page+''+'&pageSize='+_this.state.pageSize,{
         printeryCode:sessionStorage.printeryCode,
+        fuzzy:_this.state.fuzzy,//查询字段
+        dealStatus:_this.state.dealStatus,//处理状态
     }).then(function(response){
         if(response.data.success){
+            let orderDelivery = _this.state.orderDelivery;
+            response.data.rows.map((item)=>{orderDelivery.push(item)});
             _this.setState({
-                orderDelivery : response.data.rows,
-                search:response.data.rows
+                orderDelivery : orderDelivery,
+                total:response.data.total,
             });
         }
     })
@@ -50,41 +55,45 @@ export default class wlConfirm extends React.Component{
 constructor(props){
     super(props)
     this.state={
+        page:1,
+        pageSize:10,
+        total:0,
+        fuzzy:'',//查询
+        dealStatus:'',//处理状态
+        refreshing: false,//是否显示刷新状态
+        down: true,
+        height: document.documentElement.clientHeight-100,
         orderDelivery:[],
-        search:[],
-        locale: '全部 ',
     }
 }
 
 
 componentDidMount() {
-        query(this,'')
-    this.setState({
-        orderDelivery :  [],
-        search:[]
-
-    });
-   }
+    if(this.props.location.orderDeliveryState){
+        this.setState(this.props.location.orderDeliveryState);
+    }else {
+        query(this)
+    }
+}
 
     //返回按钮
     comeback=()=>{
         history.goBack();  //返回上一页这段代码
     }
 
-
     //筛选
-    onSearch = (val) => {
-        const value = search(this.state.search,val);
-        this.setState({
-            orderDelivery: value
-        });
-    }
-
+    // onSearch = (val) => {
+    //     const value = search(this.state.search,val);
+    //     this.setState({
+    //         orderDelivery: value
+    //     });
+    // }
+    //查询onchang事件
     onChange = (value) => {
         this.setState({
-            locale: value[0],
+            dealStatus: value[0],
         });
-        this.onSearch(value[0])
+        query(this);
     }
     onColor = (value)=>{
         let a ='';
@@ -99,9 +108,9 @@ componentDidMount() {
     }
 
 render() {
-    const { locale } = this.state;
+    const { dealStatus } = this.state;
     const list =this.state.orderDelivery.map((item,index) => (
-        <Link to={{pathname:'/wlConfirm/detail',detail:item}} key={index}>
+        <Link to={{pathname:'/wlConfirm/detail',detail:item,orderDeliveryState:this.state}} key={index}>
             <section className="section">
                 <Flex>
                     <div className="font07 text_left flex1">{moment(item.appointDate).format('YYYY-MM-DD')}{item.appointPeriod}</div>
@@ -152,15 +161,19 @@ render() {
 
     const choose = [
         {
-            value: '未处理',
+            value: '',
+            label: '全部',
+        },
+        {
+            value: 'UNTREATED',
             label: '未处理',
         },
         {
-            value: '已拒绝',
+            value: 'REJECT',
             label: '已拒绝',
         },
         {
-            value: '已同意',
+            value: 'CONFIRM',
             label: '已同意',
         },
     ];
@@ -171,14 +184,26 @@ render() {
                     data={choose}
                     onChange={this.onChange}
                     cols={1}
-                    value={[locale]}
+                    value={[dealStatus]}
                     style={{width:"100%"}}
                 >
                     <List.Item style={{width:"100%"}} arrow="horizontal">处理状态</List.Item>
                 </Picker>
             </NavBar>
-
-            {list}
+            <PullToRefresh
+                damping={100}
+                ref={el => this.ptr = el}
+                style={{
+                    height: this.state.height,
+                    overflow: 'auto',
+                }}
+                indicator={this.state.down ? {} : { deactivate: '上拉可以刷新' }}
+                direction={'up'}//上划刷新 down
+                refreshing={this.state.refreshing} //是否显示刷新状态
+                onRefresh={() => {this.onRefresh(this)}}
+            >
+                {list}
+            </PullToRefresh>
 
         </div>
     );

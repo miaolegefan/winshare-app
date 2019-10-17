@@ -11,12 +11,14 @@ export default class OrderDetails extends React.Component {
 	 constructor(props) {
 		 super(props);
 		 this.state={
-			 
+             orderState:this.props.location.orderState,
 		 };
 	 }
     //返回按钮
 	comeback=()=>{
+
 		history.goBack();  //返回上一页这段代码
+        this.props.history.push({pathname:'/order',orderState:this.state.orderState});//带父页面参数返回
 	}
 	  render() {
 	 	

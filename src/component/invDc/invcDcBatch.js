@@ -35,7 +35,7 @@ export default class InvcDcBatch extends React.Component{
         super(props);
         this.state={
             orderInvCheck : this.props.location.orderInvCheck,
-            checked: true,//是否上传sap
+            checked: false,//是否上传sap
             invSelect:[],//入库DC下拉列表
             sValue:[],//入库dc选中的值
             batch:'无',//批次号

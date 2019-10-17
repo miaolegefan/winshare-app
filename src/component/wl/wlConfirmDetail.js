@@ -54,6 +54,7 @@ export default class wlConfirmDetail extends React.Component{
     constructor(props){
         super(props)
         this.state={
+            orderDeliveryState:this.props.location.orderDeliveryState,
             approveHidden:false,
             rejectHidden:false,
             textAreaHidden:false,
@@ -116,6 +117,7 @@ export default class wlConfirmDetail extends React.Component{
     //返回按钮
     comeback=()=>{
         history.goBack();  //返回上一页这段代码
+        this.props.history.push({pathname:'/wlConfirm',orderDeliveryState:this.state.orderDeliveryState});//带父页面参数返回
     }
     render() {
         const detail= this.props.location.detail;

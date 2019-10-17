@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from "axios";
 import {Link} from "react-router-dom";
-import {Flex, Icon, NavBar, SearchBar,Toast,Checkbox,Button} from "antd-mobile";
+import {Flex, Icon, NavBar, SearchBar,Toast,Checkbox,Button,PullToRefresh} from "antd-mobile";
 import {createHashHistory} from 'history'
 import moment from "moment/moment";  //返回上一页这段代码
 const history = createHashHistory();//返回上一页这段代码
@@ -9,22 +9,20 @@ const CheckboxItem = Checkbox.CheckboxItem;
 
 //获取INV为空的印单（类型为正常的）
 function getOrderData(_this) {
-    axios.post('/api/public/moblie-invDcData/query?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId,{}).then(function(response){
+    axios.post('/api/public/moblie-invDcData/query?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId+
+        '&page='+_this.state.page+''+'&pageSize='+_this.state.pageSize,{
+        fuzzy:_this.state.fuzzy,//查询字段
+    }).then(function(response){
         if(response.data.success){
-            const orderInv = response.data.rows;
-             // [{"objectVersionNumber":6,"id":306,"season":"18QJ00","fuzzy":null,"orderNo":"20191902","noticeNo":"18QJ20191902","subjectNo":"198007","auditDate":null,"editionPrintTimes":"01-0101","bookName":"高中语文必修2（配人教）1年级下/目","press":"四川教育出版社有限公司","coopForm":null,"businessType":null,"orderDate":null,"wagesSum":null,"printeryPrintTimes":"1","orderMaker":"李夏影","batchId":null,"printeryIsConfirm":"1","receiveStatus":null,"appointStatus":null,"orderCategory":"0","startTime":null,"endTime":null,"bookSizeSpec":"185*260","perform":"原创1-2","pressCode":null,"subCode":"00021716","unitSheet":8.0,"supplierSendPaperDate":null,"coopFormCode":null,"noticeDate":"2019-10-09 00:00:00","bookCode":"102666645","printMenge":1000.0,"printMengeSum":1.0,"bookSize":"16","businessTypeCode":null,"printeryName":"成都祥华印务有限责任公司YC0102","isbn":"978-7-5408-1212-6","printeryReceiveDate":"2019-10-12 14:23:03","printeryReceiveOp":"管理员","auditor":"朱军","requireSendDate":"2019-10-17 00:00:00","sendAddr1":"库房","sendAddr2":"出版公司","sendAddr3":"教育服务事业部产品研发部","sendAddr4":"教育服务事业部采供部","sendAddr5":"四川教育出版社","sampleMenge":76.0,"bindStyle":"胶订","isUploadSap":"Y","coverCraft":"上光油","price":20.0,"costState":null,"printeryCode":null,"auditMark":null,"sendMenge1":1000.0,"sendMenge2":20.0,"sendMenge3":20.0,"sendMenge4":6.0,"sendMenge5":30.0,"createName":null,"inv":null,"remark":null,"appointMenge":null,"invCode":null,"items":null,"costs":null,"newRequireSendDate":null,"processStatus":"in","lovCondition":null,"virtuals":null,"details":null},
-             //    {"objectVersionNumber":7,"id":279,"season":"18QJ00","fuzzy":null,"orderNo":"20191903","noticeNo":"18QJ20191903","subjectNo":"198005","auditDate":null,"editionPrintTimes":"01-0101","bookName":"生物学习与检测（配济南版）7下","press":"四川教育出版社有限公司","coopForm":null,"businessType":null,"orderDate":null,"wagesSum":null,"printeryPrintTimes":null,"orderMaker":"熊安琪","batchId":null,"printeryIsConfirm":"1","receiveStatus":null,"appointStatus":null,"orderCategory":"0","startTime":null,"endTime":null,"bookSizeSpec":null,"perform":"原创1-2","pressCode":null,"subCode":"00030632","unitSheet":3.0,"supplierSendPaperDate":null,"coopFormCode":null,"noticeDate":"2019-10-09 00:00:00","bookCode":"102665887","printMenge":10000.0,"printMengeSum":1.0,"bookSize":"16","businessTypeCode":null,"printeryName":"B123","isbn":"978-7-107-18704-9","printeryReceiveDate":"2019-10-10 10:56:12","printeryReceiveOp":"李嘉","auditor":"朱军","requireSendDate":"2019-10-12 00:00:00","sendAddr1":null,"sendAddr2":null,"sendAddr3":null,"sendAddr4":null,"sendAddr5":null,"sampleMenge":76.0,"bindStyle":"Z胶订","isUploadSap":"Y","coverCraft":null,"price":10.0,"costState":"0","printeryCode":null,"auditMark":null,"sendMenge1":null,"sendMenge2":null,"sendMenge3":null,"sendMenge4":null,"sendMenge5":null,"createName":null,"inv":null,"remark":null,"appointMenge":null,"invCode":null,"items":null,"costs":null,"newRequireSendDate":null,"processStatus":null,"lovCondition":null,"virtuals":null,"details":null},
-             //    {"objectVersionNumber":7,"id":279,"season":"18QJ00","fuzzy":null,"orderNo":"20191903","noticeNo":"18QJ20191903","subjectNo":"198005","auditDate":null,"editionPrintTimes":"01-0101","bookName":"生物学习与检测（配济南版）7下","press":"四川教育出版社有限公司","coopForm":null,"businessType":null,"orderDate":null,"wagesSum":null,"printeryPrintTimes":null,"orderMaker":"熊安琪","batchId":null,"printeryIsConfirm":"1","receiveStatus":null,"appointStatus":null,"orderCategory":"0","startTime":null,"endTime":null,"bookSizeSpec":null,"perform":"原创1-2","pressCode":null,"subCode":"00030632","unitSheet":3.0,"supplierSendPaperDate":null,"coopFormCode":null,"noticeDate":"2019-10-09 00:00:00","bookCode":"102665887","printMenge":10000.0,"printMengeSum":1.0,"bookSize":"16","businessTypeCode":null,"printeryName":"B123","isbn":"978-7-107-18704-9","printeryReceiveDate":"2019-10-10 10:56:12","printeryReceiveOp":"李嘉","auditor":"朱军","requireSendDate":"2019-10-12 00:00:00","sendAddr1":null,"sendAddr2":null,"sendAddr3":null,"sendAddr4":null,"sendAddr5":null,"sampleMenge":76.0,"bindStyle":"Z胶订","isUploadSap":"Y","coverCraft":null,"price":10.0,"costState":"0","printeryCode":null,"auditMark":null,"sendMenge1":null,"sendMenge2":null,"sendMenge3":null,"sendMenge4":null,"sendMenge5":null,"createName":null,"inv":null,"remark":null,"appointMenge":null,"invCode":null,"items":null,"costs":null,"newRequireSendDate":null,"processStatus":null,"lovCondition":null,"virtuals":null,"details":null},
-             //    {"objectVersionNumber":7,"id":279,"season":"18QJ00","fuzzy":null,"orderNo":"20191903","noticeNo":"18QJ20191903","subjectNo":"198005","auditDate":null,"editionPrintTimes":"01-0101","bookName":"生物学习与检测（配济南版）7下","press":"四川教育出版社有限公司","coopForm":null,"businessType":null,"orderDate":null,"wagesSum":null,"printeryPrintTimes":null,"orderMaker":"熊安琪","batchId":null,"printeryIsConfirm":"1","receiveStatus":null,"appointStatus":null,"orderCategory":"0","startTime":null,"endTime":null,"bookSizeSpec":null,"perform":"原创1-2","pressCode":null,"subCode":"00030632","unitSheet":3.0,"supplierSendPaperDate":null,"coopFormCode":null,"noticeDate":"2019-10-09 00:00:00","bookCode":"102665887","printMenge":10000.0,"printMengeSum":1.0,"bookSize":"16","businessTypeCode":null,"printeryName":"B123","isbn":"978-7-107-18704-9","printeryReceiveDate":"2019-10-10 10:56:12","printeryReceiveOp":"李嘉","auditor":"朱军","requireSendDate":"2019-10-12 00:00:00","sendAddr1":null,"sendAddr2":null,"sendAddr3":null,"sendAddr4":null,"sendAddr5":null,"sampleMenge":76.0,"bindStyle":"Z胶订","isUploadSap":"Y","coverCraft":null,"price":10.0,"costState":"0","printeryCode":null,"auditMark":null,"sendMenge1":null,"sendMenge2":null,"sendMenge3":null,"sendMenge4":null,"sendMenge5":null,"createName":null,"inv":null,"remark":null,"appointMenge":null,"invCode":null,"items":null,"costs":null,"newRequireSendDate":null,"processStatus":null,"lovCondition":null,"virtuals":null,"details":null},
-             //    {"objectVersionNumber":7,"id":279,"season":"18QJ00","fuzzy":null,"orderNo":"20191903","noticeNo":"18QJ20191903","subjectNo":"198005","auditDate":null,"editionPrintTimes":"01-0101","bookName":"生物学习与检测（配济南版）7下","press":"四川教育出版社有限公司","coopForm":null,"businessType":null,"orderDate":null,"wagesSum":null,"printeryPrintTimes":null,"orderMaker":"熊安琪","batchId":null,"printeryIsConfirm":"1","receiveStatus":null,"appointStatus":null,"orderCategory":"0","startTime":null,"endTime":null,"bookSizeSpec":null,"perform":"原创1-2","pressCode":null,"subCode":"00030632","unitSheet":3.0,"supplierSendPaperDate":null,"coopFormCode":null,"noticeDate":"2019-10-09 00:00:00","bookCode":"102665887","printMenge":10000.0,"printMengeSum":1.0,"bookSize":"16","businessTypeCode":null,"printeryName":"B123","isbn":"978-7-107-18704-9","printeryReceiveDate":"2019-10-10 10:56:12","printeryReceiveOp":"李嘉","auditor":"朱军","requireSendDate":"2019-10-12 00:00:00","sendAddr1":null,"sendAddr2":null,"sendAddr3":null,"sendAddr4":null,"sendAddr5":null,"sampleMenge":76.0,"bindStyle":"Z胶订","isUploadSap":"Y","coverCraft":null,"price":10.0,"costState":"0","printeryCode":null,"auditMark":null,"sendMenge1":null,"sendMenge2":null,"sendMenge3":null,"sendMenge4":null,"sendMenge5":null,"createName":null,"inv":null,"remark":null,"appointMenge":null,"invCode":null,"items":null,"costs":null,"newRequireSendDate":null,"processStatus":null,"lovCondition":null,"virtuals":null,"details":null},
-             //    {"objectVersionNumber":7,"id":279,"season":"18QJ00","fuzzy":null,"orderNo":"20191903","noticeNo":"18QJ20191903","subjectNo":"198005","auditDate":null,"editionPrintTimes":"01-0101","bookName":"生物学习与检测（配济南版）7下","press":"四川教育出版社有限公司","coopForm":null,"businessType":null,"orderDate":null,"wagesSum":null,"printeryPrintTimes":null,"orderMaker":"熊安琪","batchId":null,"printeryIsConfirm":"1","receiveStatus":null,"appointStatus":null,"orderCategory":"0","startTime":null,"endTime":null,"bookSizeSpec":null,"perform":"原创1-2","pressCode":null,"subCode":"00030632","unitSheet":3.0,"supplierSendPaperDate":null,"coopFormCode":null,"noticeDate":"2019-10-09 00:00:00","bookCode":"102665887","printMenge":10000.0,"printMengeSum":1.0,"bookSize":"16","businessTypeCode":null,"printeryName":"B123","isbn":"978-7-107-18704-9","printeryReceiveDate":"2019-10-10 10:56:12","printeryReceiveOp":"李嘉","auditor":"朱军","requireSendDate":"2019-10-12 00:00:00","sendAddr1":null,"sendAddr2":null,"sendAddr3":null,"sendAddr4":null,"sendAddr5":null,"sampleMenge":76.0,"bindStyle":"Z胶订","isUploadSap":"Y","coverCraft":null,"price":10.0,"costState":"0","printeryCode":null,"auditMark":null,"sendMenge1":null,"sendMenge2":null,"sendMenge3":null,"sendMenge4":null,"sendMenge5":null,"createName":null,"inv":null,"remark":null,"appointMenge":null,"invCode":null,"items":null,"costs":null,"newRequireSendDate":null,"processStatus":null,"lovCondition":null,"virtuals":null,"details":null}]
-
-            orderInv.map((item,index)=>{
+            const orderInv = _this.state.orderInv;
+            response.data.rows.map((item)=>{
                 item.checked=false //复选框默认未选择
-            })
+                orderInv.push(item)
+            });
             _this.setState({
                 orderInv : orderInv,
-                search:orderInv
+                total:response.data.total,
+                allCheck:false,//全选为false
             });
         }else{
             Toast.info('查询数据失败 !!!', 2);
@@ -32,19 +30,18 @@ function getOrderData(_this) {
     })
 }
 
-
-
-function search(arr, q) {
-    return arr.filter(v => Object.values(v).some(v => new RegExp(q + '').test(v)));
-}
-
-
 export default class invDcHead extends React.Component{
     constructor(props){
         super(props)
         this.state={
+            page:1,
+            pageSize:10,
+            total:0,
+            fuzzy:'',//查询
+            refreshing: false,//是否显示刷新状态
+            down: true,
+            height: document.documentElement.clientHeight-100,
             orderInv:[],
-            search:[],
             invSelect:[],
             allCheck:false
         }
@@ -52,7 +49,11 @@ export default class invDcHead extends React.Component{
 
 
     componentWillMount() {
-    getOrderData(this);
+        if(this.props.location.orderInvState){
+            this.setState(this.props.location.orderInvState);
+        }else {
+            getOrderData(this);
+        }
 
     }
 
@@ -61,13 +62,38 @@ export default class invDcHead extends React.Component{
         history.goBack();  //返回上一页这段代码
     }
 
-    //查询事件
-    onSearch = (val) => {
-        const value = search(this.state.search,val);
+    //查询onchang事件
+    searchBarOnChange = (val) =>{
         this.setState({
-            orderInv: value
+            fuzzy: val
         });
+    }
 
+    //查询事件
+    onSearch = () => {
+        this.setState({
+            page:1,
+            pageSize:10,
+            orderInv:[],
+            allCheck:false
+        })
+        setTimeout(() => {
+            getOrderData(this);
+        },2)
+
+    }
+    //查询取消事件
+    onCancel =()=>{
+        this.setState({
+            fuzzy: "",
+            page:1,
+            pageSize:10,
+            orderInv:[],
+            allCheck:false
+        });
+        setTimeout(() => {
+            getOrderData(this);
+        },2)
     }
     //复选框改变事件
     checkOnChange = (val,_this) => {
@@ -93,7 +119,7 @@ export default class invDcHead extends React.Component{
             allCheck:allCheck
         })
     }
-    //全选改变时间
+    //全选改变事件
     allCheckOnChange=(_this)=>{
         let allCheck = !_this.state.allCheck;
         const orderInv = _this.state.orderInv;
@@ -122,11 +148,31 @@ export default class invDcHead extends React.Component{
         }
     }
 
+    //加载更多 上划加载
+    onRefresh=(_this)=>{
+        let total = _this.state.total;
+        let page = _this.state.page;
+        let pageSiza = _this.state.pageSize;
+        //判断是否都加载完了
+        if(total<page*pageSiza){
+            return ;
+        }else{
+            _this.setState({
+                refreshing: true,
+                page:page+1,
+            });
+            setTimeout(() => {
+                getOrderData(_this);
+                _this.setState({ refreshing: false });
+            }, 1000);
+        }
+    }
+
     render() {
         const orderList = this.state.orderInv.map((item,index) =>(
             <CheckboxItem key={index} onChange={() => this.checkOnChange(item,this)} checked={item.checked}>
 
-            <Link to={{pathname:'/invDc/detail/'+item.orderNo,orderDetail:item}} key={index}>
+            <Link to={{pathname:'/invDc/detail/'+item.orderNo,orderInvState:this.state}} key={index}>
                     <section style={{border:"thin #E8E8E8 ",color: "#787878",backgroundColor: "white",lineHeight:"3"}}>
                         <Flex>
                             <div className="font07 text_left flex1">{item.orderDate}</div>
@@ -191,11 +237,27 @@ export default class invDcHead extends React.Component{
             <NavBar mode="light" icon={<Icon type="left" />} onLeftClick={this.comeback}>
                     <SearchBar style={{width:"100%"}}
                                placeholder="Search"
+                               value={this.state.fuzzy}
                                showCancelButton={true}
-                               onChange={this.onSearch}/>
+                               onChange={this.searchBarOnChange}
+                               onCancel={this.onCancel}
+                               onSubmit={this.onSearch}/>
                 </NavBar>
                 <div style={{height:"11rem",  overflow:"auto"}}>
-                {orderList}
+                    <PullToRefresh
+                        damping={100}
+                        ref={el => this.ptr = el}
+                        style={{
+                            height: this.state.height,
+                            overflow: 'auto',
+                        }}
+                        indicator={this.state.down ? {} : { deactivate: '上拉可以刷新' }}
+                        direction={'up'}//上划刷新 down
+                        refreshing={this.state.refreshing} //是否显示刷新状态
+                        onRefresh={() => {this.onRefresh(this)}}
+                    >
+                        {orderList}
+                    </PullToRefresh>
                 </div>
                <div >
                    <CheckboxItem style={{backgroundColor:'#ABABAB'}}checked={this.state.allCheck} onChange={() => this.allCheckOnChange(this)}>

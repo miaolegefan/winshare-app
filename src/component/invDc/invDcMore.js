@@ -1,18 +1,25 @@
 import React from 'react';
 import axios from "axios";
-import {Button, Flex, Icon, NavBar, SearchBar, Toast, WhiteSpace, WingBlank} from "antd-mobile";
+import {Button, Flex, Icon, NavBar, SearchBar, Toast, WhiteSpace, PullToRefresh} from "antd-mobile";
 import '../common.css';
 import {createHashHistory} from 'history'  //返回上一页这段代码
 const history = createHashHistory();//返回上一页这段代码
 
 
 function getData(season,subCode,_this) {
-    const data ={"season":season,"subCode":subCode};
-    axios.post('/api/public/moblie-inv-more/query',data).then(function(response){
+    const data ={
+        "season":season,
+        "subCode":subCode,
+        "fuzzy":_this.state.fuzzy,//查询
+    };
+    axios.post('/api/public/moblie-inv-more/query?page='+_this.state.page+''+'&pageSize='+_this.state.pageSize,
+        data).then(function(response){
         if(response.data.success){
+            let data = _this.state.data;
+            response.data.rows.map((item)=>{data.push(item)});
             _this.setState({
-                data : response.data.rows,
-                search:response.data.rows
+                data : data,
+                total:response.data.total,
             });
         }else{
             Toast.info('查询数据失败 !!!', 2);
@@ -21,19 +28,17 @@ function getData(season,subCode,_this) {
 
 }
 
-
-
-function search(arr, q) {
-    return arr.filter(v => Object.values(v).some(v => new RegExp(q + '').test(v)));
-}
-
 export default class invDcMore extends React.Component{
 
     constructor(props){
         super(props)
         this.state={
+            page:1,
+            pageSize:10,
+            total:0,
+            fuzzy:'',//查询
+            height: document.documentElement.clientHeight-100,
             data:[],
-            search:[]
         }
     }
 
@@ -46,13 +51,56 @@ export default class invDcMore extends React.Component{
     comeback=()=>{
         history.goBack();  //返回上一页这段代码
     }
+    //查询onchang事件
+    searchBarOnChange = (val) =>{
+        this.setState({
+            fuzzy: val
+        });
+    }
+
     //查询事件
     onSearch = (val) => {
-        const value = search(this.state.search,val);
+        //按条件进行查询，页码从第一页开始
         this.setState({
-            orderInv: value
+            page:1,
+            pageSize:10,
+            data:[],
+        })
+        setTimeout(() => {
+            getData(this.props.location.season,this.props.location.subCode,this);
+        },2)
+    }
+    //查询取消事件
+    onCancel =()=>{
+        this.setState({
+            fuzzy: "",
+            page:1,
+            pageSize:10,
+            data:[],
         });
+        setTimeout(() => {
+            getData(this.props.location.season,this.props.location.subCode,this);
+        },2)
+    }
 
+    //加载更多 上划加载
+    onRefresh=(_this)=>{
+        let total = _this.state.total;
+        let page = _this.state.page;
+        let pageSiza = _this.state.pageSize;
+        //判断是否都加载完了
+        if(total<page*pageSiza){
+            return ;
+        }else{
+            _this.setState({
+                refreshing: true,
+                page:page+1,
+            });
+            setTimeout(() => {
+                getData(this.props.location.season,this.props.location.subCode,_this);
+                _this.setState({ refreshing: false });
+            }, 1000);
+        }
     }
 
     render() {
@@ -109,10 +157,26 @@ export default class invDcMore extends React.Component{
                 <NavBar mode="light" icon={<Icon type="left" />} onLeftClick={this.comeback}>
                     <SearchBar style={{width:"100%"}}
                                placeholder="Search"
+                               value={this.state.fuzzy}
                                showCancelButton={true}
-                               onChange={this.onSearch}/>
+                               onChange={this.searchBarOnChange}
+                               onCancel={this.onCancel()}
+                               onSubmit={this.onSearch}/>
                 </NavBar>
-                {list}
+                <PullToRefresh
+                    damping={100}
+                    ref={el => this.ptr = el}
+                    style={{
+                        height: this.state.height,
+                        overflow: 'auto',
+                    }}
+                    indicator={this.state.down ? {} : { deactivate: '上拉可以刷新' }}
+                    direction={'up'}//上划刷新 down
+                    refreshing={this.state.refreshing} //是否显示刷新状态
+                    onRefresh={() => {this.onRefresh(this)}}
+                >
+                    {list}
+                </PullToRefresh>
             </div>
 
 

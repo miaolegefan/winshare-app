@@ -10,7 +10,7 @@ export default class ManuscriptComponent extends React.Component{
     render(){
 
         const manuscriptList=this.props.manuscript.map((item, index) => (
-            <Link to={{pathname:'/manuscript/details',item:item}} key={index}>
+            <Link to={{pathname:'/manuscript/details',item:item,manuscriptState:this.props.manuscriptState}} key={index}>
                <section className='section' >
 					<Flex>
 						<div className="font07 text_left flex1">{item.season}-{item.subCode}</div>

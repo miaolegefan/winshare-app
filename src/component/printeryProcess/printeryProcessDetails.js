@@ -28,7 +28,8 @@ function add(_this) {
 }
 //数据查询
 function query(_this,orderNo) {
-    axios.post('/api/public/moblie-printeryProcess/query?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId,{
+    axios.post('/api/public/moblie-printeryProcess/query?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId+
+        '&page='+1+''+'&pageSize='+10,{
     	orderNo:orderNo}).then(function(response){
         if(response.data.success){
 
@@ -47,6 +48,7 @@ export default class PrinteryProcessDetails extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state ={
+            printeryProcessState:this.props.location.printeryProcessState?this.props.location.printeryProcessState:'',
             item:{}
 		}
 	}
@@ -58,6 +60,7 @@ export default class PrinteryProcessDetails extends React.Component {
     //返回按钮
     comeback=()=>{
         history.goBack();  //返回上一页这段代码
+        this.props.history.push({pathname:'/printeryProcess',printeryProcessState:this.state.printeryProcessState});//带父页面参数返回
     }
 
 	render(){

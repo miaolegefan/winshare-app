@@ -58,7 +58,8 @@ function save(detail,_this) {
 //查询数据
 function getOrderData(_this,orderNo) {
     const data = {"orderNo":orderNo};
-    axios.post('/api/public/moblie-invDcData/query?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId,data).then(function(response){
+    axios.post('/api/public/moblie-invDcData/query?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId+
+        '&page='+1+''+'&pageSize='+10,data).then(function(response){
         if(response.data.success){
             _this.setState({
                 detail : response.data.rows[0],
@@ -98,6 +99,7 @@ export default class invDcDetail  extends React.Component{
     constructor(props){
         super(props)
         this.state={
+            orderInvState:this.props.location.orderInvState?this.props.location.orderInvState:'',
             batch:'无',
             checked: false,
             hidden:false,
@@ -109,7 +111,6 @@ export default class invDcDetail  extends React.Component{
 
     componentWillMount() {
         const orderNo = this.props.match.params.orderNo;
-        const detail = this.props.location.orderDetail;
         getBatchId(this);
         getInvDc(this);
         getOrderData(this,orderNo);
@@ -118,12 +119,13 @@ export default class invDcDetail  extends React.Component{
     //返回按钮
     comeback=()=>{
         history.goBack();  //返回上一页这段代码
+        this.props.history.push({pathname:'/invDc',orderInvState:this.state.orderInvState});//带父页面参数返回
     }
 
     //跳转更多
     onSkip=()=>{
-        const season = this.props.location.orderDetail.season;
-        const subCode = this.props.location.orderDetail.subCode;
+        const season = this.state.detail.season;
+        const subCode = this.state.detail.subCode;
         this.props.history.push({pathname:'/invDc/data/more/',season:season,subCode:subCode});
     }
 
@@ -135,7 +137,7 @@ export default class invDcDetail  extends React.Component{
             <div className="datails" style={{'marginBottom': '100px'}}>
                 <Flex>
                     <div className="text_left flex2">制单日期:</div>
-                    <div className="text_left flex2 colorBlack">{moment(detail.orderDate).format('YYYY-MM-DD')}</div>
+                    <div className="text_left flex2 colorBlack">{detail.orderDate?moment(detail.orderDate).format('YYYY-MM-DD'):detail.orderDate}</div>
                 </Flex>
                 <Flex>
                     <div className="text_left flex2">征订日期:</div>

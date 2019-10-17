@@ -10,12 +10,14 @@ export default class ManuscriptDetails extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            manuscriptItem: this.props.location.item
+            manuscriptItem: this.props.location.item,
+            manuscriptState:this.props.location.manuscriptState
         };
     }
     //返回按钮
     comeback=()=>{
         history.goBack();  //返回上一页这段代码
+        this.props.history.push({pathname:'/manuscript',manuscriptState:this.state.manuscriptState});//带父页面参数返回
     }
 
     render() {

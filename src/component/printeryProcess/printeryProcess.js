@@ -1,5 +1,5 @@
 import React from 'react';
-import {Flex, SearchBar,NavBar, Icon} from 'antd-mobile';
+import {Flex, SearchBar,NavBar, Icon,PullToRefresh} from 'antd-mobile';
 import '../common.css';
 import {Link} from 'react-router-dom';
 import moment from 'moment'
@@ -9,13 +9,17 @@ const history = createHashHistory();//返回上一页这段代码
 
 //数据查询
 function query(_this) {
-	axios.post('/api/public/moblie-printeryProcess/query?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId,{
+	axios.post('/api/public/moblie-printeryProcess/query?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId+
+        '&page='+_this.state.page+''+'&pageSize='+_this.state.pageSize,{
         printeryCode:sessionStorage.printeryCode,
+        fuzzy:_this.state.fuzzy,//查询字段
 	}).then(function(response){
 		if(response.data.success){
+            let printeryProcess = _this.state.printeryProcess;
+            response.data.rows.map((item)=>{printeryProcess.push(item)});
 			_this.setState({
-				printeryProcess : response.data.rows,
-				search:response.data.rows
+				printeryProcess : printeryProcess,
+                total:response.data.total,
 			});
 		}
 	})
@@ -28,28 +32,82 @@ export default class PrinteryProcess extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
+            page:1,
+            pageSize:10,
+            total:0,
+            fuzzy:'',//查询
+            refreshing: false,//是否显示刷新状态
+            down: true,
+            height: document.documentElement.clientHeight-100,
 			printeryProcess: [],
-			search: []
 		}
 	}
 
 
 	componentDidMount(){
-		query(this);
+        if(this.props.location.printeryProcessState){
+            this.setState(this.props.location.printeryProcessState);
+        }else {
+            query(this);
+        }
 	}
+
+    //查询onchang事件
+    searchBarOnChange = (val) =>{
+        this.setState({
+            fuzzy: val
+        });
+    }
 
 	//查询事件
-	onSearch = (val) => {
-		const value = search(this.state.search,val);
-		this.setState({
-			printeryProcess: value
-		});
+	onSearch = () => {
+        //按条件进行查询，页码从第一页开始
+        this.setState({
+            page:1,
+            pageSize:10,
+            printeryProcess:[],
+        })
+        setTimeout(() => {
+            query(this);
+        },2)
 
 	}
+    //查询取消事件
+    onCancel =()=>{
+        this.setState({
+            fuzzy: "",
+            page:1,
+            pageSize:10,
+            printeryProcess:[],
+        });
+        setTimeout(() => {
+            query(this);
+        },2)
+    }
 
     //返回按钮
     comeback=()=>{
         history.goBack();  //返回上一页这段代码
+    }
+
+    //加载更多 上划加载
+    onRefresh=(_this)=>{
+        let total = _this.state.total;
+        let page = _this.state.page;
+        let pageSiza = _this.state.pageSize;
+        //判断是否都加载完了
+        if(total<page*pageSiza){
+            return ;
+        }else{
+            _this.setState({
+                refreshing: true,
+                page:page+1,
+            });
+            setTimeout(() => {
+                query(_this);
+                _this.setState({ refreshing: false });
+            }, 1000);
+        }
     }
 
 	render(){
@@ -76,7 +134,7 @@ export default class PrinteryProcess extends React.Component{
             },
         ];
 		const printeryProcessList = this.state.printeryProcess.map((item,index) => (
-			<Link to={{pathname:'/printeryProcess/details/'+item.orderNo,item:item}} key={index}>
+			<Link to={{pathname:'/printeryProcess/details/'+item.orderNo,item:item,printeryProcessState:this.state}} key={index}>
 				<section className="section">
 					<Flex>
 						<div className="font07 text_left flex1">{item.season}-{item.subCode}</div>
@@ -140,10 +198,27 @@ export default class PrinteryProcess extends React.Component{
                 <NavBar mode="light" icon={<Icon type="left" />} onLeftClick={this.comeback}>
                     <SearchBar style={{width:"100%"}}
                                placeholder="Search"
+                               value={this.state.fuzzy}
                                showCancelButton={true}
-                               onChange={this.onSearch}/>
+                               onChange={this.searchBarOnChange}
+                               onCancel={this.onCancel}
+                               onSubmit={this.onSearch}/>
                 </NavBar>
-				{printeryProcessList}</div>
+                <PullToRefresh
+                    damping={100}
+                    ref={el => this.ptr = el}
+                    style={{
+                        height: this.state.height,
+                        overflow: 'auto',
+                    }}
+                    indicator={this.state.down ? {} : { deactivate: '上拉可以刷新' }}
+                    direction={'up'}//上划刷新 down
+                    refreshing={this.state.refreshing} //是否显示刷新状态
+                    onRefresh={() => {this.onRefresh(this)}}
+                >
+                    {printeryProcessList}
+                </PullToRefresh>
+			</div>
 		)
 		
 	}

@@ -11,11 +11,13 @@ export default class PreOrderDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+        preOrderState:this.props.location.preOrderState,
     };
   }
 	//返回按钮
 	comeback=()=>{
 		history.goBack();  //返回上一页这段代码
+        this.props.history.push({pathname:'/preOrder',orderState:this.state.preOrderState});//带父页面参数返回
 	}
 
   render() {
