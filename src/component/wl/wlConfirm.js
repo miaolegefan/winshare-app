@@ -1,12 +1,11 @@
 import React from 'react';
-import {List, Picker, Flex, NavBar, Icon,PullToRefresh} from 'antd-mobile';
+import {List, Picker, Flex, NavBar, Icon,PullToRefresh,DatePicker,Checkbox,Button} from 'antd-mobile';
 import axios from "axios";
 import {Link} from "react-router-dom";
 import moment from 'moment'
-import Select from 'antd/lib/select';
-import {createHashHistory} from 'history'  //返回上一页这段代码
+import {createHashHistory} from 'history'
 const history = createHashHistory();//返回上一页这段代码
-
+const CheckboxItem = Checkbox.CheckboxItem;
 
 //查询
 function query(_this) {
@@ -18,7 +17,10 @@ function query(_this) {
     }).then(function(response){
         if(response.data.success){
             let orderDelivery = _this.state.orderDelivery;
-            response.data.rows.map((item)=>{orderDelivery.push(item)});
+            response.data.rows.map((item)=>{
+                item.checked=false //复选框默认未选择
+                orderDelivery.push(item)
+            });
             _this.setState({
                 orderDelivery : orderDelivery,
                 total:response.data.total,
@@ -62,8 +64,9 @@ constructor(props){
         dealStatus:'',//处理状态
         refreshing: false,//是否显示刷新状态
         down: true,
-        height: document.documentElement.clientHeight-100,
+        height: document.documentElement.clientHeight*0.85,
         orderDelivery:[],
+        allCheck:false
     }
 }
 
@@ -92,8 +95,14 @@ componentDidMount() {
     onChange = (value) => {
         this.setState({
             dealStatus: value[0],
+            page:1,
+            pageSize:10,
+            orderDelivery:[],
+            allCheck:false,
         });
-        query(this);
+        setTimeout(() => {
+            query(this);
+        },2)
     }
     onColor = (value)=>{
         let a ='';
@@ -107,9 +116,68 @@ componentDidMount() {
     return a;
     }
 
-render() {
+    //加载更多 上划加载
+    onRefresh=(_this)=>{
+        let total = _this.state.total;
+        let page = _this.state.page;
+        let pageSiza = _this.state.pageSize;
+        //判断是否都加载完了
+        if(total<page*pageSiza){
+            return ;
+        }else{
+            _this.setState({
+                refreshing: true,
+                page:page+1,
+            });
+            setTimeout(() => {
+                query(_this);
+                _this.setState({ refreshing: false });
+            }, 1000);
+        }
+    }
+
+    //复选框改变事件
+    checkOnChange = (val,_this) => {
+        const orderDelivery = _this.state.orderDelivery;
+        orderDelivery.map((item)=>{
+            if(item.orderNo == val.orderNo){
+                item.checked = !item.checked
+            }
+        })
+        //判断是否为全选
+        let allCheck = false;
+        let checkNo = 0;
+        orderDelivery.map((item)=>{
+            if(item.checked){
+                checkNo ++;
+            }
+        })
+        if(checkNo == orderDelivery.length){
+            allCheck = true;
+        }
+        _this.setState({
+            orderDelivery:orderDelivery,
+            allCheck:allCheck
+        })
+    }
+    //全选改变事件
+    allCheckOnChange=(_this)=>{
+        let allCheck = !_this.state.allCheck;
+        const orderDelivery = _this.state.orderDelivery;
+        orderDelivery.map((item)=>{
+            item.checked = allCheck
+        })
+        _this.setState({
+            orderDelivery:orderDelivery,
+            allCheck:allCheck
+        })
+    }
+
+
+    render() {
     const { dealStatus } = this.state;
     const list =this.state.orderDelivery.map((item,index) => (
+        <CheckboxItem key={index} onChange={() => this.checkOnChange(item,this)} checked={item.checked}>
         <Link to={{pathname:'/wlConfirm/detail',detail:item,orderDeliveryState:this.state}} key={index}>
             <section className="section">
                 <Flex>
@@ -157,6 +225,7 @@ render() {
                 </Flex>
             </section>
         </Link>
+        </CheckboxItem>
     ));
 
     const choose = [
@@ -189,6 +258,16 @@ render() {
                 >
                     <List.Item style={{width:"100%"}} arrow="horizontal">处理状态</List.Item>
                 </Picker>
+                <DatePicker
+                    mode="date"
+                    title=""
+                    extra=""
+                    value={this.state.date}
+                    onChange={date => this.setState({ date })}
+                >
+                    <List.Item arrow="horizontal">时间</List.Item>
+                </DatePicker>
+
             </NavBar>
             <PullToRefresh
                 damping={100}
@@ -204,7 +283,12 @@ render() {
             >
                 {list}
             </PullToRefresh>
+            <div >
+                <CheckboxItem style={{backgroundColor:'#ABABAB'}}checked={this.state.allCheck} onChange={() => this.allCheckOnChange(this)}>
+                    <Button  type="primary" onClick={()=>this.batchSave(this)} size="small"  style={{}} >批量选择</Button>
+                </CheckboxItem>
 
+            </div>
         </div>
     );
 }
