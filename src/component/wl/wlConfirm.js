@@ -92,8 +92,13 @@ componentDidMount() {
     onChange = (value) => {
         this.setState({
             dealStatus: value[0],
+            page:1,
+            pageSize:10,
+            orderDelivery:[],
         });
-        query(this);
+        setTimeout(() => {
+            query(this);
+        },2)
     }
     onColor = (value)=>{
         let a ='';
