@@ -61,7 +61,7 @@ constructor(props){
         pageSize:10,
         total:0,
         fuzzy:'',//查询
-        dealStatus:'',//处理状态
+        dealStatus:'UNTREATED',//处理状态 
         refreshing: false,//是否显示刷新状态
         down: true,
         height: document.documentElement.clientHeight*0.85,
@@ -229,10 +229,10 @@ componentDidMount() {
     ));
 
     const choose = [
-        {
-            value: '',
-            label: '全部',
-        },
+        // {
+        //     value: '',
+        //     label: '全部',
+        // },
         {
             value: 'UNTREATED',
             label: '未处理',
