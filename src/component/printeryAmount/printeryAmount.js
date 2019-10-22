@@ -214,7 +214,7 @@ export default class PrinteryAmount extends React.Component{
                     cols={1}
                     style={{width:"100%"}}
                 >
-                    <List.Item style={{width:"100%"}} arrow="horizontal">印厂</List.Item>
+                    <List.Item style={{}} arrow="horizontal">印厂</List.Item>
                 </Picker>
                 <ReactEcharts option={this.getOption2(this)} theme="Imooc"  style={{ height: 600,backgroundColor: '#fff' }}/>
             </div>

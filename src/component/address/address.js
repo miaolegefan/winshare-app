@@ -45,11 +45,12 @@ function post(_this) {
     }else{
         axios.post('/api/public/moblie-printeryProcess/signature').then(function(response){
             if(response.data.success){
-                cache.put('ticket',response.data.message,config.cache_duration);  //加入缓存
-                console.log('jsapi_ticket=' + response.data.message + '&noncestr=' + noncestr + '&timestamp=' + timestamp + '&url=' + url);
+                cache.put('ticket',response.data.rows[0].ticket,config.cache_duration);  //加入缓存
+                console.log('jsapi_ticket=' + response.data.rows[0].ticket + '&noncestr=' + noncestr + '&timestamp=' + timestamp + '&url=' + url);
                 _this.setState({
                     timestamp : timestamp,
                     nonceStr:noncestr,
+                    appId:response.data.rows[0].corpid,
                     signature:sha1('jsapi_ticket=' + response.data.message + '&noncestr=' + noncestr + '&timestamp=' + timestamp + '&url=' + url)
                 });
                 window.wx.config(_this.state);
@@ -120,8 +121,7 @@ constructor(props){
         address:'',
             beta: true,// 必须这么写，否则wx.invoke调用形式的jsapi会有问题
             debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-            appId: 'wwb67a7fe3bcd6865f', // 必填，企业微信的corpID
-            agentid: 'VT0qg6Jdjqp-8EKCMXOlmTjSzqcGHtcpQ_PedCYHyW0', // 必填，企业微信的应用id
+            appId: '',//'wwb52cb3a8e26eb2ca',//'wwb67a7fe3bcd6865f', // 必填，企业微信的corpID
             timestamp: '', // 必填，生成签名的时间戳
             nonceStr: '', // 必填，生成签名的随机串
             signature: '',// 必填，签名，见 附录-JS-SDK使用权限签名算法

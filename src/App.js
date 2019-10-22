@@ -3,7 +3,7 @@ import {BrowserRouter as Router,Route,Switch} from 'react-router-dom';
 import Home from './component/home';
 import Manuscript from './component/manuscript/manuscript';
 import ManuscriptDetails from './component/manuscript/manuscrip_details';
-import PreLogin from './component/login/preLogin';
+import Login from './component/login/login';
 import GetWechatUser from './component/login/getWechatUser';
 import PreOrder from './component/preOrder/preOrder';
 import PreOrderDetails from './component/preOrder/preOrder_details';
@@ -32,6 +32,7 @@ class App extends React.PureComponent{
         <Switch>
 			<Route exact path='/add' component={PrinteryProcessEnclosureAdd}/>
 			<Route exact path='/' component={GetWechatUser}/>
+            <Route exact path='/login' component={Login}/>
 			<Route path='/home' component={Home}/>
 			<Route exact path='/manuscript' component={Manuscript}/> 
 			<Route path='/manuscript/details' component={ManuscriptDetails}/>
