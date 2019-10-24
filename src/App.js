@@ -25,6 +25,8 @@ import invDcBatch from './component/invDc/invcDcBatch';
 import invDcDetail from './component/invDc/invDcDetail';
 import invDcMore from './component/invDc/invDcMore';
 import PrinteryAmount from './component/printeryAmount/printeryAmount'
+
+import Login from './component/login/login';
 class App extends React.PureComponent{
   render(){
     return (
@@ -53,6 +55,7 @@ class App extends React.PureComponent{
             <Route exact path='/invDcBatch' component={invDcBatch}/>
 			<Route exact path='/invDc/data/more' component={invDcMore}/>
             <Route exact path='/printeryAmount' component={PrinteryAmount}/>
+			<Route exact path='/login' component={Login}/>
         </Switch>
       </Router>
     )
