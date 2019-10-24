@@ -1,9 +1,9 @@
-html,body{background:#40B0FC; background-size: 100%; background-attachment: fixed; text-align:center}
+html,body{background-size: 100%; background-attachment: fixed; text-align:center}
 .denglu { margin-top: 20%; }
  li { padding: 0px; margin: 0px; list-style: none;margin-right:10px; }
 
-h4.comf1 { height: 30px; line-height: 30px; font-size: 2.8em; color: #fff; text-align: center; }
-h4.comf2 { height: 40px; line-height: 40px; font-size: 2.2em; color: #fff; text-align: center; }
+h4.comf1 { height: 30px; line-height: 30px; font-size: 2.8em; color: #40B0FC; text-align: center; }
+h4.comf2 { height: 40px; line-height: 40px; font-size: 2.2em; color: #40B0FC; text-align: center; }
 .denglu_1 { width: 85%; height: 3.8rem; margin: auto; background: #fff; margin-top: 4%; }
 ul.dengluk { width: 80%; margin: auto; padding-top: 0.2rem; }
 ul.dengluk li { height: 0.7rem; line-height: 40px; margin-bottom: 20px; }

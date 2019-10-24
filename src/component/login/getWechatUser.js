@@ -23,7 +23,9 @@ export default class GetWechatUser extends React.Component {
 		if (sessionStorage.userId && sessionStorage.userId!==''&&sessionStorage.userId!== 'undefined') {
 		    this.setState({userId:sessionStorage.userId});
             _this.props.history.push('/roleChoose')
-		}else{
+		}else if (sessionStorage.wechatUser && sessionStorage.wechatUser!==''&&sessionStorage.wechatUser!== 'undefined') {
+            _this.props.history.push('/login')
+        }else{
 			var code = '';
 			var access_token = '';
 			if(this.props.location.search!=null){
@@ -38,9 +40,21 @@ export default class GetWechatUser extends React.Component {
 			axios.post('/api/public/moblie/getWechatUser?code='+code).then(function(response){
 					console.log(response);
 					if(response.data.success){
-                        sessionStorage.userId =response.data.message;
-                        //跳转角色选择页面
-                        _this.props.history.push('/roleChoose')
+
+                        if(response.data.rows[0].wechatIsBind =="true"){
+                            sessionStorage.userId =response.data.rows[0].userId;
+                            sessionStorage.wechatUser=response.data.rows[0].wechatUser;
+                            //跳转角色选择页面
+                            _this.props.history.push('/roleChoose');
+                        }else{
+                            sessionStorage.wechatUser=response.data.rows[0].wechatUser;
+                            //Toast.info(response.data.message,10);
+                            //跳转登录页面
+                            setTimeout(() => {
+                                _this.props.history.push('/login')
+                            },10)
+                        }
+
 					}else{
                         _this.setState({
                             message : response.data.message

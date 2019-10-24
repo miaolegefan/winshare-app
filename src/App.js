@@ -26,7 +26,6 @@ import invDcDetail from './component/invDc/invDcDetail';
 import invDcMore from './component/invDc/invDcMore';
 import PrinteryAmount from './component/printeryAmount/printeryAmount'
 
-import Login from './component/login/login';
 class App extends React.PureComponent{
   render(){
     return (

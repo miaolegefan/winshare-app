@@ -35,7 +35,7 @@ export default class InvcDcBatch extends React.Component{
         super(props);
         this.state={
             orderInvCheck : this.props.location.orderInvCheck,
-            checked: false,//是否上传sap
+            checked: 'N',//是否上传sap
             invSelect:[],//入库DC下拉列表
             sValue:[],//入库dc选中的值
             batch:'无',//批次号
@@ -56,7 +56,7 @@ export default class InvcDcBatch extends React.Component{
         if(_this.state.sValue.length>0) {
 
             //是否上传SAP
-            const isUploadSap = _this.state.checked ? 'Y' : 'N';
+            const isUploadSap = _this.state.checked;
             //入库地点code
             const DcCode = _this.state.sValue[0].split("-")[0];
             //入库地点名称
@@ -95,7 +95,15 @@ export default class InvcDcBatch extends React.Component{
     render() {
         const batch = this.state.batch;         //批次
         const inv = this.state.invSelect;       //下拉框
-
+        const checkSap =   [
+            {
+                value: 'Y',
+                label: '是',
+            },
+            {
+                value: 'N',
+                label: '否',
+            }]
         const detailUi =  <WingBlank size="sm">
             <div className="datails" style={{'marginBottom': '100px'}}>
                 <Flex>
@@ -111,16 +119,16 @@ export default class InvcDcBatch extends React.Component{
                         onOk={v => this.setState({ sValue: v })} >
                     <List.Item arrow="horizontal">入库地点</List.Item>
                 </Picker>
-                <List.Item
-                    extra={<Switch
-                        checked={this.state.checked}
-                        onChange={() => {
-                            this.setState({
-                                checked: !this.state.checked,
-                            });
-                        }}
-                    />}
-                >上传SAP</List.Item>
+                <Picker
+                    data={checkSap}
+                    title="是否上传SAP"
+                    onChange={this.sapOnChange}
+                    cols={1}
+                    value={[this.state.checked]}
+                    style={{width:"100%"}}
+                >
+                    <List.Item arrow="horizontal">上传SAP</List.Item>
+                </Picker>
                 <WhiteSpace size="lg"/>
 
             </div>

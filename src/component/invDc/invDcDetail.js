@@ -25,7 +25,7 @@ function save(detail,_this) {
     if(_this.state.sValue.length>0) {
 
         //是否上传SAP
-        const isUploadSap = _this.state.checked ? 'Y' : 'N';
+        const isUploadSap = _this.state.checked;
         //入库地点code
         const DcCode = _this.state.sValue[0].split("-")[0];
         //入库地点名称
@@ -66,11 +66,11 @@ function getOrderData(_this,orderNo) {
             });
             if(response.data.rows[0].isUploadSap == 'Y'){
                 _this.setState({
-                    checked:true
+                    checked:'Y'
                 })
             }else{
                 _this.setState({
-                    checked:false
+                    checked:'N'
                 })
             }
         }else{
@@ -101,7 +101,7 @@ export default class invDcDetail  extends React.Component{
         this.state={
             orderInvState:this.props.location.orderInvState?this.props.location.orderInvState:'',
             batch:'无',
-            checked: false,
+            checked: 'N',
             hidden:false,
             invSelect:[],
             detail:[],
@@ -128,10 +128,25 @@ export default class invDcDetail  extends React.Component{
         const subCode = this.state.detail.subCode;
         this.props.history.push({pathname:'/invDc/data/more/',season:season,subCode:subCode});
     }
+    //sap onchange事件
+    sapOnChange=(value) => {
+        this.setState({
+            checked: value[0]
+        });
+    }
 
     render() {
         const batch = this.state.batch;         //批次
         const inv = this.state.invSelect;       //下拉框
+        const checkSap =   [
+            {
+                value: 'Y',
+                label: '是',
+            },
+            {
+                value: 'N',
+                label: '否',
+            }]
         const detail = this.state.detail;
         const detailUi =  <WingBlank size="sm">
             <div className="datails" style={{'marginBottom': '100px'}}>
@@ -177,16 +192,18 @@ export default class invDcDetail  extends React.Component{
                         onOk={v => this.setState({ sValue: v })} >
                     <List.Item arrow="horizontal">入库地点</List.Item>
                 </Picker>
-                <List.Item
-                    extra={<Switch
-                        checked={this.state.checked}
-                        onChange={() => {
-                            this.setState({
-                                checked: !this.state.checked,
-                            });
-                        }}
-                    />}
-                >上传SAP</List.Item>
+
+                <Picker
+                    data={checkSap}
+                    title="是否上传SAP"
+                    onChange={this.sapOnChange}
+                    cols={1}
+                    value={[this.state.checked]}
+                    style={{width:"100%"}}
+                >
+                    <List.Item arrow="horizontal">上传SAP</List.Item>
+                </Picker>
+
                 <WhiteSpace size="lg"/>
                 <Flex>
                     <div className="font07 text_right flex1" >
