@@ -12,67 +12,75 @@ function post(_this) {
     const url = window.location.href.split('#')[0];
     var noncestr = config.noncestr,
         timestamp = Math.floor(Date.now()/1000), //精确到秒
-        jsapi_ticket;
+        jsapi_ticket,appId;
 
     if(cache.get('ticket')){
         jsapi_ticket = cache.get('ticket');
+        appId = cache.get('appId');
         console.log('1' + 'jsapi_ticket=' + jsapi_ticket + '&noncestr=' + noncestr + '&timestamp=' + timestamp + '&url=' + url);
         _this.setState({
             timestamp : timestamp,
             nonceStr:noncestr,
+            appId:appId,
             signature:sha1('jsapi_ticket=' + jsapi_ticket + '&noncestr=' + noncestr + '&timestamp=' + timestamp + '&url=' + url)
         });
-        window.wx.config(_this.state);
-        // eslint-disable-next-line no-undef
-        wx.ready(function(){
-            // eslint-disable-next-line no-undef
-            wx.getLocation({
-                type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-                success: function (res) {
-                    // var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-                    // var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-                    // var speed = res.speed; // 速度，以米/每秒计
-                    // var accuracy = res.accuracy; // 位置精度
+        setTimeout(() => {
+            window.wx.config(_this.state);
 
-                    getAddress(res.latitude,res.longitude,_this)
-                }
+            // eslint-disable-next-line no-undef
+            wx.ready(function(){
+                // eslint-disable-next-line no-undef
+                wx.getLocation({
+                    type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+                    success: function (res) {
+                        // var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                        // var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                        // var speed = res.speed; // 速度，以米/每秒计
+                        // var accuracy = res.accuracy; // 位置精度
+
+                        getAddress(res.latitude,res.longitude,_this)
+                    }
+                });
             });
-        });
-        // eslint-disable-next-line no-undef
-        wx.error(function(res){
-            console.log(res);
-        });
+            // eslint-disable-next-line no-undef
+            wx.error(function(res){
+                console.log(res);
+            });
+        },2)
     }else{
         axios.post('/api/public/moblie-printeryProcess/signature').then(function(response){
             if(response.data.success){
                 cache.put('ticket',response.data.rows[0].ticket,config.cache_duration);  //加入缓存
+                cache.put('appId',response.data.rows[0].corpid,config.cache_duration);  //加入缓存
                 console.log('jsapi_ticket=' + response.data.rows[0].ticket + '&noncestr=' + noncestr + '&timestamp=' + timestamp + '&url=' + url);
                 _this.setState({
                     timestamp : timestamp,
                     nonceStr:noncestr,
                     appId:response.data.rows[0].corpid,
-                    signature:sha1('jsapi_ticket=' + response.data.message + '&noncestr=' + noncestr + '&timestamp=' + timestamp + '&url=' + url)
+                    signature:sha1('jsapi_ticket=' + response.data.rows[0].ticket + '&noncestr=' + noncestr + '&timestamp=' + timestamp + '&url=' + url)
                 });
-                window.wx.config(_this.state);
-                // eslint-disable-next-line no-undef
-                wx.ready(function(){
+                setTimeout(() => {
+                    window.wx.config(_this.state);
                     // eslint-disable-next-line no-undef
-                    wx.getLocation({
-                        type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-                        success: function (res) {
-                            // var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-                            // var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-                            // var speed = res.speed; // 速度，以米/每秒计
-                            // var accuracy = res.accuracy; // 位置精度
+                    wx.ready(function () {
+                        // eslint-disable-next-line no-undef
+                        wx.getLocation({
+                            type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+                            success: function (res) {
+                                // var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                                // var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                                // var speed = res.speed; // 速度，以米/每秒计
+                                // var accuracy = res.accuracy; // 位置精度
 
-                            getAddress(res.latitude,res.longitude,_this)
-                        }
+                                getAddress(res.latitude, res.longitude, _this)
+                            }
+                        });
                     });
-                });
-                // eslint-disable-next-line no-undef
-                wx.error(function(res){
-                    console.log(res);
-                });
+                    // eslint-disable-next-line no-undef
+                    wx.error(function (res) {
+                        console.log(res);
+                    });
+                },2)
 
             }
         })
