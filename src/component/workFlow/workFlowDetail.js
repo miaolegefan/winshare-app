@@ -77,6 +77,18 @@ export default class workFlowDetail extends React.Component{
         const historyData = this.state.history;
         const message = this.state.message;
         const taskId = this.props.match.params.id;
+        let bookName = '';
+        let isbn = '';
+        if(this.state.data.executionVariables) {
+            this.state.data.executionVariables.map((item) => {
+                if (item.name == "bookName") {
+                    bookName = item.value
+                }
+                if (item.name == "isbn") {
+                    isbn = item.value
+                }
+            })
+        }
         return(
             <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }}>
                 <NavBar mode="light" icon={<Icon type="left" />}
@@ -84,7 +96,7 @@ export default class workFlowDetail extends React.Component{
                 </NavBar>
                 <Tabs tabs={tabs2} initialPage={0} tabBarInactiveTextColor='#108ee9'>
                     <div style={{ alignItems: 'right', justifyContent: 'right',backgroundColor: '#fff' }}>
-                        <WflForm  message={message} taskId={taskId}/>
+                        <WflForm  message={message} bookName={bookName} isbn={isbn}taskId={taskId}/>
                     </div>
                     <div style={{  alignItems: 'right', justifyContent: 'right', height: '100%', backgroundColor: '#fff' }}>
                         <WflHistory  history={historyData} />

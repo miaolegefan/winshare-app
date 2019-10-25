@@ -224,10 +224,10 @@ componentDidMount() {
     ));
 
     const choose = [
-        {
-            value: '',
-            label: '全部',
-        },
+        // {
+        //     value: '',
+        //     label: '全部',
+        // },
         {
             value: 'UNTREATED',
             label: '未处理',

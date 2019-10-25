@@ -25,6 +25,8 @@ export default class workFlowForm extends React.Component{
 
     render() {
         const message = this.props.message;
+        const bookName = this.props.bookName;
+        const isbn = this.props.isbn;
         const taskId = this.props.taskId;
         let messageList = [];
         if(message){
@@ -46,9 +48,19 @@ export default class workFlowForm extends React.Component{
         return(
             <div>
                 <div>
+                    <div className="datails">
+                        <Flex>
+                            <div className="text_left flex1">书名:</div>
+                            <div className="text_left flex2 colorBlack">{bookName}</div>
+                        </Flex>
+                        <Flex>
+                            <div className="text_left flex1">书号:</div>
+                            <div className="text_left flex2 colorBlack">{isbn}</div>
+                        </Flex>
+                    </div>
                 {messageList}
                 </div>
-                <div   style={{marginTop: '100px',bottom:'90px'}} id="footer">
+                <div   style={{bottom:'8%',position: 'absolute',width:'100%'}} id="footer">
                 <WingBlank size="md"><Button  type="ghost" onClick={()=>submit(taskId,'APPROVED')} style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} >同意</Button></WingBlank>
                 <WingBlank size="md"><Button  type="ghost" onClick={()=>submit(taskId,'REJECTED')} style={{color: 'red', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} >拒绝</Button></WingBlank>
                 </div>

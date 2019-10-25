@@ -1,5 +1,5 @@
-html,body{background-size: 100%; background-attachment: fixed; text-align:center}
-.denglu { margin-top: 20%; }
+html,body{background-color: #fff ;background-size: 100%; background-attachment: fixed; text-align:center}
+.denglu { margin-top: 20%;background-color: #fff }
  li { padding: 0px; margin: 0px; list-style: none;margin-right:10px; }
 
 h4.comf1 { height: 30px; line-height: 30px; font-size: 2.8em; color: #40B0FC; text-align: center; }
