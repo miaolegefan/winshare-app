@@ -1,5 +1,5 @@
 import React from 'react';
-import {List, Picker, Flex, NavBar, Icon,PullToRefresh} from 'antd-mobile';
+import {List, Picker, Flex, NavBar, Icon,PullToRefresh,SearchBar} from 'antd-mobile';
 import axios from "axios";
 import {Link} from "react-router-dom";
 import moment from 'moment'
@@ -100,6 +100,45 @@ componentDidMount() {
             query(this);
         },2)
     }
+
+    //查询onchang事件
+    searchBarOnChange = (val) =>{
+        this.setState({
+            fuzzy: val
+        });
+    }
+
+    //查询事件
+    onSearch = () => {
+        //前端查询
+        // const value = search(this.state.search,val);
+        // this.setState({
+        // 	order: value
+        // });
+        //按条件进行查询，页码从第一页开始
+        this.setState({
+            page:1,
+            pageSize:10,
+            orderDelivery:[],
+        })
+        setTimeout(() => {
+            query(this);
+        },2)
+    }
+
+    //查询取消事件
+    onCancel =()=>{
+        this.setState({
+            fuzzy: "",
+            page:1,
+            pageSize:10,
+            orderDelivery:[],
+        });
+        setTimeout(() => {
+            query(this);
+        },2)
+    }
+
     onColor = (value)=>{
         let a ='';
         if(value == null){
@@ -112,7 +151,27 @@ componentDidMount() {
     return a;
     }
 
-render() {
+    //加载更多 上划加载
+    onRefresh=(_this)=>{
+        let total = _this.state.total;
+        let page = _this.state.page;
+        let pageSiza = _this.state.pageSize;
+        //判断是否都加载完了
+        if(total<page*pageSiza){
+            return ;
+        }else{
+            _this.setState({
+                refreshing: true,
+                page:page+1,
+            });
+            setTimeout(() => {
+                query(_this);
+                _this.setState({ refreshing: false });
+            }, 1000);
+        }
+    }
+
+    render() {
     const { dealStatus } = this.state;
     const list =this.state.orderDelivery.map((item,index) => (
         <Link to={{pathname:'/wlConfirm/detail',detail:item,orderDeliveryState:this.state}} key={index}>
@@ -185,14 +244,22 @@ render() {
     return(
         <div>
             <NavBar mode="light" icon={<Icon type="left" />} onLeftClick={this.comeback}>
+                <SearchBar style={{width:"100%"}}
+                           placeholder="Search"
+                           value={this.state.fuzzy}
+                           showCancelButton={false}
+                           onChange={this.searchBarOnChange}
+                           onCancel={this.onCancel}
+                           onSubmit={this.onSearch}/>
                 <Picker
                     data={choose}
                     onChange={this.onChange}
+                    title="处理状态"
                     cols={1}
                     value={[dealStatus]}
                     style={{width:"100%"}}
                 >
-                    <List.Item style={{width:"100%"}} arrow="horizontal">处理状态</List.Item>
+                    <List.Item style={{width:"100%"}} arrow="horizontal"></List.Item>
                 </Picker>
             </NavBar>
             <PullToRefresh

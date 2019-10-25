@@ -30,3 +30,6 @@
     overflow: hidden !important;
     background-color: white !important;
 }
+.am-list-extra {
+    flex: 2 !important;
+}

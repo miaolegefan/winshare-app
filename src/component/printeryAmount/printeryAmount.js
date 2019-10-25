@@ -146,7 +146,7 @@ export default class PrinteryAmount extends React.Component{
             xAxis:{
                 data:['开单数','入库数','预约数'],
                 axisLabel: { //调整x轴的lable
-                    fontSize: 25 // 让字体变大
+                    fontSize: 30 // 让字体变大
                 }
             },
             yAxis:{
@@ -180,7 +180,7 @@ export default class PrinteryAmount extends React.Component{
                         color: "#FFF",
                         fontWeight: "bolder",
                         backgroundColor: "auto",
-                        fontSize: "20"
+                        fontSize: "30"
                     },
                 }
             ]

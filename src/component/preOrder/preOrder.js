@@ -70,7 +70,7 @@ export default class PreOrder extends React.Component{
 		super(props);
 		this.state = {
             page:1,
-            pageSize:2,
+            pageSize:10,
             total:0,
             fuzzy:'',//查询
             refreshing: false,//是否显示刷新状态
