@@ -65,7 +65,7 @@ export default class login extends React.Component{
             const check = this.state.check;
         return(
                 <div className="denglu">
-                    <h4 className="comf1">文轩出版社</h4>
+                    <h4 className="comf1">印制生产信息平台V2.0</h4>
                     <h4 className="comf2">移动平台</h4>
                     <div className="denglu_1">
                             <ul className="dengluk">
