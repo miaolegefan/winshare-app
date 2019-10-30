@@ -166,11 +166,6 @@ export default class PrinteryProcessEnclosureAdd extends React.Component{
                         animating={this.state.imageAnimating}
                     />
 
-                    <div className="margin-left">附件视频</div>
-
-                <Upload multiple action={'/api/public/mobile-upload'}
-                        limit={2} getSuccessFileUrl ={this.videoSave} accept="audio/*, video/*,.MOV,.mov"/>
-
                 <div className="margin-left">备注说明</div>
                     <InputItem
                         type="digit"

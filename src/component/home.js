@@ -62,6 +62,14 @@ class Home extends React.Component {
                 }
             }
         })
+		const logOut ={
+            id:'logOut',
+            text: '切换账号',
+            imgSrc: require('../assets/9.png'),
+            link:"/logout"
+        }
+		gridList2.push(logOut)
+
         return (
             <div className="qqmusic-home-body">
 			<div className="qqmusic-mycenter-top">

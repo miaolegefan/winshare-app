@@ -182,10 +182,10 @@ export default class PreOrderDetailsHead extends React.Component {
 					<div hidden={this.state.materialsConfirm}>
 						<WingBlank size="md"><Button  type="ghost" onClick={()=>changeMaterialsConfrim(preOrderHead.preOrderNo,'1',_this)} style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} >物资公司接收确认</Button></WingBlank>
 					</div>
-					<div hidden={this.state.cancelPrinteryConfirm}>
+					<div hidden>
 						<WingBlank size="md"><Button  type="ghost" onClick={()=>changePrinteryConfrim(preOrderHead.preOrderNo,'0',_this)} style={{color: '#787878', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} >取消印厂接收确认</Button></WingBlank>
 					</div>
-					<div hidden={this.state.cancelMaterialsConfirm}>
+					<div hidden>
 						<WingBlank size="md"><Button id="p1" type="ghost" onClick={()=>changeMaterialsConfrim(preOrderHead.preOrderNo,'0',_this)} style={{color: '#787878', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} >取消物资公司接收确认</Button></WingBlank>
 					</div>
 				</div>

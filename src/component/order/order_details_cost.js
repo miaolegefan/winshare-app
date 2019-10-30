@@ -146,7 +146,7 @@ export default class OrderDetailsCost extends React.Component{
 					<div hidden={this.state.printeyCost} >
 						<WingBlank size="md"><Button  type="ghost"   onClick={()=>confirmCost('1',_this)}   style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} >确认工价</Button></WingBlank>
 					</div>
-					<div hidden={this.state.cancelPrinteryCost}>
+					<div hidden>
 						<WingBlank size="md"><Button  type="ghost" onClick={()=>confirmCost('0',_this)} style={{color: '#787878', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} >取消确认工价</Button></WingBlank>
 					</div>
 				</div>

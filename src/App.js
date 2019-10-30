@@ -4,6 +4,7 @@ import Home from './component/home';
 import Manuscript from './component/manuscript/manuscript';
 import ManuscriptDetails from './component/manuscript/manuscrip_details';
 import Login from './component/login/login';
+import LogOut from './component/login/logOut';
 import GetWechatUser from './component/login/getWechatUser';
 import PreOrder from './component/preOrder/preOrder';
 import PreOrderDetails from './component/preOrder/preOrder_details';
@@ -34,6 +35,7 @@ class App extends React.PureComponent{
 			<Route exact path='/add' component={PrinteryProcessEnclosureAdd}/>
 			<Route exact path='/' component={GetWechatUser}/>
             <Route exact path='/login' component={Login}/>
+            <Route exact path='/logout' component={LogOut}/>
 			<Route path='/home' component={Home}/>
 			<Route exact path='/manuscript' component={Manuscript}/> 
 			<Route path='/manuscript/details' component={ManuscriptDetails}/>
@@ -55,7 +57,6 @@ class App extends React.PureComponent{
             <Route exact path='/invDcBatch' component={invDcBatch}/>
 			<Route exact path='/invDc/data/more' component={invDcMore}/>
             <Route exact path='/printeryAmount' component={PrinteryAmount}/>
-			<Route exact path='/login' component={Login}/>
         </Switch>
       </Router>
     )

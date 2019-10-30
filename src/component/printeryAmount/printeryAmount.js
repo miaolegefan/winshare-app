@@ -11,7 +11,7 @@ import 'echarts/lib/component/legend';
 import 'echarts/lib/component/markPoint';
 import ReactEcharts from 'echarts-for-react';
 
-//先查询该用户可以查看的印单
+//先查询该用户可以查看的印厂
 function getPrintert(_this) {
     axios.get('/api/public/moblie/getPrintert?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId).then(function(response){
         if(response.data.success){
@@ -47,11 +47,22 @@ export default class PrinteryAmount extends React.Component{
         }
     }
     UNSAFE_componentWillMount (){
-        //先查询该用户可以查看的印单
-        getPrintert(this);
-        queryPrinteryAmount(this);
-        //默认全部变量 印厂为空
-        sessionStorage.printeryCode='';
+        if(sessionStorage.printeryCode) {
+            this.setState({
+                printery:sessionStorage.printeryCode,
+            })
+            //先查询该用户可以查看的印单
+            setTimeout(() => {
+                getPrintert(this);
+                queryPrinteryAmount(this);
+            },2)
+        }else {
+            //先查询该用户可以查看的印单
+            getPrintert(this);
+            queryPrinteryAmount(this);
+            //默认全部变量 印厂为空
+            sessionStorage.printeryCode = '';
+        }
     }
     componentDidMount(){
 
@@ -194,7 +205,9 @@ export default class PrinteryAmount extends React.Component{
         });
         //全局变量印厂为当前页面选的印厂
         sessionStorage.printeryCode=value[0];
-        queryPrinteryAmount(this);
+        setTimeout(() => {
+            queryPrinteryAmount(this);
+        },2)
     }
 
     render(){

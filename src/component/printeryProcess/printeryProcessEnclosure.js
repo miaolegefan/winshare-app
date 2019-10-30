@@ -118,9 +118,7 @@ export default class PrinteryProcessEnclosure extends React.Component{
                     multiple={true}
                     //capture={"camera"}//打开手机摄像头
                 />
-                <div className="margin-left">附件视频</div>
-                {filesList}
-                <div className="margin-left">位置</div>
+                <div className="margin-left" >位置</div>
                 <div style={{border: "thin #E8E8E8 solid",marginLeft: "0.16rem",marginRight: "0.16rem"}}>
                     {address}
                 </div>

@@ -142,7 +142,7 @@ export default class PrinteryProcess extends React.Component{
 					</Flex>
 					<Flex>
 						<div className="text_left flex2 colorBlack"><strong>{item.bookName}</strong></div>
-						<div className="font07 text_right flex1" >{status[item.produceStatus].meaning}</div>
+                        <div className="font07 text_right flex1 colorBlack" ><strong>{status[item.produceStatus].meaning}</strong></div>
 					</Flex>
 					<Flex>
 						<div className="font07 text_left flex1">

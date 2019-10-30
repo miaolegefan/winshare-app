@@ -161,7 +161,7 @@ export default class OrderDetailsItem extends React.Component {
 					<div hidden={this.state.printey} >
 						<WingBlank size="md"><Button  type="ghost"  onClick={()=>changeConfrim('1',_this)} style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} >印厂接收确认</Button></WingBlank>
 					</div>
-					<div hidden={this.state.cancelPrintery}>
+					<div hidden>
 						<WingBlank size="md"><Button  type="ghost" onClick={()=>changeConfrim('0',_this)} style={{color: '#787878', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}} >取消印厂接收确认</Button></WingBlank>
 					</div>
 				</div>

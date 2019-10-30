@@ -40,7 +40,7 @@ export default class invDcHead extends React.Component{
             fuzzy:'',//查询
             refreshing: false,//是否显示刷新状态
             down: true,
-            height: document.documentElement.clientHeight-100,
+            height: document.documentElement.clientHeight-200,
             orderInv:[],
             invSelect:[],
             allCheck:false
