@@ -40,7 +40,7 @@ export default class invDcHead extends React.Component{
             fuzzy:'',//查询
             refreshing: false,//是否显示刷新状态
             down: true,
-            height: document.documentElement.clientHeight-200,
+            height: document.documentElement.clientHeight*0.85,
             orderInv:[],
             invSelect:[],
             allCheck:false
@@ -243,7 +243,7 @@ export default class invDcHead extends React.Component{
                                onCancel={this.onCancel}
                                onSubmit={this.onSearch}/>
                 </NavBar>
-                <div style={{height:"11rem",  overflow:"auto"}}>
+
                     <PullToRefresh
                         damping={100}
                         ref={el => this.ptr = el}
@@ -258,7 +258,7 @@ export default class invDcHead extends React.Component{
                     >
                         {orderList}
                     </PullToRefresh>
-                </div>
+
                <div >
                    <CheckboxItem style={{backgroundColor:'#ABABAB'}}checked={this.state.allCheck} onChange={() => this.allCheckOnChange(this)}>
                        <Button  type="primary" onClick={()=>this.batchSave(this)} size="small"  style={{}} >批量选择入库地址</Button>
