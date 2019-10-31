@@ -16,8 +16,8 @@ export default class GetWechatUser extends React.Component {
 	}
 	componentDidMount(){
         //默认用户值 测试用 之后删除
-        sessionStorage.userId = '10021';
-        sessionStorage.wechatUser = 'MiaoYiFan';
+        // sessionStorage.userId = '10021';
+        // sessionStorage.wechatUser = 'MiaoYiFan';
 
         const _this=this;    //先存一下this，以防使用箭头函数this会指向我们不希望它所指向的对象。
 		//表示存在id

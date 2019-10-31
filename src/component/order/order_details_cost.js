@@ -9,7 +9,8 @@ import axios from "axios";
 
 function getCost(orderNo,_this) {
 
-	axios.post('/api/public/moblie-orderCost/queryCost',{orderNo}).then(function(response){
+	axios.post('/api/public/moblie-orderCost/queryCost?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId,{
+		orderNo}).then(function(response){
 		if(response.data.success){
 			_this.setState({
 				cost : response.data.rows,
@@ -52,6 +53,7 @@ export default class OrderDetailsCost extends React.Component{
 			costConfirm:this.props.costConfirm,//工价确认数据
 			printeyCost:true,
 			cancelPrinteryCost:true,
+            orderCostLook:true,//查看工价信息权限
 		}
 	}
 
@@ -68,6 +70,12 @@ export default class OrderDetailsCost extends React.Component{
             if ('orderPrinteyCost' == arr[i]) {
                 printery=arr[i];
             }
+            if ('orderCostLook' == arr[i]) {
+                this.setState({
+                    orderCostLook:false
+                });
+            }
+
         }
 
 		if(printery){
@@ -143,7 +151,7 @@ export default class OrderDetailsCost extends React.Component{
 		))
 		return(
 
-			<div style={{width:'100%'}}>
+			<div style={{width:'100%'}} hidden={this.state.orderCostLook}>
 				<div style={{ marginBottom:'400px'}}>
 					{costList}
 				</div>

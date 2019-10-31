@@ -93,6 +93,7 @@ function upload(before,image,type,index,_this) {
 
 export default class PrinteryProcessEnclosureAdd extends React.Component{
     state = {
+        processSave:true,
         image: [],
         time: new Date(),
         video:'',
@@ -101,6 +102,19 @@ export default class PrinteryProcessEnclosureAdd extends React.Component{
         orderNo:this.props.location.state.item.orderNo,//印单号
         address:'',
         imageAnimating:false,//图片是否上传中
+    }
+
+    componentDidMount(){
+        const button =sessionStorage.button;
+        const arr = button.split(",");
+        //当前角色是否有新增进度的权限
+        for (let i = 0; i < arr.length; i++) {
+            if ('processSave' == arr[i]) {
+                this.setState({
+                    processSave:false,
+                });
+            }
+        }
     }
 
     onChange = (image, type, index) => {
@@ -182,9 +196,11 @@ export default class PrinteryProcessEnclosureAdd extends React.Component{
                 <Address getAddress={this.getAddress.bind(this)}/>
 
                 <div style={{position: 'absolute', bottom: '2%',width:'100%' }}>
+                    <div hidden={this.state.processSave}>
                     <WingBlank size="md">
                         <Button  type="ghost" onClick={()=>save(_this)}   style={{color: '#108ee9',backgroundColor: 'white', borderRadius: '5px', border: '1px solid #108ee9'}}  >保存</Button>
                     </WingBlank>
+                    </div>
                 </div>
             </div>
         );

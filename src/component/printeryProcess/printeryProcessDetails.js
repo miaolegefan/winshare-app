@@ -49,13 +49,25 @@ export default class PrinteryProcessDetails extends React.Component {
 		super(props);
 		this.state ={
             printeryProcessState:this.props.location.printeryProcessState?this.props.location.printeryProcessState:'',
-            item:{}
+            item:{},
+            processAdd:true
 		}
 	}
 
     componentDidMount(){
         const orderNo = this.props.match.params.orderNo;
         query(this,orderNo);
+
+        const button =sessionStorage.button;
+        const arr = button.split(",");
+        //当前角色是否有新增进度的权限
+        for (let i = 0; i < arr.length; i++) {
+            if ('processAdd' == arr[i]) {
+                this.setState({
+                    processAdd:false,
+                });
+            }
+        }
     }
     //返回按钮
     comeback=()=>{
@@ -169,6 +181,7 @@ export default class PrinteryProcessDetails extends React.Component {
 
 
 
+				<div hidden={this.state.processAdd}>
                 <div style={{position: 'absolute', bottom: '2%', left: 0, right: 0 }} hidden={item.produceStatus==='5' }>
                     <WingBlank size="md">
                         <Button  type="ghost" onClick={()=>add(_this)}   style={{color: '#108ee9', 'backgroundColor': 'white', 'borderRadius': '5px', border: '1px solid #108ee9'}}  >
@@ -176,6 +189,7 @@ export default class PrinteryProcessDetails extends React.Component {
 						</Button>
                     </WingBlank>
                 </div>
+				</div>
 			</div>
 		)
 	}

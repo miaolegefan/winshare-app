@@ -102,7 +102,7 @@ export default class invDcDetail  extends React.Component{
             orderInvState:this.props.location.orderInvState?this.props.location.orderInvState:'',
             batch:'无',
             checked: 'N',
-            hidden:false,
+            hidden:true,
             invSelect:[],
             detail:[],
             sValue:[]
@@ -114,6 +114,17 @@ export default class invDcDetail  extends React.Component{
         getBatchId(this);
         getInvDc(this);
         getOrderData(this,orderNo);
+
+        const button =sessionStorage.button;
+        const arr = button.split(",");
+        //当前角色是否有新增进度的权限
+        for (let i = 0; i < arr.length; i++) {
+            if ('invDcSave' == arr[i]) {
+                this.setState({
+                    hidden:false,
+                });
+            }
+        }
     }
 
     //返回按钮

@@ -55,8 +55,8 @@ export default class wlConfirmDetail extends React.Component{
         super(props)
         this.state={
             orderDeliveryState:this.props.location.orderDeliveryState,
-            approveHidden:false,
-            rejectHidden:false,
+            approveHidden:true,
+            rejectHidden:true,
             textAreaHidden:false,
             orderDelivery:[],
             modal1: false,
@@ -80,24 +80,52 @@ export default class wlConfirmDetail extends React.Component{
         this.setState({
             orderDelivery:data
         })
+        const button =sessionStorage.button;
+        const arr = button.split(",");
+        let wlApproved ='';//当前角色是否有物流确认同意的权限
+        let wlRegected ='';//当前角色是否有物流确认拒绝的权限
+        for (let i = 0; i < arr.length; i++) {
+            if ('wlApproved' == arr[i]) {
+                wlApproved=arr[i];
+            }
+            if ('wlRegected' == arr[i]) {
+                wlRegected=arr[i];
+            }
+        }
         //按钮隐藏控制
         const value = data.dealStatus;
-        if(value == null){
-            this.setState({
-                approveHidden:false,
-                rejectHidden:false
-            })
-        }else if(value == 'CONFIRM'){
-            this.setState({
-                approveHidden:true,
-                rejectHidden:false
-            })
+        //有同意权限
+        if(wlApproved) {
+            if (value == null) {
+                this.setState({
+                    approveHidden: false,
+                })
+            } else if (value == 'CONFIRM') {
+                this.setState({
+                    approveHidden: true,
+                })
 
-        }else if(value == 'REJECT'){
-            this.setState({
-                approveHidden:false,
-                rejectHidden:true
-            })
+            } else if (value == 'REJECT') {
+                this.setState({
+                    approveHidden: false,
+                })
+            }
+        }
+        //有拒绝权限
+        if(wlRegected) {
+            if (value == null) {
+                this.setState({
+                    rejectHidden: false
+                })
+            } else if (value == 'CONFIRM') {
+                this.setState({
+                    rejectHidden: false
+                })
+            } else if (value == 'REJECT') {
+                this.setState({
+                    rejectHidden: true
+                })
+            }
         }
     }
 

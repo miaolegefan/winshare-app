@@ -43,7 +43,8 @@ export default class invDcHead extends React.Component{
             height: document.documentElement.clientHeight*0.85,
             orderInv:[],
             invSelect:[],
-            allCheck:false
+            allCheck:false,
+            invDcBatchSave:true,//批量选择入库dc按钮是否隐藏
         }
     }
 
@@ -53,6 +54,17 @@ export default class invDcHead extends React.Component{
             this.setState(this.props.location.orderInvState);
         }else {
             getOrderData(this);
+        }
+
+        const button =sessionStorage.button;
+        const arr = button.split(",");
+        //当前角色是否有新增进度的权限
+        for (let i = 0; i < arr.length; i++) {
+            if ('invDcBatchSave' == arr[i]) {
+                this.setState({
+                    invDcBatchSave:false,
+                });
+            }
         }
 
     }
@@ -261,7 +273,9 @@ export default class invDcHead extends React.Component{
 
                <div >
                    <CheckboxItem style={{backgroundColor:'#ABABAB'}}checked={this.state.allCheck} onChange={() => this.allCheckOnChange(this)}>
-                       <Button  type="primary" onClick={()=>this.batchSave(this)} size="small"  style={{}} >批量选择入库地址</Button>
+                       <div hidden={this.state.invDcBatchSave}>
+                           <Button  type="primary" onClick={()=>this.batchSave(this)} size="small"  style={{}} >批量选择入库地址</Button>
+                       </div>
                    </CheckboxItem>
 
                </div>
