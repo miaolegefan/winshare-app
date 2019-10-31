@@ -51,7 +51,7 @@ export default class OrderDetailsItem extends React.Component {
 			orderItem:[],
 			rolePermission:this.props.rolePermission,
 			printeryIsConfirm :this.props.printeryConfirm,//印厂确认数据
-			printey:true,
+			printey:true,//印厂确认按钮是否隐藏
 			cancelPrintery:true,
 		}
 	}
@@ -59,17 +59,22 @@ export default class OrderDetailsItem extends React.Component {
 
 	componentDidMount(){
 		getItem(this.props.orderNo,this);
-
-	//对角色按钮进行控制
+		//对角色按钮进行控制
 		const printeryConfirm=this.state.printeryIsConfirm==null?0:this.state.printeryIsConfirm;//印厂确认
-		const printery = this.state.rolePermission.printery;//当前角色是否有印厂的权限
+
+        const button =sessionStorage.button;
+        const arr = button.split(",");
+		let printery = '';//当前角色是否有印厂接收确认的权限
+        for (let i = 0; i < arr.length; i++) {
+            if ('orderPrintery' == arr[i]) {
+                printery=arr[i];
+            }
+        }
 
 		if(printery){
-
 			if(printeryConfirm == '1'){
 				this.setState({
 					printey:true,
-					cancelPrintery:false
 				});
 			}else{
 				this.setState({

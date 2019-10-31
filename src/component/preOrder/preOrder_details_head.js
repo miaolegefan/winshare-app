@@ -63,7 +63,6 @@ export default class PreOrderDetailsHead extends React.Component {
         super(props);
         this.state = {
             preOrderHead: this.props.item,
-			rolePermission:this.props.rolePermission,
 			printeyConfirm:true,
 			cancelPrinteryConfirm:true,
 			materialsConfirm:true,
@@ -78,38 +77,47 @@ export default class PreOrderDetailsHead extends React.Component {
 		const printeryConfirm=this.state.preOrderHead.printeryConfirm==null?0:this.state.preOrderHead.printeryConfirm;
 		const materialsConfirm=this.state.preOrderHead.materialsConfirm==null?0:this.state.preOrderHead.materialsConfirm;
 
-		var printery = this.state.rolePermission.printery;
-		var materials = this.state.rolePermission.materials;
+
+        const button =sessionStorage.button;
+        const arr = button.split(",");
+        let printery = '';//当前角色是否有印厂接收确认的权限
+        let materials = '';//当前角色是否有物资公司接收确认的权限
+        for (let i = 0; i < arr.length; i++) {
+            if ('preOrderPrintery' == arr[i]) {
+                printery=arr[i];
+            }
+            if ('preOrderMaterials' == arr[i]) {
+                materials=arr[i];
+            }
+        }
 
 
-	if(printery){		//印厂按钮控制
-		if(printeryConfirm == '1'){
-			this.setState({
-				printeyConfirm:true,
-				cancelPrinteryConfirm:false
-			});
-		}else{
-			this.setState({
-				printeyConfirm:false,
-				cancelPrinteryConfirm:true
-			});
+        if(printery){		//印厂按钮控制
+			if(printeryConfirm == '1'){
+				this.setState({
+					printeyConfirm:true,
+					cancelPrinteryConfirm:false
+				});
+			}else{
+				this.setState({
+					printeyConfirm:false,
+					cancelPrinteryConfirm:true
+				});
+			}
+        }
+		if(materials){//物资公司
+			if(materialsConfirm == '1'){
+				this.setState({
+					materialsConfirm:true,
+					cancelMaterialsConfirm:false
+				});
+			}else{
+				this.setState({
+					materialsConfirm:false,
+					cancelMaterialsConfirm:true
+				});
+			}
 		}
-	}
-
-	if(materials){//物资公司
-		if(materialsConfirm == '1'){
-			this.setState({
-				materialsConfirm:true,
-				cancelMaterialsConfirm:false
-			});
-		}else{
-			this.setState({
-				materialsConfirm:false,
-				cancelMaterialsConfirm:true
-			});
-		}
-	}
-
 	}
 
     render() {

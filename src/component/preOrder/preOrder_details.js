@@ -22,7 +22,6 @@ export default class PreOrderDetails extends React.Component {
 
   render() {
 	let item = this.props.location.item;
-	let rolePermission = this.props.location.rolePermission;
 
 	const tabs2 = [
 		{ title: '预印单信息', sub: '1' },
@@ -36,7 +35,7 @@ export default class PreOrderDetails extends React.Component {
           </NavBar>
         <Tabs tabs={tabs2} initialPage={0} tabBarInactiveTextColor='#108ee9'>
             <div style={{  alignItems: 'right', justifyContent: 'right', height: '100%', backgroundColor: '#fff' }}>
-                <PreOrderDetailsHead item= {item} rolePermission={rolePermission}/>
+                <PreOrderDetailsHead item= {item} />
 			</div>
 
             <div style={{  alignItems: 'right', justifyContent: 'right', height: '100%', backgroundColor: '#fff' }}>

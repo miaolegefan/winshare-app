@@ -43,9 +43,11 @@ export default class roleChoose extends React.Component{
        }else{
         sessionStorage.roleId = id;
         sessionStorage.grids = '';
+        sessionStorage.button = '';
         data.map((item,index)=>{
             if(item.id == id){
                 sessionStorage.grids = item.grids;
+                sessionStorage.button = item.button;
             }
         })
         //调取后端接口获取角色权限

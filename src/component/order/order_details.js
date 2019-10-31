@@ -23,7 +23,6 @@ export default class OrderDetails extends React.Component {
 	  render() {
 	 	
 		const item = this.props.location.item;
-		  let rolePermission = this.props.location.rolePermission;
 	 	const tabs2 = [
 	 		{ title: '基本信息', sub: '1' },
 	 		{ title: '明细信息', sub: '2' },
@@ -39,10 +38,10 @@ export default class OrderDetails extends React.Component {
 	 				<OrderDetailsHead item={item}/>
 				 </div></WingBlank>
 	 			<div style={{  alignItems: 'right', justifyContent: 'right', height: '100%', backgroundColor: '#fff' }}>
-					<OrderDetailsItem orderNo={item.orderNo} rolePermission={rolePermission} printeryConfirm={item.printeryIsConfirm}/>
+					<OrderDetailsItem orderNo={item.orderNo}  printeryConfirm={item.printeryIsConfirm}/>
 	 			</div>
 				<div style={{  alignItems: 'right', justifyContent: 'right', height: '100%', backgroundColor: '#fff' }}>
-					<OrderDetailsCost orderNo={item.orderNo} rolePermission={rolePermission} costConfirm={item.costState}/>
+					<OrderDetailsCost orderNo={item.orderNo}  costConfirm={item.costState}/>
 				</div>
 	 		</Tabs>
 	       </div>

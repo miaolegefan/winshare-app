@@ -61,7 +61,14 @@ export default class OrderDetailsCost extends React.Component{
 
 		//对角色按钮进行控制
 		const costConfirm=this.state.costConfirm==null?0:this.state.costConfirm;//印厂确认
-		const printery = this.state.rolePermission.printery;//当前角色是否有印厂的权限
+        const button =sessionStorage.button;
+        const arr = button.split(",");
+        let printery = '';//当前角色是否有工价确认的权限
+        for (let i = 0; i < arr.length; i++) {
+            if ('orderPrinteyCost' == arr[i]) {
+                printery=arr[i];
+            }
+        }
 
 		if(printery){
 			if(costConfirm == '1'){

@@ -24,40 +24,9 @@ function query(_this) {//数据查询
 	})
 }
 
-function queryPermission(_this) {//人员角色查询
-
-	const codes =[{
-		code: "order-dataset.printery",
-		resourceType: "site"
-	},{
-		code: "order-dataset.print-center",
-		resourceType: "site"
-	}];
-
-	axios.post('/api/public/checkPermission/query?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId,codes).then(function(response){
-		if(response.data.success){
-			const res =response.data.rows;
-			for(var i=0;i<res.length;i++){
-				switch (res[i].code) {
-					case 'order-dataset.printery':
-						result.printery=res[i].approve
-					case 'order-dataset.print-center':
-						result.print_center=res[i].approve
-				}
-			}
-
-		}
-	})
-}
-
 function search(arr, q) {
 	return arr.filter(v => Object.values(v).some(v => new RegExp(q + '').test(v)));
 }
-
-var result = {
-	printery:false,
-	print_center: false
-};
 
 export default class Order extends React.Component{
 	constructor(props) {
@@ -81,7 +50,6 @@ export default class Order extends React.Component{
 			this.setState(this.props.location.orderState);
 		}else{
 			query(this);
-            queryPermission(this);
         }
 
 	}
@@ -150,7 +118,7 @@ export default class Order extends React.Component{
 	}
 	render(){
 		const orderList = this.state.order.map((item,index) =>(
-			<Link to={{pathname:'/order/details',item:item,rolePermission:result,orderState:this.state}} key={index}>
+			<Link to={{pathname:'/order/details',item:item,orderState:this.state}} key={index}>
 				<section className="section">
 					<Flex>
 						<div className="font07 text_left flex1">{item.season}-{item.subCode}</div>

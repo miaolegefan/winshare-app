@@ -28,43 +28,6 @@ function query(_this) {
 
 }
 
-function queryPermission(_this) {//人员角色查询
-
-	const codes =[{
-		code: "pre-order-dataset.printery",
-		resourceType: "site"
-	},{
-		code: "pre-order-dataset.materials",
-		resourceType: "site"
-	},{
-		code: "pre-order-dataset.print-center",
-		resourceType: "site"
-	}];
-
-	axios.post('/api/public/checkPermission/query?userId='+sessionStorage.userId+'&roleId='+sessionStorage.roleId,codes).then(function(response){
-		if(response.data.success){
-			const res =response.data.rows;
-			for(var i=0;i<res.length;i++){
-				switch (res[i].code) {
-					case 'pre-order-dataset.printery':
-						result.printery=res[i].approve
-					case 'pre-order-dataset.materials':
-						result.materials=res[i].approve
-					case 'pre-order-dataset.print-center':
-						result.print_center=res[i].approve
-				}
-			}
-
-		}
-	})
-}
-
-
-var result = {
-	printery:false,
-	materials:false,
-	print_center: false
-};
 export default class PreOrder extends React.Component{
 	constructor(props) {
 		super(props);
@@ -84,7 +47,6 @@ export default class PreOrder extends React.Component{
             this.setState(this.props.location.preOrderState);
         }else {
             query(this);
-            queryPermission(this);
         }
 	}
 
@@ -150,7 +112,7 @@ export default class PreOrder extends React.Component{
 		const preOrderList=this.state.preOrder.map((preOrderItem, index) => (
 
 
-		    <Link to={{pathname:'/preOrder/details',item:preOrderItem,rolePermission:result,preOrderState:this.state}} key={index}>
+		    <Link to={{pathname:'/preOrder/details',item:preOrderItem,preOrderState:this.state}} key={index}>
 		       <section className='section' >
 				   <div>
 						<Flex>
