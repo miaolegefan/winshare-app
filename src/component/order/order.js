@@ -126,7 +126,7 @@ export default class Order extends React.Component{
 					</Flex>
 					<Flex>
 						<div className="text_left flex3 colorBlack"><strong>{item.bookName}</strong></div>
-						<div className="font07 text_right flex2" >{item.auditDate?moment(item.auditDate).format('YYYY-MM-DD'):item.auditDate}</div>
+						<div className="font07 text_right flex2" >{item.orderDate?moment(item.orderDate).format('YYYY-MM-DD'):item.orderDate}</div>
 					</Flex>
 					<Flex>
 						<div className="font07 text_left flex1">

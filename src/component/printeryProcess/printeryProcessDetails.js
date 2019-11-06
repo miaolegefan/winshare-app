@@ -54,7 +54,7 @@ export default class PrinteryProcessDetails extends React.Component {
 		}
 	}
 
-    componentDidMount(){
+    componentWillMount(){
         const orderNo = this.props.match.params.orderNo;
         query(this,orderNo);
 
@@ -105,7 +105,7 @@ export default class PrinteryProcessDetails extends React.Component {
                 <NavBar mode="light" icon={<Icon type="left" />}
                         onLeftClick={this.comeback}>
                 </NavBar>
-				<section className="section" hidden={item.isOpen===null || item.isOpen==='0' }>
+				<section className="section" hidden={item || item.isOpen===null || item.isOpen==='0' }>
                     <Link to={{pathname:'/printeryProcess/details/en/enclosure',time:item.openTime,remark:item.openRemark,
 						imagePath:item.openAttPic,filePath:item.openAttVideo,address:item.openAttAddress}}>
 
@@ -121,7 +121,7 @@ export default class PrinteryProcessDetails extends React.Component {
 					</Link>
 				</section>
 
-				<section className="section" hidden={item.isBind===null || item.isBind==='0' }>
+				<section className="section" hidden={item || item.isBind===null || item.isBind==='0' }>
                     <Link to={{pathname:'/printeryProcess/details/en/enclosure',time:item.bindTime,remark:item.bindRemark,
 						imagePath:item.bindAttPic,filePath:item.bindAttVideo,address:item.bindAttAddress}}>
 
@@ -136,7 +136,7 @@ export default class PrinteryProcessDetails extends React.Component {
 						</Flex>
 					</Link>
 				</section>
-				<section className="section" hidden={item.isQuality===null || item.isQuality==='0' }>
+				<section className="section" hidden={item || item.isQuality===null || item.isQuality==='0' }>
                     <Link to={{pathname:'/printeryProcess/details/en/enclosure',time:item.qualityTime,remark:item.qualityRemark,
 						imagePath:item.qualityAttPic,filePath:item.qualityAttVideo,address:item.qualityAttAddress}}>
 						<Flex>
@@ -150,7 +150,7 @@ export default class PrinteryProcessDetails extends React.Component {
 						</Flex>
 					</Link>
 				</section>
-				<section className="section" hidden={item.isStartSend===null || item.isStartSend==='0' }>
+				<section className="section" hidden={item || item.isStartSend===null || item.isStartSend==='0' }>
                     <Link to={{pathname:'/printeryProcess/details/en/enclosure',time:item.startSendTime,remark:item.startSendRemark,
 						imagePath:item.startSendAttPic,filePath:item.startSendAttVideo,address:item.startSendAttAddress}}>
 						<Flex>
@@ -164,7 +164,7 @@ export default class PrinteryProcessDetails extends React.Component {
 						</Flex>
 					</Link>
 				</section>
-				<section className="section" hidden={item.isFinishSend===null || item.isFinishSend==='0' }>
+				<section className="section" hidden={item || item.isFinishSend===null || item.isFinishSend==='0' }>
                     <Link to={{pathname:'/printeryProcess/details/en/enclosure',time:item.finishSendTime,remark:item.finishSendRemark,
 						imagePath:item.finishSendAttPic,filePath:item.finishSendAttVideo,address:item.finishSendAttAddress}}>
                         <Flex>
